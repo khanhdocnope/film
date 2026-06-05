@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   
   <!-- SEO Meta Tags -->
-  <title>Xem Phim - FilmXem</title>
-  <meta name="description" content="Xem phim chất lượng cao thuyết minh HD tốc độ cao. Giao diện xem phim tối giản đẹp mắt, tương thích hoàn hảo trên Android di động.">
+  <title>Thông tin phim - FilmXem</title>
+  <meta name="description" content="Xem chi tiết nội dung phim, đánh giá thành viên, lượt xem và thời lượng. Giao diện thông tin phim đẹp mắt tối ưu cho di động Android.">
   <meta name="robots" content="index, follow">
   
   <!-- Favicon / Theme Color for Android -->
@@ -22,7 +22,7 @@
   
   <!-- Custom Stylesheets -->
   <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/watch.css">
+  <link rel="stylesheet" href="css/detail.css">
 </head>
 <body>
 
@@ -71,72 +71,83 @@
   </div>
 
   <!-- ==========================================
-       WATCH PAGE CONTAINER (2-COLUMNS)
+       MOVIE CARD BACKDROP WRAPPER
        ========================================== -->
-  <div class="watch-container" id="watchContainer">
-    
-    <!-- Left Column - Player & Details -->
-    <main class="watch-main-col" id="watchMainCol">
-      <!-- HTML5 Player -->
-      <div class="watch-player-wrapper" id="watchPlayerWrapper">
-        <video id="videoPlayer" class="watch-video" controls playsinline>
-          Trình duyệt của bạn không hỗ trợ định dạng video này.
-        </video>
+  <div class="detail-backdrop-wrapper" id="detailBackdropWrapper">
+    <div class="movie-card-detail" id="movieCardDetail">
+      
+      <!-- Left Column - Poster -->
+      <div class="detail-poster-col">
+        <div class="detail-poster-wrapper" id="detailPosterWrapper">
+          <img class="detail-poster-img" id="detailPosterImg" src="" alt="Poster">
+          <div class="poster-play-badge">
+            <i class="fa-solid fa-circle-play"></i>
+            <span>Xem Phim</span>
+          </div>
+        </div>
       </div>
       
-      <!-- Details Card -->
-      <section class="watch-details-card" id="watchDetailsCard">
-        <div class="watch-title-row">
-          <div>
-            <h1 class="watch-title" id="movieTitle">Tên phim đang tải...</h1>
-            <div class="watch-title-sub" id="movieOriginalTitle">Original Title</div>
+      <!-- Right Column - Info -->
+      <div class="detail-info-col">
+        <h1 class="detail-title" id="movieTitle">Tên phim đang tải...</h1>
+        <div class="detail-subtitle" id="movieOriginalTitle">Original Title</div>
+        
+        <p class="detail-desc" id="movieDesc">
+          Mô tả nội dung phim...
+        </p>
+        
+        <!-- Ratings & Members -->
+        <div class="detail-stats-container">
+          <div class="rating-circle-box">
+            <div class="rating-circle" id="ratingPercent">98%</div>
+            <div class="rating-circle-text" id="ratingText">(Đánh giá 9.8/10 từ 1439 thành viên)</div>
+          </div>
+          
+          <!-- Stars list (10 stars system) -->
+          <div class="stars-box" id="starsBox">
+            <!-- 10 stars dynamic icons -->
           </div>
         </div>
         
-        <div class="watch-meta-badges">
-          <span class="modal-meta-tag accent" id="metaRating">10.0 / 10</span>
-          <span class="modal-meta-tag" id="metaYear">2026</span>
-          <span class="modal-meta-tag" id="metaDuration">120 phút</span>
+        <!-- Inline Metadata (Duration, year, views) -->
+        <div class="detail-meta-inline">
+          <div class="meta-inline-item">
+            <i class="fa-solid fa-clock"></i>
+            <span id="metaDuration">1 giờ 46 phút</span>
+          </div>
+          <div class="meta-inline-item">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span id="metaYear">2016</span>
+          </div>
+          <div class="meta-inline-item">
+            <i class="fa-solid fa-eye"></i>
+            <span id="metaViews">1,414,223 Lượt Xem</span>
+          </div>
         </div>
         
-        <div class="watch-meta-badges" id="metaGenres">
-          <!-- Movie genres badges -->
-        </div>
-        
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 10px;">
-          <a href="#" class="btn btn-secondary" id="watchBackBtn" style="padding: 10px 18px; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid var(--border-color); color: var(--text-primary); text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-            <i class="fa-solid fa-arrow-left"></i> Chi Tiết Phim
-          </a>
-          <button class="modal-bookmark-btn" id="watchBookmarkBtn" style="margin-top: 0;">
+        <!-- Action Row -->
+        <div class="detail-actions-row">
+          <button class="btn btn-primary" id="detailPlayBtn">
+            <i class="fa-solid fa-play"></i> Xem Phim
+          </button>
+          <button class="btn btn-secondary modal-bookmark-btn" id="detailBookmarkBtn">
             <i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện
           </button>
         </div>
-        
-        <p class="watch-description" id="movieDesc">
-          Mô tả nội dung phim...
-        </p>
-      </section>
-      
-      <!-- Recommendations Section -->
-      <section class="recommendations-section" id="recommendationsSection">
-        <h2 class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Có Thể Bạn Cũng Thích</h2>
-        <div class="related-grid" id="relatedMoviesGrid">
-          <!-- Recommended movie cards dynamic -->
-        </div>
-      </section>
-    </main>
-    
-    <!-- Right Column - Sidebar Playlists -->
-    <aside class="watch-sidebar-col" id="watchSidebarCol">
-      <div class="playlist-card" id="playlistCard">
-        <h3 class="playlist-title"><i class="fa-solid fa-list-ol"></i> Danh Sách Tập</h3>
-        <div class="episodes-list no-scrollbar" id="episodesList">
-          <!-- Episodes List dynamic buttons -->
-        </div>
       </div>
-    </aside>
-    
+      
+    </div>
   </div>
+
+  <!-- ==========================================
+       BOTTOM RELATED MOVIES
+       ========================================== -->
+  <section class="detail-bottom-section" id="detailBottomSection">
+    <h2 class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Có Thể Bạn Cũng Thích</h2>
+    <div class="related-grid" id="relatedMoviesGrid">
+      <!-- Related Movie Suggestions grid -->
+    </div>
+  </section>
 
   <!-- ==========================================
        FOOTER
@@ -179,6 +190,6 @@
   <!-- Load Scripts -->
   <script src="js/database.js"></script>
   <script src="js/core.js"></script>
-  <script src="js/watch.js"></script>
+  <script src="js/detail.js"></script>
 </body>
 </html>

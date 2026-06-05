@@ -55,6 +55,12 @@ function loadMovieDetails() {
     <span class="modal-meta-tag">${g}</span>
   `).join("");
   
+  // Set Back Button Link
+  const watchBackBtn = document.getElementById("watchBackBtn");
+  if (watchBackBtn) {
+    watchBackBtn.href = `detail.html?id=${currentMovie.id}`;
+  }
+  
   // Bookmarks status
   updateBookmarkButton();
   
@@ -158,7 +164,7 @@ function renderRelatedMovies() {
   WatchDOM.relatedGrid.innerHTML = related.map(movie => {
     const mainGenre = movie.genres[0] || "";
     return `
-      <a href="watch.html?id=${movie.id}" class="movie-card">
+      <a href="detail.html?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           <div class="card-badges">
