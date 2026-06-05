@@ -43,7 +43,7 @@ const MOVIE_DATABASE = [
       {
         episodeId: 1,
         title: "Viet sub",
-        videoUrl: "blob:https://fcloud.live/3a514147-38c9-492a-a411-3e6a8f82f96d"
+        videoUrl: "https://fcloud.live/cinema/eyJzbHVnIjoiaGFuaC10aW5oLWNhdC1waGFuLWhhaS0xNzAzODc2MjMxIiwiZXBpc29kZVNsdWciOiJ0YXAtZnVsbCIsInNlcnZlciI6IlZpZXRzdWIgIzEiLCJ0eXBlIjoibTN1OCJ9._Ns5r2iluvCB7n53gOdO1ILIjJT2oN5fciRUUcTINkg"
       }
     ]
   },

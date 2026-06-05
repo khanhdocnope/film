@@ -1,8 +1,9 @@
 // ==========================================
-// WATCHPAGE CONTROLLER
+// WATCHPAGE CONTROLLER - HỖ TRỢ IFRAME NHÚNG (KHÔNG CHO NHẬP LINK NGOÀI)
 // ==========================================
 let currentMovie = null;
 let currentEpisodeIndex = 0;
+let currentVideoBlobUrl = null;
 
 const WatchDOM = {
   videoPlayer: document.getElementById("videoPlayer"),
@@ -20,28 +21,23 @@ const WatchDOM = {
   mobileNavItems: document.querySelectorAll(".mobile-nav-item")
 };
 
-// 1. Get query parameter by name
 function getQueryParam(name) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(name);
 }
 
-// 2. Load Movie Details
 function loadMovieDetails() {
   const id = getQueryParam("id");
   if (!id) {
-    // If no ID, redirect back to home page
     window.location.href = "index.html";
     return;
   }
-
   currentMovie = MOVIE_DATABASE.find(m => m.id === id);
   if (!currentMovie) {
     window.location.href = "index.html";
     return;
   }
 
-  // Set Text Values
   document.title = `Xem phim ${currentMovie.title} - FilmXem`;
   WatchDOM.movieTitle.textContent = currentMovie.title;
   WatchDOM.movieOriginalTitle.textContent = currentMovie.originalTitle;
@@ -50,40 +46,173 @@ function loadMovieDetails() {
   WatchDOM.metaYear.textContent = currentMovie.year;
   WatchDOM.metaDuration.textContent = currentMovie.duration;
 
-  // Genres badges
-  WatchDOM.metaGenres.innerHTML = currentMovie.genres.map(g => `
-    <span class="modal-meta-tag">${g}</span>
-  `).join("");
+  WatchDOM.metaGenres.innerHTML = currentMovie.genres.map(g => `<span class="modal-meta-tag">${g}</span>`).join("");
 
-  // Set Back Button Link
   const watchBackBtn = document.getElementById("watchBackBtn");
-  if (watchBackBtn) {
-    watchBackBtn.href = `detail?id=${currentMovie.id}`;
-  }
+  if (watchBackBtn) watchBackBtn.href = `detail?id=${currentMovie.id}`;
 
-  // Bookmarks status
   updateBookmarkButton();
-
-  // Load Episodes List
   renderEpisodes();
-
-  // Load Related Recommendations
   renderRelatedMovies();
-
-  // Điều chỉnh vị trí playlist trên mobile
   adjustPlaylistPosition();
 }
 
-// 3. Render Playlist Episodes
+// ========== XỬ LÝ VIDEO / IFRAME ==========
+function isIframeEmbedUrl(url) {
+  if (!url) return false;
+  return url.includes('fcloud.live/cinema/') && url.includes('.');
+}
+
+function createIframeFromUrl(embedUrl, title = 'Video player') {
+  const iframe = document.createElement('iframe');
+  iframe.src = embedUrl;
+  iframe.title = title;
+  iframe.className = 'watch-iframe';
+  iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
+  iframe.setAttribute('allowfullscreen', 'true');
+  iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+  return iframe;
+}
+
+async function getPlayableUrl(originalUrl) {
+  if (!originalUrl || !originalUrl.includes('fcloud.live') || originalUrl.includes('/cinema/')) {
+    return originalUrl;
+  }
+  try {
+    const response = await fetch(originalUrl);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const blob = await response.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    if (currentVideoBlobUrl && currentVideoBlobUrl !== blobUrl) {
+      URL.revokeObjectURL(currentVideoBlobUrl);
+    }
+    currentVideoBlobUrl = blobUrl;
+    return blobUrl;
+  } catch (error) {
+    console.warn('Không thể fetch blob, fallback gốc:', error);
+    return originalUrl;
+  }
+}
+
+async function isVideoUrlAccessible(url) {
+  if (url.startsWith('blob:')) return true;
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const response = await fetch(url, { method: 'HEAD', signal: controller.signal });
+    clearTimeout(timeoutId);
+    return response.ok || response.status === 206;
+  } catch {
+    return false;
+  }
+}
+
+// HIỂN THỊ LỖI - CHỈ CÓ NÚT THỬ LẠI, KHÔNG CHO NHẬP LINK
+function showVideoErrorOnlyRetry(originalUrl) {
+  const wrapper = document.querySelector('.watch-player-wrapper');
+  if (!wrapper) return;
+  let errorOverlay = wrapper.querySelector('.video-error-overlay');
+  if (!errorOverlay) {
+    errorOverlay = document.createElement('div');
+    errorOverlay.className = 'video-error-overlay';
+    errorOverlay.style.cssText = `
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: white;
+      z-index: 10;
+      backdrop-filter: blur(4px);
+    `;
+    wrapper.style.position = 'relative';
+    wrapper.appendChild(errorOverlay);
+  }
+  errorOverlay.innerHTML = `
+    <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: #f97316;"></i>
+    <p style="margin: 0; font-weight: bold;">Không thể tải video từ link:</p>
+    <p style="font-size: 0.85rem; word-break: break-all; max-width: 90%;">${originalUrl}</p>
+    <button id="retryCurrentBtn" class="btn btn-primary" style="background:#f97316; border:none; margin-top: 8px;">
+      <i class="fa-solid fa-rotate-right"></i> Thử lại
+    </button>
+  `;
+  const retryBtn = errorOverlay.querySelector('#retryCurrentBtn');
+  retryBtn.onclick = () => {
+    renderPlayerForUrl(originalUrl);
+    errorOverlay.remove();
+  };
+}
+
+// Hàm chính render player
+async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
+  const wrapper = document.querySelector('.watch-player-wrapper');
+  if (!wrapper) return;
+  let container = document.getElementById('playerContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'playerContainer';
+    container.style.width = '100%';
+    container.style.height = '100%';
+    const oldVideo = WatchDOM.videoPlayer;
+    if (oldVideo && oldVideo.parentNode === wrapper) {
+      wrapper.innerHTML = '';
+      wrapper.appendChild(container);
+      container.appendChild(oldVideo);
+    } else {
+      wrapper.innerHTML = '';
+      wrapper.appendChild(container);
+    }
+  }
+  container.innerHTML = '';
+  const oldOverlay = wrapper.querySelector('.video-error-overlay');
+  if (oldOverlay) oldOverlay.remove();
+
+  if (isIframeEmbedUrl(videoUrl)) {
+    const iframe = createIframeFromUrl(videoUrl, episodeTitle);
+    container.appendChild(iframe);
+  } else {
+    const video = document.createElement('video');
+    video.id = 'videoPlayer';
+    video.className = 'watch-video';
+    video.controls = true;
+    video.playsInline = true;
+    video.style.width = '100%';
+    video.style.height = '100%';
+    let playableUrl = videoUrl;
+    if (videoUrl.includes('fcloud.live') && !videoUrl.includes('/cinema/')) {
+      playableUrl = await getPlayableUrl(videoUrl);
+    }
+    video.src = playableUrl;
+    container.appendChild(video);
+    const onError = async () => {
+      if (video.hasAttribute('data-error-handled')) return;
+      video.setAttribute('data-error-handled', 'true');
+      const accessible = await isVideoUrlAccessible(video.src);
+      if (!accessible) showVideoErrorOnlyRetry(videoUrl);
+      else showVideoErrorOnlyRetry(videoUrl);
+    };
+    video.addEventListener('error', onError);
+    video.load();
+    try {
+      await video.play();
+    } catch (e) { console.log('Auto-play bị chặn:', e); }
+  }
+}
+
 function renderEpisodes() {
   if (!WatchDOM.episodesList) return;
-
   const episodes = currentMovie.episodes || [];
   if (episodes.length === 0) {
-    WatchDOM.episodesList.innerHTML = `<p style="color: var(--text-secondary); font-size: 0.9rem;">Thông tin tập phim đang được cập nhật...</p>`;
+    WatchDOM.episodesList.innerHTML = `<p style="color: var(--text-secondary);">Thông tin tập phim đang được cập nhật...</p>`;
     return;
   }
-
   WatchDOM.episodesList.innerHTML = episodes.map((ep, index) => {
     const isActive = index === currentEpisodeIndex;
     return `
@@ -93,23 +222,19 @@ function renderEpisodes() {
       </button>
     `;
   }).join("");
-
-  // Set Video Source
-  WatchDOM.videoPlayer.src = episodes[currentEpisodeIndex].videoUrl;
-
-  // Bind clicks
   WatchDOM.episodesList.querySelectorAll(".episode-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const idx = parseInt(btn.getAttribute("data-index"));
       changeEpisode(idx);
     });
   });
+  changeEpisode(currentEpisodeIndex);
 }
 
-function changeEpisode(index) {
+async function changeEpisode(index) {
   currentEpisodeIndex = index;
-
-  // Update Buttons UI
+  const episodes = currentMovie.episodes || [];
+  if (!episodes[index]) return;
   const buttons = WatchDOM.episodesList.querySelectorAll(".episode-btn");
   buttons.forEach((btn, idx) => {
     if (idx === index) {
@@ -120,78 +245,44 @@ function changeEpisode(index) {
       btn.querySelector("i").className = "fa-solid fa-play episode-play-icon";
     }
   });
-
-  // Change Video Source & Play
-  const episodes = currentMovie.episodes || [];
-  if (episodes[index]) {
-    WatchDOM.videoPlayer.src = episodes[index].videoUrl;
-    WatchDOM.videoPlayer.play().catch(e => console.log("Auto-play blocked or error: ", e));
-  }
+  const episode = episodes[index];
+  await renderPlayerForUrl(episode.videoUrl, episode.title);
 }
 
-// 4. Bookmark Button Actions
 function updateBookmarkButton() {
   if (!WatchDOM.bookmarkBtn) return;
-
   const saved = isBookmarked(currentMovie.id);
-  WatchDOM.bookmarkBtn.innerHTML = saved
-    ? '<i class="fa-solid fa-bookmark"></i> Đã Lưu Thư Viện'
-    : '<i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện';
-
-  if (saved) {
-    WatchDOM.bookmarkBtn.classList.add("saved");
-  } else {
-    WatchDOM.bookmarkBtn.classList.remove("saved");
-  }
+  WatchDOM.bookmarkBtn.innerHTML = saved ? '<i class="fa-solid fa-bookmark"></i> Đã Lưu Thư Viện' : '<i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện';
+  if (saved) WatchDOM.bookmarkBtn.classList.add("saved");
+  else WatchDOM.bookmarkBtn.classList.remove("saved");
 }
 
-// 5. Render Related Movie Suggestions (Bento Grid Cards)
 function renderRelatedMovies() {
   if (!WatchDOM.relatedGrid) return;
-
-  // Filter movies that share at least one genre, excluding current movie
   const currentGenres = currentMovie.genres;
-  let related = MOVIE_DATABASE.filter(m =>
-    m.id !== currentMovie.id &&
-    m.genres.some(genre => currentGenres.includes(genre))
-  );
-
-  // If too few related, fill with any movies (excluding current)
+  let related = MOVIE_DATABASE.filter(m => m.id !== currentMovie.id && m.genres.some(g => currentGenres.includes(g)));
   if (related.length < 4) {
     const others = MOVIE_DATABASE.filter(m => m.id !== currentMovie.id && !related.includes(m));
     related = [...related, ...others].slice(0, 4);
-  } else {
-    related = related.slice(0, 4);
-  }
-
-  WatchDOM.relatedGrid.innerHTML = related.map(movie => {
-    const mainGenre = movie.genres[0] || "";
-    return `
-      <a href="detail?id=${movie.id}" class="movie-card">
-        <div class="card-poster-wrapper">
-          <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
-          <div class="card-badges">
-            <span class="card-badge badge-quality">HD</span>
-            <span class="card-badge badge-rating">
-              <i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}
-            </span>
-          </div>
-          <div class="card-hover-overlay">
-            <div class="play-circle">
-              <i class="fa-solid fa-play"></i>
-            </div>
-          </div>
+  } else related = related.slice(0, 4);
+  WatchDOM.relatedGrid.innerHTML = related.map(movie => `
+    <a href="detail?id=${movie.id}" class="movie-card">
+      <div class="card-poster-wrapper">
+        <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
+        <div class="card-badges">
+          <span class="card-badge badge-quality">HD</span>
+          <span class="card-badge badge-rating"><i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}</span>
         </div>
-        <div class="card-info">
-          <h3 class="card-title">${movie.title}</h3>
-          <p class="card-title-sub">${movie.originalTitle}</p>
-        </div>
-      </a>
-    `;
-  }).join("");
+        <div class="card-hover-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+      </div>
+      <div class="card-info">
+        <h3 class="card-title">${movie.title}</h3>
+        <p class="card-title-sub">${movie.originalTitle}</p>
+      </div>
+    </a>
+  `).join("");
 }
 
-// 6. Navigation items setup (redirect to index.html with parameters)
 function setupNavigation() {
   WatchDOM.desktopNavLinks.forEach(link => {
     link.addEventListener("click", (e) => {
@@ -200,30 +291,21 @@ function setupNavigation() {
       window.location.href = `./?view=${view}`;
     });
   });
-
   WatchDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
-      if (tab === "home") {
-        window.location.href = "index.html";
-      } else if (tab === "genres") {
-        window.location.href = "index.html?focus=genres";
-      } else if (tab === "saved") {
-        window.location.href = "index.html?view=saved";
-      }
+      if (tab === "home") window.location.href = "index.html";
+      else if (tab === "genres") window.location.href = "index.html?focus=genres";
+      else if (tab === "saved") window.location.href = "index.html?view=saved";
     });
   });
-
   if (WatchDOM.bookmarkBtn) {
     WatchDOM.bookmarkBtn.addEventListener("click", () => {
-      toggleBookmark(currentMovie.id, () => {
-        updateBookmarkButton();
-      });
+      toggleBookmark(currentMovie.id, () => updateBookmarkButton());
     });
   }
 }
 
-// 7. Điều chỉnh vị trí playlist: trên mobile đưa xuống dưới mô tả, trước phần gợi ý
 function adjustPlaylistPosition() {
   const isMobile = window.innerWidth <= 991;
   const playlistCard = document.querySelector('.playlist-card');
@@ -231,27 +313,19 @@ function adjustPlaylistPosition() {
   const watchMainCol = document.getElementById('watchMainCol');
   const watchDetailsCard = document.getElementById('watchDetailsCard');
   const recommendationsSection = document.getElementById('recommendationsSection');
-
   if (!playlistCard || !watchSidebarCol || !watchMainCol) return;
-
   if (isMobile) {
-    // Nếu playlist chưa được di chuyển vào main col
     if (!playlistCard.classList.contains('moved-to-main')) {
       playlistCard.classList.add('moved-to-main');
-      // Di chuyển playlist vào sau details card, trước recommendations
       if (watchDetailsCard && recommendationsSection) {
         watchMainCol.insertBefore(playlistCard, recommendationsSection);
-        // Thêm khoảng cách phù hợp
         playlistCard.style.marginTop = '24px';
         playlistCard.style.marginBottom = '0';
       }
-      // Ẩn sidebar col đi vì nó đã rỗng
       watchSidebarCol.style.display = 'none';
     }
   } else {
-    // Trên desktop, khôi phục nếu đã di chuyển
     if (playlistCard.classList.contains('moved-to-main')) {
-      // Di chuyển lại vào sidebar
       watchSidebarCol.appendChild(playlistCard);
       playlistCard.classList.remove('moved-to-main');
       playlistCard.style.marginTop = '';
@@ -260,13 +334,11 @@ function adjustPlaylistPosition() {
   }
 }
 
-// Lắng nghe sự kiện resize để cập nhật lại vị trí nếu cần
-window.addEventListener('resize', () => {
-  // Đợi một chút để layout ổn định rồi mới điều chỉnh
-  setTimeout(adjustPlaylistPosition, 100);
+window.addEventListener('beforeunload', () => {
+  if (currentVideoBlobUrl) URL.revokeObjectURL(currentVideoBlobUrl);
 });
+window.addEventListener('resize', () => setTimeout(adjustPlaylistPosition, 100));
 
-// Initialize Watch Page
 document.addEventListener("DOMContentLoaded", () => {
   loadMovieDetails();
   setupNavigation();
