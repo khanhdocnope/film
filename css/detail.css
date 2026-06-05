@@ -11,7 +11,7 @@
   padding: 40px 4% 80px;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  background-attachment: fixed; /* Parallax on desktop */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -250,13 +250,19 @@ body.dark-mode .detail-backdrop-wrapper::before {
 .detail-bottom-section {
   max-width: 1050px;
   width: 100%;
-  margin: 40px auto 0;
-  padding: 0 10px;
+  margin: 40px auto 60px;
+  padding: 0 4%;
 }
 
 .detail-bottom-section .section-title {
   color: var(--text-primary);
   margin-bottom: 20px;
+}
+
+.detail-bottom-section .related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 24px;
 }
 
 /* ==========================================
@@ -266,6 +272,7 @@ body.dark-mode .detail-backdrop-wrapper::before {
   .detail-backdrop-wrapper {
     padding: 20px 10px 60px;
     align-items: flex-start;
+    background-attachment: scroll; /* Fix iOS fixed bg bug */
   }
 
   .movie-card-detail {
@@ -333,5 +340,15 @@ body.dark-mode .detail-backdrop-wrapper::before {
     flex: 1;
     text-align: center;
     justify-content: center;
+  }
+
+  .detail-bottom-section {
+    padding: 0 10px;
+    margin-bottom: 90px; /* Space for mobile nav bar */
+  }
+
+  .detail-bottom-section .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 }
