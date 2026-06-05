@@ -43,7 +43,7 @@ const MOVIE_DATABASE = [
       {
         episodeId: 1,
         title: "Viet sub",
-        videoUrl: "https://streamx.me/8277813/l3g3nd4ry.mp4?dune-part-two"
+        videoUrl: "blob:https://fcloud.live/3a514147-38c9-492a-a411-3e6a8f82f96d"
       }
     ]
   },
