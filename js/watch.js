@@ -31,13 +31,13 @@ function loadMovieDetails() {
   const id = getQueryParam("id");
   if (!id) {
     // If no ID, redirect back to home page
-    window.location.href = "index.html";
+    window.location.href = "./";
     return;
   }
   
   currentMovie = MOVIE_DATABASE.find(m => m.id === id);
   if (!currentMovie) {
-    window.location.href = "index.html";
+    window.location.href = "./";
     return;
   }
   
@@ -58,7 +58,7 @@ function loadMovieDetails() {
   // Set Back Button Link
   const watchBackBtn = document.getElementById("watchBackBtn");
   if (watchBackBtn) {
-    watchBackBtn.href = `detail.html?id=${currentMovie.id}`;
+    watchBackBtn.href = `detail?id=${currentMovie.id}`;
   }
   
   // Bookmarks status
@@ -164,7 +164,7 @@ function renderRelatedMovies() {
   WatchDOM.relatedGrid.innerHTML = related.map(movie => {
     const mainGenre = movie.genres[0] || "";
     return `
-      <a href="detail.html?id=${movie.id}" class="movie-card">
+      <a href="detail?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           <div class="card-badges">
@@ -188,13 +188,13 @@ function renderRelatedMovies() {
   }).join("");
 }
 
-// 6. Navigation items setup (redirect to index.html with parameters)
+// 6. Navigation items setup (redirect to homepage with parameters)
 function setupNavigation() {
   WatchDOM.desktopNavLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const view = link.getAttribute("data-view");
-      window.location.href = `index.html?view=${view}`;
+      window.location.href = `./?view=${view}`;
     });
   });
   
@@ -202,11 +202,11 @@ function setupNavigation() {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
       if (tab === "home") {
-        window.location.href = "index.html";
+        window.location.href = "./";
       } else if (tab === "genres") {
-        window.location.href = "index.html?focus=genres";
+        window.location.href = "./?focus=genres";
       } else if (tab === "saved") {
-        window.location.href = "index.html?view=saved";
+        window.location.href = "./?view=saved";
       }
     });
   });
