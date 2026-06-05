@@ -284,3 +284,29 @@
     gap: 14px;
   }
 }
+/* ==========================================
+   MOBILE: ĐƯA PLAYLIST LÊN TRÊN PLAYER
+   ========================================== */
+@media (max-width: 991px) {
+  .watch-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Đưa sidebar (Danh sách tập) lên đầu */
+  .watch-sidebar-col {
+    order: -1;
+    margin-bottom: 16px;
+  }
+
+  /* Đảm bảo video và các thành phần khác vẫn đúng thứ tự */
+  .watch-main-col {
+    order: 0;
+  }
+}
+@media (max-width: 991px) {
+  .playlist-card.moved-to-main {
+    width: 100%;
+    margin-top: 24px;
+  }
+}

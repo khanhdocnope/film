@@ -69,6 +69,9 @@ function loadMovieDetails() {
 
   // Load Related Recommendations
   renderRelatedMovies();
+
+  // Điều chỉnh vị trí playlist trên mobile
+  adjustPlaylistPosition();
 }
 
 // 3. Render Playlist Episodes
@@ -219,6 +222,49 @@ function setupNavigation() {
     });
   }
 }
+
+// 7. Điều chỉnh vị trí playlist: trên mobile đưa xuống dưới mô tả, trước phần gợi ý
+function adjustPlaylistPosition() {
+  const isMobile = window.innerWidth <= 991;
+  const playlistCard = document.querySelector('.playlist-card');
+  const watchSidebarCol = document.getElementById('watchSidebarCol');
+  const watchMainCol = document.getElementById('watchMainCol');
+  const watchDetailsCard = document.getElementById('watchDetailsCard');
+  const recommendationsSection = document.getElementById('recommendationsSection');
+
+  if (!playlistCard || !watchSidebarCol || !watchMainCol) return;
+
+  if (isMobile) {
+    // Nếu playlist chưa được di chuyển vào main col
+    if (!playlistCard.classList.contains('moved-to-main')) {
+      playlistCard.classList.add('moved-to-main');
+      // Di chuyển playlist vào sau details card, trước recommendations
+      if (watchDetailsCard && recommendationsSection) {
+        watchMainCol.insertBefore(playlistCard, recommendationsSection);
+        // Thêm khoảng cách phù hợp
+        playlistCard.style.marginTop = '24px';
+        playlistCard.style.marginBottom = '0';
+      }
+      // Ẩn sidebar col đi vì nó đã rỗng
+      watchSidebarCol.style.display = 'none';
+    }
+  } else {
+    // Trên desktop, khôi phục nếu đã di chuyển
+    if (playlistCard.classList.contains('moved-to-main')) {
+      // Di chuyển lại vào sidebar
+      watchSidebarCol.appendChild(playlistCard);
+      playlistCard.classList.remove('moved-to-main');
+      playlistCard.style.marginTop = '';
+      watchSidebarCol.style.display = '';
+    }
+  }
+}
+
+// Lắng nghe sự kiện resize để cập nhật lại vị trí nếu cần
+window.addEventListener('resize', () => {
+  // Đợi một chút để layout ổn định rồi mới điều chỉnh
+  setTimeout(adjustPlaylistPosition, 100);
+});
 
 // Initialize Watch Page
 document.addEventListener("DOMContentLoaded", () => {
