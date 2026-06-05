@@ -18,7 +18,10 @@ $jsFiles = @(
     "$projectRoot\js\home.js",
     "$projectRoot\js\detail.js",
     "$projectRoot\js\watch.js",
-    "$projectRoot\js\core.js"
+    "$projectRoot\js\core.js",
+    "$projectRoot\detail.html",
+    "$projectRoot\index.html",
+    "$projectRoot\watch.html"
 )
 
 # Each pair: [CleanURL, HtmlURL]
@@ -26,7 +29,8 @@ $pairs = @(
     @{ Clean = '"detail?id=';  Html = '"detail.html?id='  },
     @{ Clean = '"watch?id=';   Html = '"watch.html?id='   },
     @{ Clean = '`detail?id=';  Html = '`detail.html?id='  },
-    @{ Clean = '`watch?id=';   Html = '`watch.html?id='   }
+    @{ Clean = '`watch?id=';   Html = '`watch.html?id='   },
+    @{ Clean = '`./';   Html = '`index.html'   }
 )
 
 $totalChanges = 0

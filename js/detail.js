@@ -191,7 +191,7 @@ function setupDetailNavigation() {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const view = link.getAttribute("data-view");
-      window.location.href = `index.html?view=${view}`;
+      window.location.href = `./?view=${view}`;
     });
   });
 
