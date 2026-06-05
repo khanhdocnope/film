@@ -4,6 +4,10 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /(index\.(php|html))\ HTTP/
 RewriteRule ^index\.(php|html)$ / [R=301,L]
 
+# Redirect /page.html sang /page để giữ URL sạch
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^.]+)\.html\ HTTP/
+RewriteRule ^([^.]+)\.html$ /$1 [R=301,L]
+
 # Ưu tiên .php nếu tồn tại
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f

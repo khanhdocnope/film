@@ -156,9 +156,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   
   // Search redirection logic if not on homepage
-  const isHomepage = window.location.pathname.endsWith("index.html") || 
-                     window.location.pathname.endsWith("/") || 
-                     !window.location.pathname.includes(".html");
+  const path = window.location.pathname;
+  const isHomepage = path.endsWith("index.html") || 
+                     path.endsWith("/") || 
+                     path === "" ||
+                     (!path.includes("detail") && !path.includes("watch"));
                      
   if (!isHomepage) {
     const searchInputs = document.querySelectorAll(".js-search-input");
