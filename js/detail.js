@@ -36,11 +36,11 @@ function generateMockStats(movie) {
   for (let i = 0; i < movie.id.length; i++) {
     hash = movie.id.charCodeAt(i) + ((hash << 5) - hash);
   }
-  
+
   const members = Math.abs((hash % 1000) + 500); // 500 to 1500 voters
   const views = Math.abs((hash % 800000) + 400000) + (movie.year * 200); // 400k to 1.2M views
   const matchPercent = Math.round(movie.rating * 10); // rating 9.1 -> 91%
-  
+
   return {
     members,
     views: views.toLocaleString(),
@@ -53,7 +53,7 @@ function renderRatingStars(rating) {
   let starsHTML = "";
   const maxStars = 10;
   const ratingValue = rating; // e.g. 9.1
-  
+
   for (let i = 1; i <= maxStars; i++) {
     if (i <= Math.floor(ratingValue)) {
       starsHTML += '<i class="fa-solid fa-star"></i>';
@@ -70,54 +70,54 @@ function renderRatingStars(rating) {
 function loadMovieCard() {
   const id = getQueryParam("id");
   if (!id) {
-    window.location.href = "./";
+    window.location.href = "index.html";
     return;
   }
-  
+
   currentMovie = MOVIE_DATABASE.find(m => m.id === id);
   if (!currentMovie) {
-    window.location.href = "./";
+    window.location.href = "index.html";
     return;
   }
-  
+
   // Set Background Banner & Poster
   DetailDOM.backdropWrapper.style.backgroundImage = `url('${currentMovie.banner}')`;
   DetailDOM.posterImg.src = currentMovie.poster;
   DetailDOM.posterImg.alt = currentMovie.title;
-  
+
   // Title & Desc
   document.title = `${currentMovie.title} - Thư Viện FilmXem`;
   DetailDOM.movieTitle.textContent = currentMovie.title;
   DetailDOM.movieOriginalTitle.textContent = `${currentMovie.originalTitle}, ${currentMovie.title}`;
   DetailDOM.movieDesc.textContent = currentMovie.description;
-  
+
   // Generate stats
   const stats = generateMockStats(currentMovie);
   DetailDOM.ratingPercent.textContent = `${stats.matchPercent}%`;
   DetailDOM.ratingText.textContent = `(Đánh giá ${currentMovie.rating.toFixed(1)}/10 từ ${stats.members} thành viên)`;
   DetailDOM.starsBox.innerHTML = renderRatingStars(currentMovie.rating);
-  
+
   DetailDOM.metaDuration.textContent = currentMovie.duration;
   DetailDOM.metaYear.textContent = currentMovie.year;
   DetailDOM.metaViews.textContent = `${stats.views} Lượt Xem`;
-  
+
   // Bookmark button setup
   updateBookmarkButton();
-  
+
   // Related suggestions
   renderRelatedSuggestions();
-  
-  // Listeners for poster click & watch button click -> goes to /watch
+
+  // Listeners for poster click & watch button click -> goes to watch.html
   const watchUrl = `watch?id=${currentMovie.id}`;
-  
+
   DetailDOM.posterWrapper.addEventListener("click", () => {
     window.location.href = watchUrl;
   });
-  
+
   DetailDOM.playBtn.addEventListener("click", () => {
     window.location.href = watchUrl;
   });
-  
+
   DetailDOM.bookmarkBtn.addEventListener("click", () => {
     toggleBookmark(currentMovie.id, () => {
       updateBookmarkButton();
@@ -129,11 +129,11 @@ function loadMovieCard() {
 function updateBookmarkButton() {
   if (!DetailDOM.bookmarkBtn) return;
   const saved = isBookmarked(currentMovie.id);
-  
+
   DetailDOM.bookmarkBtn.innerHTML = saved
     ? '<i class="fa-solid fa-bookmark"></i> Đã Lưu Thư Viện'
     : '<i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện';
-    
+
   if (saved) {
     DetailDOM.bookmarkBtn.classList.add("saved");
   } else {
@@ -144,20 +144,20 @@ function updateBookmarkButton() {
 // 6. Related Movies suggestions grid
 function renderRelatedSuggestions() {
   if (!DetailDOM.relatedGrid) return;
-  
+
   const currentGenres = currentMovie.genres;
-  let related = MOVIE_DATABASE.filter(m => 
-    m.id !== currentMovie.id && 
+  let related = MOVIE_DATABASE.filter(m =>
+    m.id !== currentMovie.id &&
     m.genres.some(genre => currentGenres.includes(genre))
   );
-  
+
   if (related.length < 4) {
     const others = MOVIE_DATABASE.filter(m => m.id !== currentMovie.id && !related.includes(m));
     related = [...related, ...others].slice(0, 4);
   } else {
     related = related.slice(0, 4);
   }
-  
+
   DetailDOM.relatedGrid.innerHTML = related.map(movie => {
     const mainGenre = movie.genres[0] || "";
     return `
@@ -191,19 +191,19 @@ function setupDetailNavigation() {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const view = link.getAttribute("data-view");
-      window.location.href = `./?view=${view}`;
+      window.location.href = `index.html?view=${view}`;
     });
   });
-  
+
   DetailDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
       if (tab === "home") {
-        window.location.href = "./";
+        window.location.href = "index.html";
       } else if (tab === "genres") {
-        window.location.href = "./?focus=genres";
+        window.location.href = "index.html?focus=genres";
       } else if (tab === "saved") {
-        window.location.href = "./?view=saved";
+        window.location.href = "index.html?view=saved";
       }
     });
   });

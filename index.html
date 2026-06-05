@@ -1,55 +1,61 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
   <!-- SEO Meta Tags -->
   <title>FilmXem - Trang Xem Phim Trực Tuyến Tốc Độ Cao</title>
-  <meta name="description" content="FilmXem - Nền tảng xem phim chất lượng cao HD thuyết minh miễn phí với giao diện tối giản hiện đại. Hỗ trợ xem mượt mà trên hệ điều hành Android và các thiết bị di động.">
+  <meta name="description"
+    content="FilmXem - Nền tảng xem phim chất lượng cao HD thuyết minh miễn phí với giao diện tối giản hiện đại. Hỗ trợ xem mượt mà trên hệ điều hành Android và các thiết bị di động.">
   <meta name="keywords" content="xem phim, phim moi, phim hd, phim thuyet minh, phim vietsub, filmxem, phim android">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Favicon / Theme Color for Android -->
   <meta name="theme-color" content="#f8fafc" id="themeColorMeta">
-  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
+  <link rel="icon" type="image/png"
+    href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- Custom Stylesheets -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/home.css">
 </head>
+
 <body>
 
   <!-- ==========================================
        MAIN HEADER (DESKTOP)
        ========================================== -->
   <header class="main-header" id="mainHeader">
-    <a href="./" class="logo" id="headerLogo">
+    <a href="index.html" class="logo" id="headerLogo">
       <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
       FilmXem
     </a>
-    
+
     <!-- Search Bar -->
     <div class="search-container" id="searchContainer">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim, thể loại, diễn viên..." id="desktopSearchInput">
+        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim, thể loại, diễn viên..."
+          id="desktopSearchInput">
       </div>
     </div>
-    
+
     <!-- Desktop Navigation Links -->
     <nav class="desktop-nav" id="desktopNav">
       <a href="#" class="nav-link active" data-view="home" id="navHomeLink">Trang Chủ</a>
       <a href="#" class="nav-link" data-view="saved" id="navSavedLink">Tủ Sách Phim</a>
     </nav>
-    
+
     <!-- Header Actions (Theme Toggle) -->
     <div class="header-actions" id="headerActions">
       <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện sáng/tối">
@@ -67,7 +73,8 @@
     </button>
     <div class="mobile-search-box">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
-      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..." id="mobileSearchInput">
+      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..."
+        id="mobileSearchInput">
     </div>
   </div>
 
@@ -100,7 +107,7 @@
     <div class="section-header">
       <h2 class="section-title" id="sectionTitle">Phim mới cập nhật</h2>
     </div>
-    
+
     <div class="movies-grid" id="moviesGrid">
       <!-- Dynamic Movies Grid Loaded from home.js -->
     </div>
@@ -149,4 +156,5 @@
   <script src="js/core.js"></script>
   <script src="js/home.js"></script>
 </body>
+
 </html>

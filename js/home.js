@@ -21,14 +21,14 @@ const HomeDOM = {
 // 1. Render Featured Banner Movie
 function renderFeaturedMovie() {
   if (!HomeDOM.heroBanner || !HomeDOM.heroContent) return;
-  
+
   const featured = MOVIE_DATABASE.find(movie => movie.isFeatured) || MOVIE_DATABASE[0];
   if (!featured) return;
-  
+
   HomeDOM.heroBanner.style.backgroundImage = `url('${featured.banner}')`;
-  
+
   const isSaved = isBookmarked(featured.id);
-  
+
   HomeDOM.heroContent.innerHTML = `
     <div class="hero-badge">
       <i class="fa-solid fa-fire"></i> Nổi bật hôm nay
@@ -56,7 +56,7 @@ function renderFeaturedMovie() {
       </button>
     </div>
   `;
-  
+
   // Add bookmark listener inside hero
   const heroBookmarkBtn = HomeDOM.heroContent.querySelector(".js-hero-bookmark");
   if (heroBookmarkBtn) {
@@ -76,7 +76,7 @@ function renderFeaturedMovie() {
 // 2. Render Genres list bar
 function renderGenres() {
   if (!HomeDOM.genresScroll) return;
-  
+
   HomeDOM.genresScroll.innerHTML = GENRES.map(genre => {
     const isActive = genre === currentGenre;
     return `
@@ -85,7 +85,7 @@ function renderGenres() {
       </button>
     `;
   }).join("");
-  
+
   // Bind click listeners
   HomeDOM.genresScroll.querySelectorAll(".genre-badge").forEach(badge => {
     badge.addEventListener("click", () => {
@@ -93,7 +93,7 @@ function renderGenres() {
       currentView = "home";
       searchQuery = "";
       HomeDOM.searchInputs.forEach(i => i.value = "");
-      
+
       updateNavStates();
       renderGenres();
       filterAndRenderMovies();
@@ -104,9 +104,9 @@ function renderGenres() {
 // 3. Filter and Render Movie Cards Grid
 function filterAndRenderMovies() {
   if (!HomeDOM.moviesGrid) return;
-  
+
   let movies = MOVIE_DATABASE;
-  
+
   // Filter by Saved
   if (currentView === "saved") {
     movies = movies.filter(m => isBookmarked(m.id));
@@ -114,23 +114,23 @@ function filterAndRenderMovies() {
   } else {
     HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
   }
-  
+
   // Filter by Genre
   if (currentGenre !== "Tất cả" && currentView !== "saved") {
     movies = movies.filter(m => m.genres.includes(currentGenre));
   }
-  
+
   // Filter by Search Query
   if (searchQuery.trim() !== "") {
     const query = searchQuery.toLowerCase().trim();
-    movies = movies.filter(m => 
-      m.title.toLowerCase().includes(query) || 
+    movies = movies.filter(m =>
+      m.title.toLowerCase().includes(query) ||
       m.originalTitle.toLowerCase().includes(query) ||
       m.genres.some(g => g.toLowerCase().includes(query))
     );
     HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm cho "${searchQuery}"`;
   }
-  
+
   if (movies.length === 0) {
     HomeDOM.moviesGrid.innerHTML = `
       <div class="no-results">
@@ -140,10 +140,10 @@ function filterAndRenderMovies() {
     `;
     return;
   }
-  
+
   HomeDOM.moviesGrid.innerHTML = movies.map(movie => {
     const mainGenre = movie.genres[0] || "";
-    
+
     return `
       <a href="detail?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
@@ -192,7 +192,7 @@ function updateNavStates() {
       item.classList.remove("active");
     }
   });
-  
+
   // Desktop Nav Active State
   HomeDOM.desktopNavLinks.forEach(link => {
     const view = link.getAttribute("data-view");
@@ -210,17 +210,17 @@ function setupHomeListeners() {
   HomeDOM.searchInputs.forEach(input => {
     input.addEventListener("input", (e) => {
       searchQuery = e.target.value;
-      
+
       // Sync other search inputs
       HomeDOM.searchInputs.forEach(i => {
         if (i !== e.target) i.value = searchQuery;
       });
-      
+
       currentView = "home";
       filterAndRenderMovies();
     });
   });
-  
+
   // Mobile Search Close click overrides
   if (HomeDOM.closeMobileSearch) {
     HomeDOM.closeMobileSearch.addEventListener("click", () => {
@@ -231,22 +231,22 @@ function setupHomeListeners() {
       }
     });
   }
-  
+
   // Desktop Nav Links click
   HomeDOM.desktopNavLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const view = link.getAttribute("data-view");
-      
+
       currentView = view;
       currentGenre = "Tất cả";
       searchQuery = "";
       HomeDOM.searchInputs.forEach(input => input.value = "");
-      
+
       updateNavStates();
       renderGenres();
       filterAndRenderMovies();
-      
+
       // Scroll to content
       window.scrollTo({
         top: HomeDOM.genresScroll.offsetTop - 100,
@@ -254,35 +254,35 @@ function setupHomeListeners() {
       });
     });
   });
-  
+
   // Mobile Bottom Nav Tabs Click
   HomeDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
-      
+
       if (tab === "home") {
         currentView = "home";
         currentGenre = "Tất cả";
         searchQuery = "";
         HomeDOM.searchInputs.forEach(i => i.value = "");
         window.scrollTo({ top: 0, behavior: "smooth" });
-        
+
       } else if (tab === "genres") {
         currentView = "home";
         window.scrollTo({ top: HomeDOM.genresScroll.offsetTop - 80, behavior: "smooth" });
-        
+
       } else if (tab === "saved") {
         currentView = "saved";
         searchQuery = "";
         HomeDOM.searchInputs.forEach(i => i.value = "");
         window.scrollTo({ top: HomeDOM.genresScroll.offsetTop - 80, behavior: "smooth" });
       }
-      
+
       updateNavStates();
       filterAndRenderMovies();
     });
   });
-  
+
   // Listen for bookmarks updates from other elements (like modals/watchpages)
   window.addEventListener("bookmarkChanged", () => {
     if (currentView === "saved") {
@@ -297,16 +297,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
   const searchParam = params.get("search");
   const viewParam = params.get("view");
-  
+
   if (searchParam) {
     searchQuery = decodeURIComponent(searchParam);
     HomeDOM.searchInputs.forEach(input => input.value = searchQuery);
   }
-  
+
   if (viewParam === "saved") {
     currentView = "saved";
   }
-  
+
   renderFeaturedMovie();
   renderGenres();
   filterAndRenderMovies();

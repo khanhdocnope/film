@@ -1,54 +1,60 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
   <!-- SEO Meta Tags -->
   <title>Thông tin phim - FilmXem</title>
-  <meta name="description" content="Xem chi tiết nội dung phim, đánh giá thành viên, lượt xem và thời lượng. Giao diện thông tin phim đẹp mắt tối ưu cho di động Android.">
+  <meta name="description"
+    content="Xem chi tiết nội dung phim, đánh giá thành viên, lượt xem và thời lượng. Giao diện thông tin phim đẹp mắt tối ưu cho di động Android.">
   <meta name="robots" content="index, follow">
-  
+
   <!-- Favicon / Theme Color for Android -->
   <meta name="theme-color" content="#f8fafc" id="themeColorMeta">
-  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
+  <link rel="icon" type="image/png"
+    href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+
   <!-- Custom Stylesheets -->
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/detail.css">
 </head>
+
 <body>
 
   <!-- ==========================================
        MAIN HEADER (DESKTOP)
        ========================================== -->
   <header class="main-header" id="mainHeader">
-    <a href="./" class="logo" id="headerLogo">
+    <a href="index.html" class="logo" id="headerLogo">
       <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
       FilmXem
     </a>
-    
+
     <!-- Search Bar (Redirects back to index.html with query on Enter) -->
     <div class="search-container" id="searchContainer">
       <div class="search-box">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
-        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim khác và nhấn Enter..." id="desktopSearchInput">
+        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim khác và nhấn Enter..."
+          id="desktopSearchInput">
       </div>
     </div>
-    
+
     <!-- Desktop Navigation Links -->
     <nav class="desktop-nav" id="desktopNav">
-      <a href="./" class="nav-link" data-view="home" id="navHomeLink">Trang Chủ</a>
-      <a href="./?view=saved" class="nav-link" data-view="saved" id="navSavedLink">Tủ Sách Phim</a>
+      <a href="index.html" class="nav-link" data-view="home" id="navHomeLink">Trang Chủ</a>
+      <a href="index.html?view=saved" class="nav-link" data-view="saved" id="navSavedLink">Tủ Sách Phim</a>
     </nav>
-    
+
     <!-- Header Actions (Theme Toggle) -->
     <div class="header-actions" id="headerActions">
       <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện sáng/tối">
@@ -66,7 +72,8 @@
     </button>
     <div class="mobile-search-box">
       <i class="fa-solid fa-magnifying-glass search-icon"></i>
-      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..." id="mobileSearchInput">
+      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..."
+        id="mobileSearchInput">
     </div>
   </div>
 
@@ -75,7 +82,7 @@
        ========================================== -->
   <div class="detail-backdrop-wrapper" id="detailBackdropWrapper">
     <div class="movie-card-detail" id="movieCardDetail">
-      
+
       <!-- Left Column - Poster -->
       <div class="detail-poster-col">
         <div class="detail-poster-wrapper" id="detailPosterWrapper">
@@ -86,29 +93,29 @@
           </div>
         </div>
       </div>
-      
+
       <!-- Right Column - Info -->
       <div class="detail-info-col">
         <h1 class="detail-title" id="movieTitle">Tên phim đang tải...</h1>
         <div class="detail-subtitle" id="movieOriginalTitle">Original Title</div>
-        
+
         <p class="detail-desc" id="movieDesc">
           Mô tả nội dung phim...
         </p>
-        
+
         <!-- Ratings & Members -->
         <div class="detail-stats-container">
           <div class="rating-circle-box">
             <div class="rating-circle" id="ratingPercent">98%</div>
             <div class="rating-circle-text" id="ratingText">(Đánh giá 9.8/10 từ 1439 thành viên)</div>
           </div>
-          
+
           <!-- Stars list (10 stars system) -->
           <div class="stars-box" id="starsBox">
             <!-- 10 stars dynamic icons -->
           </div>
         </div>
-        
+
         <!-- Inline Metadata (Duration, year, views) -->
         <div class="detail-meta-inline">
           <div class="meta-inline-item">
@@ -124,7 +131,7 @@
             <span id="metaViews">1,414,223 Lượt Xem</span>
           </div>
         </div>
-        
+
         <!-- Action Row -->
         <div class="detail-actions-row">
           <button class="btn btn-primary" id="detailPlayBtn">
@@ -135,7 +142,7 @@
           </button>
         </div>
       </div>
-      
+
     </div>
   </div>
 
@@ -192,4 +199,5 @@
   <script src="js/core.js"></script>
   <script src="js/detail.js"></script>
 </body>
+
 </html>

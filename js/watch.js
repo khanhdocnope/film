@@ -31,16 +31,16 @@ function loadMovieDetails() {
   const id = getQueryParam("id");
   if (!id) {
     // If no ID, redirect back to home page
-    window.location.href = "./";
+    window.location.href = "index.html";
     return;
   }
-  
+
   currentMovie = MOVIE_DATABASE.find(m => m.id === id);
   if (!currentMovie) {
-    window.location.href = "./";
+    window.location.href = "index.html";
     return;
   }
-  
+
   // Set Text Values
   document.title = `Xem phim ${currentMovie.title} - FilmXem`;
   WatchDOM.movieTitle.textContent = currentMovie.title;
@@ -49,24 +49,24 @@ function loadMovieDetails() {
   WatchDOM.metaRating.innerHTML = `<i class="fa-solid fa-star" style="color: #fbbf24"></i> ${currentMovie.rating.toFixed(1)} / 10`;
   WatchDOM.metaYear.textContent = currentMovie.year;
   WatchDOM.metaDuration.textContent = currentMovie.duration;
-  
+
   // Genres badges
   WatchDOM.metaGenres.innerHTML = currentMovie.genres.map(g => `
     <span class="modal-meta-tag">${g}</span>
   `).join("");
-  
+
   // Set Back Button Link
   const watchBackBtn = document.getElementById("watchBackBtn");
   if (watchBackBtn) {
     watchBackBtn.href = `detail?id=${currentMovie.id}`;
   }
-  
+
   // Bookmarks status
   updateBookmarkButton();
-  
+
   // Load Episodes List
   renderEpisodes();
-  
+
   // Load Related Recommendations
   renderRelatedMovies();
 }
@@ -74,13 +74,13 @@ function loadMovieDetails() {
 // 3. Render Playlist Episodes
 function renderEpisodes() {
   if (!WatchDOM.episodesList) return;
-  
+
   const episodes = currentMovie.episodes || [];
   if (episodes.length === 0) {
     WatchDOM.episodesList.innerHTML = `<p style="color: var(--text-secondary); font-size: 0.9rem;">Thông tin tập phim đang được cập nhật...</p>`;
     return;
   }
-  
+
   WatchDOM.episodesList.innerHTML = episodes.map((ep, index) => {
     const isActive = index === currentEpisodeIndex;
     return `
@@ -90,10 +90,10 @@ function renderEpisodes() {
       </button>
     `;
   }).join("");
-  
+
   // Set Video Source
   WatchDOM.videoPlayer.src = episodes[currentEpisodeIndex].videoUrl;
-  
+
   // Bind clicks
   WatchDOM.episodesList.querySelectorAll(".episode-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -105,7 +105,7 @@ function renderEpisodes() {
 
 function changeEpisode(index) {
   currentEpisodeIndex = index;
-  
+
   // Update Buttons UI
   const buttons = WatchDOM.episodesList.querySelectorAll(".episode-btn");
   buttons.forEach((btn, idx) => {
@@ -117,7 +117,7 @@ function changeEpisode(index) {
       btn.querySelector("i").className = "fa-solid fa-play episode-play-icon";
     }
   });
-  
+
   // Change Video Source & Play
   const episodes = currentMovie.episodes || [];
   if (episodes[index]) {
@@ -129,12 +129,12 @@ function changeEpisode(index) {
 // 4. Bookmark Button Actions
 function updateBookmarkButton() {
   if (!WatchDOM.bookmarkBtn) return;
-  
+
   const saved = isBookmarked(currentMovie.id);
-  WatchDOM.bookmarkBtn.innerHTML = saved 
-    ? '<i class="fa-solid fa-bookmark"></i> Đã Lưu Thư Viện' 
+  WatchDOM.bookmarkBtn.innerHTML = saved
+    ? '<i class="fa-solid fa-bookmark"></i> Đã Lưu Thư Viện'
     : '<i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện';
-    
+
   if (saved) {
     WatchDOM.bookmarkBtn.classList.add("saved");
   } else {
@@ -145,14 +145,14 @@ function updateBookmarkButton() {
 // 5. Render Related Movie Suggestions (Bento Grid Cards)
 function renderRelatedMovies() {
   if (!WatchDOM.relatedGrid) return;
-  
+
   // Filter movies that share at least one genre, excluding current movie
   const currentGenres = currentMovie.genres;
-  let related = MOVIE_DATABASE.filter(m => 
-    m.id !== currentMovie.id && 
+  let related = MOVIE_DATABASE.filter(m =>
+    m.id !== currentMovie.id &&
     m.genres.some(genre => currentGenres.includes(genre))
   );
-  
+
   // If too few related, fill with any movies (excluding current)
   if (related.length < 4) {
     const others = MOVIE_DATABASE.filter(m => m.id !== currentMovie.id && !related.includes(m));
@@ -160,7 +160,7 @@ function renderRelatedMovies() {
   } else {
     related = related.slice(0, 4);
   }
-  
+
   WatchDOM.relatedGrid.innerHTML = related.map(movie => {
     const mainGenre = movie.genres[0] || "";
     return `
@@ -188,29 +188,29 @@ function renderRelatedMovies() {
   }).join("");
 }
 
-// 6. Navigation items setup (redirect to homepage with parameters)
+// 6. Navigation items setup (redirect to index.html with parameters)
 function setupNavigation() {
   WatchDOM.desktopNavLinks.forEach(link => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const view = link.getAttribute("data-view");
-      window.location.href = `./?view=${view}`;
+      window.location.href = `index.html?view=${view}`;
     });
   });
-  
+
   WatchDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
       if (tab === "home") {
-        window.location.href = "./";
+        window.location.href = "index.html";
       } else if (tab === "genres") {
-        window.location.href = "./?focus=genres";
+        window.location.href = "index.html?focus=genres";
       } else if (tab === "saved") {
-        window.location.href = "./?view=saved";
+        window.location.href = "index.html?view=saved";
       }
     });
   });
-  
+
   if (WatchDOM.bookmarkBtn) {
     WatchDOM.bookmarkBtn.addEventListener("click", () => {
       toggleBookmark(currentMovie.id, () => {

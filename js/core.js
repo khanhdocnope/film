@@ -18,15 +18,15 @@ function toggleBookmark(movieId, callback = null) {
   } else {
     bookmarkedMovies.splice(index, 1);
   }
-  
+
   localStorage.setItem("filmXem_bookmarks", JSON.stringify(bookmarkedMovies));
-  
+
   if (callback) {
     callback(status);
   }
-  
+
   showToast(status ? "Đã thêm phim vào thư viện!" : "Đã xóa phim khỏi thư viện.");
-  
+
   // Custom event so other files can listen if needed
   window.dispatchEvent(new CustomEvent("bookmarkChanged", { detail: { movieId, isBookmarked: status } }));
 }
@@ -36,7 +36,7 @@ function initTheme() {
   const savedTheme = localStorage.getItem("filmXem_theme");
   const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const isDark = savedTheme === "dark" || (!savedTheme && systemPrefersDark);
-  
+
   if (isDark) {
     document.body.classList.add("dark-mode");
   } else {
@@ -56,8 +56,8 @@ function toggleTheme() {
 function updateThemeToggleIcon(isDark) {
   const toggleBtn = document.getElementById("themeToggleBtn");
   if (toggleBtn) {
-    toggleBtn.innerHTML = isDark 
-      ? '<i class="fa-solid fa-sun"></i>' 
+    toggleBtn.innerHTML = isDark
+      ? '<i class="fa-solid fa-sun"></i>'
       : '<i class="fa-solid fa-moon"></i>';
   }
 }
@@ -97,15 +97,15 @@ function showToast(message) {
     `;
     document.body.appendChild(toast);
   }
-  
+
   toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: #10b981"></i> ${message}`;
-  
+
   // Animation Show
   setTimeout(() => {
     toast.style.transform = "translateX(-50%) translateY(0)";
     toast.style.opacity = "1";
   }, 10);
-  
+
   // Animation Hide after 2.5s
   setTimeout(() => {
     toast.style.transform = "translateX(-50%) translateY(100px)";
@@ -116,18 +116,18 @@ function showToast(message) {
 // Initialize on load
 document.addEventListener("DOMContentLoaded", () => {
   initTheme();
-  
+
   const themeToggleBtn = document.getElementById("themeToggleBtn");
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener("click", toggleTheme);
   }
-  
+
   // Mobile search opening click listener
   const btnTabSearch = document.getElementById("btnTabSearch");
   const mobileSearchOverlay = document.getElementById("mobileSearchOverlay");
   const mobileSearchInput = document.getElementById("mobileSearchInput");
   const closeMobileSearch = document.getElementById("closeMobileSearch");
-  
+
   if (btnTabSearch && mobileSearchOverlay) {
     btnTabSearch.addEventListener("click", () => {
       mobileSearchOverlay.classList.add("active");
@@ -136,13 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  
+
   if (closeMobileSearch && mobileSearchOverlay) {
     closeMobileSearch.addEventListener("click", () => {
       mobileSearchOverlay.classList.remove("active");
     });
   }
-  
+
   // Sticky Header Scroll effect
   const header = document.getElementById("mainHeader");
   if (header) {
@@ -154,20 +154,19 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  
+
   // Search redirection logic if not on homepage
-  const path = window.location.pathname;
-  const isHomepage = path.endsWith("index.html") || 
-                     path.endsWith("/") || 
-                     path === "" ||
-                     (!path.includes("detail") && !path.includes("watch"));
-                     
+  const _p = window.location.pathname;
+  const isHomepage = _p.endsWith("index.html") ||
+    _p.endsWith("/") ||
+    (_p !== "/" && !_p.includes("detail") && !_p.includes("watch"));
+
   if (!isHomepage) {
     const searchInputs = document.querySelectorAll(".js-search-input");
     searchInputs.forEach(input => {
       input.addEventListener("keypress", (e) => {
         if (e.key === "Enter" && input.value.trim() !== "") {
-          window.location.href = `./?search=${encodeURIComponent(input.value.trim())}`;
+          window.location.href = `index.html?search=${encodeURIComponent(input.value.trim())}`;
         }
       });
     });
