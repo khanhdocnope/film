@@ -86,16 +86,15 @@ function renderGenres() {
     `;
   }).join("");
 
-  // Bind click listeners
+  // Bind click listeners - GIỮ NGUYÊN currentView (không reset về home)
   HomeDOM.genresScroll.querySelectorAll(".genre-badge").forEach(badge => {
     badge.addEventListener("click", () => {
       currentGenre = badge.getAttribute("data-genre");
-      currentView = "home";
       searchQuery = "";
       HomeDOM.searchInputs.forEach(i => i.value = "");
 
       updateNavStates();
-      renderGenres();
+      renderGenres();              
       filterAndRenderMovies();
     });
   });
@@ -110,13 +109,10 @@ function filterAndRenderMovies() {
   // Filter by Saved
   if (currentView === "saved") {
     movies = movies.filter(m => isBookmarked(m.id));
-    HomeDOM.sectionTitle.textContent = "Phim đã lưu của bạn";
-  } else {
-    HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
   }
 
-  // Filter by Genre
-  if (currentGenre !== "Tất cả" && currentView !== "saved") {
+  // Filter by Genre - Áp dụng cho cả home và saved (chỉ bỏ qua nếu genre = "Tất cả")
+  if (currentGenre !== "Tất cả") {
     movies = movies.filter(m => m.genres.includes(currentGenre));
   }
 
@@ -128,7 +124,24 @@ function filterAndRenderMovies() {
       m.originalTitle.toLowerCase().includes(query) ||
       m.genres.some(g => g.toLowerCase().includes(query))
     );
-    HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm cho "${searchQuery}"`;
+  }
+
+  // Cập nhật tiêu đề section
+  if (currentView === "saved") {
+    if (searchQuery.trim() !== "") {
+      HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm trong tủ sách: "${searchQuery}"`;
+    } else if (currentGenre !== "Tất cả") {
+      HomeDOM.sectionTitle.textContent = `Tủ sách phim - Thể loại: ${currentGenre}`;
+    } else {
+      HomeDOM.sectionTitle.textContent = "Phim đã lưu của bạn";
+    }
+  } else {
+    // Home view
+    if (searchQuery.trim() !== "") {
+      HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm cho "${searchQuery}"`;
+    } else {
+      HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
+    }
   }
 
   if (movies.length === 0) {
@@ -182,13 +195,16 @@ function updateNavStates() {
   // Mobile Nav Active State
   HomeDOM.mobileNavItems.forEach(item => {
     const tab = item.getAttribute("data-tab");
-    if (currentView === "home" && tab === "home" && currentGenre === "Tất cả" && searchQuery === "") {
+    if (currentView === "saved" && tab === "saved") {
       item.classList.add("active");
-    } else if (currentView === "saved" && tab === "saved") {
+    } 
+    else if (currentView === "home" && tab === "home" && currentGenre === "Tất cả" && searchQuery === "") {
       item.classList.add("active");
-    } else if (currentView === "home" && currentGenre !== "Tất cả" && tab === "genres") {
+    }
+    else if (currentView === "home" && currentGenre !== "Tất cả" && tab === "genres") {
       item.classList.add("active");
-    } else {
+    }
+    else {
       item.classList.remove("active");
     }
   });
@@ -196,7 +212,7 @@ function updateNavStates() {
   // Desktop Nav Active State
   HomeDOM.desktopNavLinks.forEach(link => {
     const view = link.getAttribute("data-view");
-    if (view === currentView && (currentView !== "home" || currentGenre === "Tất cả")) {
+    if (view === currentView) {
       link.classList.add("active");
     } else {
       link.classList.remove("active");
