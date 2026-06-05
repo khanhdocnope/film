@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <!-- SEO Meta Tags -->
+  <title>Xem Phim - FilmXem</title>
+  <meta name="description" content="Xem phim chất lượng cao thuyết minh HD tốc độ cao. Giao diện xem phim tối giản đẹp mắt, tương thích hoàn hảo trên Android di động.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Favicon / Theme Color for Android -->
+  <meta name="theme-color" content="#f8fafc" id="themeColorMeta">
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/watch.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       MAIN HEADER (DESKTOP)
+       ========================================== -->
+  <header class="main-header" id="mainHeader">
+    <a href="index.html" class="logo" id="headerLogo">
+      <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
+      FilmXem
+    </a>
+    
+    <!-- Search Bar (Redirects back to index.html with query on Enter) -->
+    <div class="search-container" id="searchContainer">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim khác và nhấn Enter..." id="desktopSearchInput">
+      </div>
+    </div>
+    
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" id="desktopNav">
+      <a href="index.html" class="nav-link" data-view="home" id="navHomeLink">Trang Chủ</a>
+      <a href="index.html?view=saved" class="nav-link" data-view="saved" id="navSavedLink">Tủ Sách Phim</a>
+    </nav>
+    
+    <!-- Header Actions (Theme Toggle) -->
+    <div class="header-actions" id="headerActions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện sáng/tối">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       MOBILE SEARCH OVERLAY
+       ========================================== -->
+  <div class="mobile-search-overlay" id="mobileSearchOverlay">
+    <button class="theme-toggle-btn" id="closeMobileSearch" aria-label="Đóng tìm kiếm">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <div class="mobile-search-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..." id="mobileSearchInput">
+    </div>
+  </div>
+
+  <!-- ==========================================
+       WATCH PAGE CONTAINER (2-COLUMNS)
+       ========================================== -->
+  <div class="watch-container" id="watchContainer">
+    
+    <!-- Left Column - Player & Details -->
+    <main class="watch-main-col" id="watchMainCol">
+      <!-- HTML5 Player -->
+      <div class="watch-player-wrapper" id="watchPlayerWrapper">
+        <video id="videoPlayer" class="watch-video" controls playsinline>
+          Trình duyệt của bạn không hỗ trợ định dạng video này.
+        </video>
+      </div>
+      
+      <!-- Details Card -->
+      <section class="watch-details-card" id="watchDetailsCard">
+        <div class="watch-title-row">
+          <div>
+            <h1 class="watch-title" id="movieTitle">Tên phim đang tải...</h1>
+            <div class="watch-title-sub" id="movieOriginalTitle">Original Title</div>
+          </div>
+        </div>
+        
+        <div class="watch-meta-badges">
+          <span class="modal-meta-tag accent" id="metaRating">10.0 / 10</span>
+          <span class="modal-meta-tag" id="metaYear">2026</span>
+          <span class="modal-meta-tag" id="metaDuration">120 phút</span>
+        </div>
+        
+        <div class="watch-meta-badges" id="metaGenres">
+          <!-- Movie genres badges -->
+        </div>
+        
+        <button class="modal-bookmark-btn" id="watchBookmarkBtn">
+          <i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện
+        </button>
+        
+        <p class="watch-description" id="movieDesc">
+          Mô tả nội dung phim...
+        </p>
+      </section>
+      
+      <!-- Recommendations Section -->
+      <section class="recommendations-section" id="recommendationsSection">
+        <h2 class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Có Thể Bạn Cũng Thích</h2>
+        <div class="related-grid" id="relatedMoviesGrid">
+          <!-- Recommended movie cards dynamic -->
+        </div>
+      </section>
+    </main>
+    
+    <!-- Right Column - Sidebar Playlists -->
+    <aside class="watch-sidebar-col" id="watchSidebarCol">
+      <div class="playlist-card" id="playlistCard">
+        <h3 class="playlist-title"><i class="fa-solid fa-list-ol"></i> Danh Sách Tập</h3>
+        <div class="episodes-list no-scrollbar" id="episodesList">
+          <!-- Episodes List dynamic buttons -->
+        </div>
+      </div>
+    </aside>
+    
+  </div>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="main-footer" id="mainFooter">
+    <div class="footer-logo">
+      <div class="logo-icon" style="box-shadow: none;"><i class="fa-solid fa-play animate-pulse"></i></div>
+      FilmXem
+    </div>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Điều khoản sử dụng</a>
+      <a href="#" class="footer-link">Chính sách bảo mật</a>
+      <a href="#" class="footer-link">Liên hệ bản quyền</a>
+    </div>
+    <p>&copy; 2026 FilmXem. Phát triển tối ưu trải nghiệm thiết bị di động Android.</p>
+  </footer>
+
+  <!-- ==========================================
+       MOBILE BOTTOM NAVIGATION BAR
+       ========================================== -->
+  <nav class="mobile-nav-bar" id="mobileNavBar">
+    <button class="mobile-nav-item" data-tab="home" id="btnTabHome">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="genres" id="btnTabGenres">
+      <i class="fa-solid fa-shapes"></i>
+      <span>Thể loại</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="search" id="btnTabSearch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Tìm kiếm</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="saved" id="btnTabSaved">
+      <i class="fa-solid fa-bookmark"></i>
+      <span>Đã lưu</span>
+    </button>
+  </nav>
+
+  <!-- Load Scripts -->
+  <script src="js/database.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/watch.js"></script>
+</body>
+</html>

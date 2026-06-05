@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  
+  <!-- SEO Meta Tags -->
+  <title>FilmXem - Trang Xem Phim Trực Tuyến Tốc Độ Cao</title>
+  <meta name="description" content="FilmXem - Nền tảng xem phim chất lượng cao HD thuyết minh miễn phí với giao diện tối giản hiện đại. Hỗ trợ xem mượt mà trên hệ điều hành Android và các thiết bị di động.">
+  <meta name="keywords" content="xem phim, phim moi, phim hd, phim thuyet minh, phim vietsub, filmxem, phim android">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Favicon / Theme Color for Android -->
+  <meta name="theme-color" content="#f8fafc" id="themeColorMeta">
+  <link rel="icon" type="image/png" href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       MAIN HEADER (DESKTOP)
+       ========================================== -->
+  <header class="main-header" id="mainHeader">
+    <a href="index.html" class="logo" id="headerLogo">
+      <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
+      FilmXem
+    </a>
+    
+    <!-- Search Bar -->
+    <div class="search-container" id="searchContainer">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim, thể loại, diễn viên..." id="desktopSearchInput">
+      </div>
+    </div>
+    
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" id="desktopNav">
+      <a href="#" class="nav-link active" data-view="home" id="navHomeLink">Trang Chủ</a>
+      <a href="#" class="nav-link" data-view="saved" id="navSavedLink">Tủ Sách Phim</a>
+    </nav>
+    
+    <!-- Header Actions (Theme Toggle) -->
+    <div class="header-actions" id="headerActions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện sáng/tối">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       MOBILE SEARCH OVERLAY
+       ========================================== -->
+  <div class="mobile-search-overlay" id="mobileSearchOverlay">
+    <button class="theme-toggle-btn" id="closeMobileSearch" aria-label="Đóng tìm kiếm">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <div class="mobile-search-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..." id="mobileSearchInput">
+    </div>
+  </div>
+
+  <!-- ==========================================
+       HERO BANNER
+       ========================================== -->
+  <section class="hero-wrapper" id="heroWrapper">
+    <div class="hero-banner" id="heroBanner">
+      <div class="hero-overlay">
+        <div class="hero-content" id="heroContent">
+          <!-- Dynamic Content Loaded from home.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       CATEGORIES / GENRES
+       ========================================== -->
+  <section class="categories-section" id="categoriesSection">
+    <div class="genres-scroll no-scrollbar" id="genresScroll">
+      <!-- Dynamic Genre Badges Loaded from home.js -->
+    </div>
+  </section>
+
+  <!-- ==========================================
+       MAIN MOVIES LIST
+       ========================================== -->
+  <main class="movies-section" id="moviesSection">
+    <div class="section-header">
+      <h2 class="section-title" id="sectionTitle">Phim mới cập nhật</h2>
+    </div>
+    
+    <div class="movies-grid" id="moviesGrid">
+      <!-- Dynamic Movies Grid Loaded from home.js -->
+    </div>
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="main-footer" id="mainFooter">
+    <div class="footer-logo">
+      <div class="logo-icon" style="box-shadow: none;"><i class="fa-solid fa-play animate-pulse"></i></div>
+      FilmXem
+    </div>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Điều khoản sử dụng</a>
+      <a href="#" class="footer-link">Chính sách bảo mật</a>
+      <a href="#" class="footer-link">Liên hệ bản quyền</a>
+    </div>
+    <p>&copy; 2026 FilmXem. Phát triển tối ưu trải nghiệm thiết bị di động Android.</p>
+  </footer>
+
+  <!-- ==========================================
+       MOBILE BOTTOM NAVIGATION BAR
+       ========================================== -->
+  <nav class="mobile-nav-bar" id="mobileNavBar">
+    <button class="mobile-nav-item active" data-tab="home" id="btnTabHome">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="genres" id="btnTabGenres">
+      <i class="fa-solid fa-shapes"></i>
+      <span>Thể loại</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="search" id="btnTabSearch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Tìm kiếm</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="saved" id="btnTabSaved">
+      <i class="fa-solid fa-bookmark"></i>
+      <span>Đã lưu</span>
+    </button>
+  </nav>
+
+  <!-- Load Scripts -->
+  <script src="js/database.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

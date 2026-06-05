@@ -1,0 +1,286 @@
+/* ==========================================
+   WATCHPAGE SPECIFIC STYLES
+   ========================================== */
+
+/* Main Container */
+.watch-container {
+  max-width: 1280px;
+  margin: calc(var(--header-height) + 24px) auto 60px;
+  padding: 0 4%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+@media (min-width: 992px) {
+  .watch-container {
+    grid-template-columns: 2.8fr 1.2fr; /* 70% left, 30% right */
+  }
+}
+
+/* Left Column - Video & Info */
+.watch-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.watch-player-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 1.5px solid var(--border-color);
+}
+
+.watch-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+}
+
+/* Metadata & Details */
+.watch-details-card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-color);
+  padding: 28px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.watch-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.watch-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.watch-title-sub {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.watch-meta-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.modal-meta-tag {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.modal-meta-tag.accent {
+  background-color: var(--accent-light);
+  border-color: transparent;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.modal-bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition-smooth);
+  width: fit-content;
+}
+
+.modal-bookmark-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.modal-bookmark-btn.saved {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
+}
+
+.watch-description {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-color);
+  padding-top: 18px;
+}
+
+/* Right Column - Playlist */
+.watch-sidebar-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.playlist-card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-color);
+  padding: 24px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: sticky;
+  top: calc(var(--header-height) + 24px);
+}
+
+.playlist-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.episodes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.episode-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: left;
+  transition: var(--transition-smooth);
+}
+
+.episode-btn:hover {
+  border-color: var(--accent);
+  background-color: var(--bg-secondary);
+  transform: translateX(4px);
+}
+
+.episode-btn.active {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.2);
+}
+
+.episode-btn.active .episode-play-icon {
+  color: white;
+}
+
+.episode-play-icon {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: var(--transition-smooth);
+}
+
+/* Recommendations grid below */
+.recommendations-section {
+  margin-top: 30px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 35px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 24px;
+  margin-top: 20px;
+}
+
+/* ==========================================
+   WATCHPAGE RESPONSIVE STYLES (MOBILE)
+   ========================================== */
+@media (max-width: 991px) {
+  .watch-container {
+    gap: 24px;
+  }
+  
+  .playlist-card {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .watch-container {
+    padding: 0 10px;
+    margin-top: calc(var(--header-height) + 12px);
+    gap: 16px;
+  }
+
+  .watch-player-wrapper {
+    border-radius: var(--radius-md);
+  }
+
+  .watch-details-card {
+    padding: 16px;
+    border-radius: var(--radius-md);
+    gap: 12px;
+  }
+
+  .watch-title {
+    font-size: 1.6rem;
+  }
+
+  .watch-title-sub {
+    font-size: 0.95rem;
+  }
+
+  .watch-description {
+    font-size: 0.9rem;
+    padding-top: 12px;
+  }
+
+  .playlist-card {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .episodes-list {
+    max-height: 250px;
+  }
+
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+}
