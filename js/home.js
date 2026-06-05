@@ -47,7 +47,7 @@ function renderFeaturedMovie() {
     </div>
     <p class="hero-desc">${featured.description}</p>
     <div class="hero-actions">
-      <a href="detail.html?id=${featured.id}" class="btn btn-primary">
+      <a href="detail?id=${featured.id}" class="btn btn-primary">
         <i class="fa-solid fa-play"></i> Xem ngay
       </a>
       <button class="btn btn-secondary js-hero-bookmark" data-id="${featured.id}">
@@ -145,7 +145,7 @@ function filterAndRenderMovies() {
     const mainGenre = movie.genres[0] || "";
     
     return `
-      <a href="detail.html?id=${movie.id}" class="movie-card">
+      <a href="detail?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           
