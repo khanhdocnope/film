@@ -17,7 +17,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "tập 1",
-        "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        "videoUrl": "https://ucf2f2913b4c71a4d66eb75499a2.dl.dropboxusercontent.com/cd/0/get/DB5ocOpOPL3L_5i1_bIlqSQ3iZrpFyq_h6zw5rn4BbcjegCuG4ZtYPWYxfagJ9EtEAJstKuk_wNzb0zl1CMn81xt_pGf_lhYacTrqj2myf6tJUOAlZ590SvZ6dF9OBEUbSJmY6jSUBgtd8mQTCwJMNG1QietCDw2_6MfyErX2sHpGA/file"
       }
     ]
   }
