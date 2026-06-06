@@ -30,7 +30,7 @@ def list_movies(movies):
     if not movies:
         print("📭 Chưa có phim nào.")
         return
-    print("\n📋 DANH SÁCH PHIM:")
+    print("\n DANH SÁCH PHIM:")
     for idx, m in enumerate(movies, 1):
         print(f"{idx}. {m['title']} ({m['originalTitle']}) - {len(m.get('episodes', []))} tập")
 
@@ -92,7 +92,7 @@ def add_episode(movies):
 
     episodes = movie.get('episodes', [])
     next_id = max([ep['episodeId'] for ep in episodes], default=0) + 1
-    print(f"\n➕ Thêm tập cho phim: {movie['title']} (ID tự động: {next_id})")
+    print(f"\n Thêm tập cho phim: {movie['title']} (ID tự động: {next_id})")
     title = input("Tiêu đề tập (VD: Tập 2, Vietsub...): ").strip()
     if not title:
         title = f"Tập {next_id}"
@@ -131,7 +131,7 @@ def main():
         elif choice == "3":
             add_episode(movies)
         elif choice == "4":
-            export_to_js(movies)   # ĐÃ SỬA: gọi đúng hàm
+            export_to_js(movies)  
         else:
             print(" Lựa chọn không hợp lệ")
 

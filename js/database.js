@@ -9,7 +9,7 @@ const MOVIE_DATABASE = [
     "year": "2019",
     "duration": "23",
     "genres": [
-      "anime"
+      "Anime"
     ],
     "description": "demo",
     "isFeatured": true,
