@@ -19,6 +19,7 @@ d:/film-xem/
 │   ├── home.js           # Điều khiển hiển thị trang chủ
 │   ├── watch.js          # Điều khiển hiển thị trang xem phim (Đọc ?id=... từ link)
 │   └── detail.js         # Điều khiển hiển thị trang Movie Card 
+├── movies.json           # Khởi tạo nội dung ban đầu,quản lí  
 └── README.md             # Hướng dẫn sử dụng này
 ```
 
@@ -31,7 +32,7 @@ Bạn chỉ cần mở tệp `js/database.js` và thêm một đối tượng ph
   {
     id: "ten-phim-viet-lien-khong-dau", // Dùng làm ID trong đường dẫn (Ví dụ: watch.html?id=dune-2)
     title: "Tên Tiếng Việt",
-    originalTitle: "Tên gốc (Tiếng Anh/Hàn/Nhật...)",
+    originalTitle: "Tên gốc (Tiếng việt/Anh/Hàn/Nhật...)",
     poster: "Đường dẫn ảnh poster dọc (tỉ lệ 2:3)",
     banner: "Đường dẫn ảnh banner ngang đầu trang (tỉ lệ 16:9)",
     rating: 8.5, // Điểm số đánh giá từ 1 đến 10
