@@ -47,7 +47,7 @@ function renderFeaturedMovie() {
     </div>
     <p class="hero-desc">${featured.description}</p>
     <div class="hero-actions">
-      <a href="detail?id=${featured.id}" class="btn btn-primary">
+      <a href="detail.html?id=${featured.id}" class="btn btn-primary">
         <i class="fa-solid fa-play"></i> Xem ngay
       </a>
       <button class="btn btn-secondary js-hero-bookmark" data-id="${featured.id}">
@@ -94,7 +94,7 @@ function renderGenres() {
       HomeDOM.searchInputs.forEach(i => i.value = "");
 
       updateNavStates();
-      renderGenres();              
+      renderGenres();
       filterAndRenderMovies();
     });
   });
@@ -158,7 +158,7 @@ function filterAndRenderMovies() {
     const mainGenre = movie.genres[0] || "";
 
     return `
-      <a href="detail?id=${movie.id}" class="movie-card">
+      <a href="detail.html?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           
@@ -197,7 +197,7 @@ function updateNavStates() {
     const tab = item.getAttribute("data-tab");
     if (currentView === "saved" && tab === "saved") {
       item.classList.add("active");
-    } 
+    }
     else if (currentView === "home" && tab === "home" && currentGenre === "Tất cả" && searchQuery === "") {
       item.classList.add("active");
     }
@@ -235,6 +235,41 @@ function setupHomeListeners() {
       currentView = "home";
       filterAndRenderMovies();
     });
+  });
+  // ==========================================
+  // KÉO NGANG THANH THỂ LOẠI (CHỈ KHI CÓ TỪ 2 DÒNG)
+  // ==========================================
+  function checkAndEnableGenresScroll() {
+    const genresScroll = HomeDOM.genresScroll;
+    if (!genresScroll) return;
+
+    // Reset class
+    genresScroll.classList.remove('scrollable');
+
+    // Đợi layout ổn định
+    setTimeout(() => {
+      const containerHeight = genresScroll.offsetHeight;
+      const firstBadge = genresScroll.querySelector('.genre-badge');
+      if (!firstBadge) return;
+      const badgeHeight = firstBadge.offsetHeight;
+
+      // Nếu container cao hơn 1.5 lần badge (tức có từ 2 dòng trở lên)
+      if (containerHeight > badgeHeight * 1.5) {
+        genresScroll.classList.add('scrollable');
+      }
+    }, 50);
+  }
+
+  // Gọi sau mỗi lần render genres
+  const originalRenderGenres = renderGenres;
+  renderGenres = function () {
+    originalRenderGenres();
+    checkAndEnableGenresScroll();
+  };
+
+  // Gọi khi resize
+  window.addEventListener('resize', () => {
+    checkAndEnableGenresScroll();
   });
 
   // Mobile Search Close click overrides

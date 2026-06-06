@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchInputs.forEach(input => {
       input.addEventListener("keypress", (e) => {
         if (e.key === "Enter" && input.value.trim() !== "") {
-          window.location.href = `./?search=${encodeURIComponent(input.value.trim())}`;
+          window.location.href = `index.html?search=${encodeURIComponent(input.value.trim())}`;
         }
       });
     });

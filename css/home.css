@@ -310,3 +310,53 @@ body:not(.dark-mode) .hero-overlay {
     gap: 14px;
   }
 }
+/* ==========================================
+   GENRES SCROLL - CHỈ KÉO NGANG KHI CÓ TỪ 2 DÒNG
+   ========================================== */
+.genres-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 0;
+  transition: all 0.2s;
+}
+
+/* Khi có class .scrollable -> chuyển sang kéo ngang */
+.genres-scroll.scrollable {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Ẩn thanh cuộn nhưng vẫn kéo được */
+  cursor: grab;
+  padding-bottom: 12px;
+}
+
+.genres-scroll.scrollable:active {
+  cursor: grabbing;
+}
+
+.genres-scroll.scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+.genres-scroll .genre-badge {
+  flex: 0 0 auto; /* Khi scrollable, badge không co dãn */
+  white-space: nowrap;
+}
+
+/* Trên desktop: vẫn wrap và không kéo ngang */
+@media (min-width: 768px) {
+  .genres-scroll {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    justify-content: center;
+  }
+  .genres-scroll.scrollable {
+    flex-wrap: wrap;
+    overflow-x: visible;
+    cursor: default;
+  }
+  .genres-scroll.scrollable:active {
+    cursor: default;
+  }
+}
