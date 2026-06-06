@@ -49,7 +49,7 @@ function loadMovieDetails() {
   WatchDOM.metaGenres.innerHTML = currentMovie.genres.map(g => `<span class="modal-meta-tag">${g}</span>`).join("");
 
   const watchBackBtn = document.getElementById("watchBackBtn");
-  if (watchBackBtn) watchBackBtn.href = `detail.html?id=${currentMovie.id}`;
+  if (watchBackBtn) watchBackBtn.href = `detail?id=${currentMovie.id}`;
 
   updateBookmarkButton();
   renderEpisodes();
@@ -266,7 +266,7 @@ function renderRelatedMovies() {
     related = [...related, ...others].slice(0, 4);
   } else related = related.slice(0, 4);
   WatchDOM.relatedGrid.innerHTML = related.map(movie => `
-    <a href="detail.html?id=${movie.id}" class="movie-card">
+    <a href="detail?id=${movie.id}" class="movie-card">
       <div class="card-poster-wrapper">
         <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
         <div class="card-badges">
@@ -288,7 +288,7 @@ function setupNavigation() {
     link.addEventListener("click", (e) => {
       e.preventDefault();
       const view = link.getAttribute("data-view");
-      window.location.href = `index.html?view=${view}`;
+      window.location.href = `./?view=${view}`;
     });
   });
   WatchDOM.mobileNavItems.forEach(item => {
