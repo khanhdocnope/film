@@ -7,15 +7,18 @@ Dự án FilmXem hiện tại đã được nâng cấp lên cấu trúc thư m�
 d:/film-xem/
 ├── index.html            # Trang chủ (Hiển thị danh sách, tìm kiếm, lưu trữ)
 ├── watch.html            # Trang xem phim riêng biệt (Đầu phát, danh sách tập, gợi ý)
+├── detail.html           # Trang xem Movie Card (Thông tin chi tiết bộ phim)
 ├── css/
 │   ├── main.css          # Định nghĩa giao diện chung, sáng/tối, header, footer, bottom nav
 │   ├── home.css          # Giao diện riêng của trang chủ (banner, bộ lọc trượt, grid)
-│   └── watch.css         # Giao diện riêng của trang xem phim (bố cục 2 cột, player, sidebar)
+│   ├── watch.css         # Giao diện riêng của trang xem phim (bố cục 2 cột, player, sidebar)
+│   └── detail.css        # Giao diện riêng của trang Movie Card 
 ├── js/
 │   ├── database.js       # Cơ sở dữ liệu tĩnh tập trung (Nơi thêm/sửa phim & tập phim)
 │   ├── core.js           # Xử lý các tác vụ chung (Giao diện sáng/tối, tìm kiếm, Toast)
 │   ├── home.js           # Điều khiển hiển thị trang chủ
-│   └── watch.js          # Điều khiển hiển thị trang xem phim (Đọc ?id=... từ link)
+│   ├── watch.js          # Điều khiển hiển thị trang xem phim (Đọc ?id=... từ link)
+│   └── detail.js         # Điều khiển hiển thị trang Movie Card 
 └── README.md             # Hướng dẫn sử dụng này
 ```
 
