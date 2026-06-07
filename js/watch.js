@@ -185,8 +185,7 @@ function showVideoErrorOnlyRetry(originalUrl) {
   }
   errorOverlay.innerHTML = `
     <i class="fa-solid fa-circle-exclamation" style="font-size: 3rem; color: #f97316;"></i>
-    <p style="margin: 0; font-weight: bold;">Không thể tải video từ link:</p>
-    <p style="font-size: 0.85rem; word-break: break-all; max-width: 90%;">${originalUrl}</p>
+    <p style="margin: 0; font-weight: bold;"> Không thể tải video </p>
     <button id="retryCurrentBtn" class="btn btn-primary" style="background:#f97316; border:none; margin-top: 8px;">
       <i class="fa-solid fa-rotate-right"></i> Thử lại
     </button>

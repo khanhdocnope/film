@@ -108,7 +108,7 @@ function loadMovieCard() {
   renderRelatedSuggestions();
 
   // Listeners for poster click & watch button click -> goes to watch.html
-  const watchUrl = `watch?id=${currentMovie.id}`;
+  const watchUrl = `watch.html?id=${currentMovie.id}`;
 
   DetailDOM.posterWrapper.addEventListener("click", () => {
     window.location.href = watchUrl;
