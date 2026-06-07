@@ -17,7 +17,11 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "tập 1",
+<<<<<<< HEAD
         "videoUrl": "https://drive.usercontent.google.com/download?id=1cT3phJ6hr0uhmac9Fbpvy9jVVsdWDsld&export=download&authuser=0&confirm=t&uuid=d1aeec0e-9bff-4547-b1f6-9c0e346fa30a&at=AAINaILMu8gDMXT_ZB5PtfS17kSJ%3A1780794884359"
+=======
+        "videoUrl": "https://ucfff6fb6e7fbb4ed32cbfa75b4c.dl.dropboxusercontent.com/cd/0/get/DB6bUtC6F3sigL63p8ZOHJaT89OK4RFdmJpIu-pVS6j-f1OwkKfKRv6WOVWO84q4Yh9iPe3feW4wQy2IlxOLZDFDDsWjnpFQJgKXonee6bwpsQ9wz1xgCXeaTfD_H895xYkpZk3chqiwAt9pfPjLn76yFgBDNL0gxkG6wnAgg_JKGQ/file"
+>>>>>>> 4585ddcab0b117d3672e670b4149f83c4fb6173f
       }
     ]
   }
