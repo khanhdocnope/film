@@ -15,7 +15,7 @@ const MOVIE_DATABASE = [
       "Kỳ ảo (Fantasy)"
     ],
     "description": "Khi đặt chân đến thị trấn Alamos xinh đẹp, nhóm Satoshi và những người bạn bất ngờ bị cuốn vào chuỗi hiện tượng kỳ quái khi v không gian và thời gian xung quanh họ liên tục bị bẻ cong, biến dạng. Mọi nghi ngờ đổ dồn vào Darkrai — một Pokémon bóng tối bí ẩn luôn gieo rắc những cơn ác mộng kinh hoàng cho người dân.Tuy nhiên, Darkrai không phải là kẻ thù, mà thực chất là lá chắn cuối cùng bảo vệ thị trấn khỏi thảm họa diệt vong do cuộc đại chiến long trời lở đất giữa hai vị thần không-thời gian huyền thoại: Dialga và Palkia.\"Khi ranh giới giữa thực tại và ác mộng bị xóa nhòa, liệu sự hy sinh cô độc của một Pokémon bị cả thế giới quay lưng có đủ sức ngăn chặn cơn thịnh nộ từ những vị thần kiến tạo vũ trụ?\"",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
