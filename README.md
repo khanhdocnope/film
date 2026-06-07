@@ -4,7 +4,6 @@ Dự án FilmXem hiện tại đã được nâng cấp lên cấu trúc thư m�
 
 ## 1. Cấu trúc thư mục mới
 ```
-d:/film-xem/
 ├── index.html            # Trang chủ (Hiển thị danh sách, tìm kiếm, lưu trữ)
 ├── watch.html            # Trang xem phim riêng biệt (Đầu phát, danh sách tập, gợi ý)
 ├── detail.html           # Trang xem Movie Card (Thông tin chi tiết bộ phim)
