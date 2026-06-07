@@ -122,7 +122,7 @@ def main():
         print("0. Thoát")
         choice = input("Chọn: ").strip()
         if choice == "0":
-            print("👋 Tạm biệt!")
+            print(" Tạm biệt!")
             break
         elif choice == "1":
             list_movies(movies)
