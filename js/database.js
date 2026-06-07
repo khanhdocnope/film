@@ -18,7 +18,7 @@ const MOVIE_DATABASE = [
         "episodeId": 1,
         "title": "tập 1",
 
-        "videoUrl": "https://drive.usercontent.google.com/download?id=1cT3phJ6hr0uhmac9Fbpvy9jVVsdWDsld&export=download&authuser=0&confirm=t&uuid=d1aeec0e-9bff-4547-b1f6-9c0e346fa30a&at=AAINaILMu8gDMXT_ZB5PtfS17kSJ%3A1780794884359"
+        "videoUrl": "https://drive.google.com/file/d/1cT3phJ6hr0uhmac9Fbpvy9jVVsdWDsld/view?"
       }
     ]
   }

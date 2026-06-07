@@ -56,16 +56,64 @@ function loadMovieDetails() {
   renderRelatedMovies();
   adjustPlaylistPosition();
 }
+// Trước khi truyền link vào Player, hãy giải mã nó
+function getDecryptedUrl(encryptedUrl) {
+    const SECRET_KEY = 'MySuperSecretKey123!'; // Phải trùng với key lúc mã hóa
+    try {
+        const bytes = CryptoJS.AES.decrypt(encryptedUrl, SECRET_KEY);
+        const originalUrl = bytes.toString(CryptoJS.enc.Utf8);
+        return originalUrl; // Trả về link Google Drive gốc cho Player
+    } catch (e) {
+        console.error("Giải mã thất bại:", e);
+        return null;
+    }
+}
+// ========== XỬ LÝ VIDEO / IFRAME (ĐÃ CẢI TẠO HỖ TRỢ GOOGLE DRIVE) ==========
 
-// ========== XỬ LÝ VIDEO / IFRAME ==========
+// 1. Kiểm tra xem link có phải định dạng cần nhúng iframe hay không
 function isIframeEmbedUrl(url) {
   if (!url) return false;
-  return url.includes('fcloud.live/cinema/') && url.includes('.');
+  
+  const isFcloud = url.includes('fcloud.live/cinema/') && url.includes('.');
+  const isGoogleDrive = url.includes('drive.google.com');
+  
+  return isFcloud || isGoogleDrive;
 }
 
+// ========== XỬ LÝ VIDEO / IFRAME ==========
+
+// 1. Kiểm tra xem đường liên kết có thuộc diện nhúng iframe hay không
+function isIframeEmbedUrl(url) {
+  if (!url) return false;
+  
+  const isFcloud = url.includes('fcloud.live/cinema/') && url.includes('.');
+  const isGoogleDrive = url.includes('drive.google.com');
+  
+  return isFcloud || isGoogleDrive;
+}
+
+// 2. Chuyển đổi link Google Drive thông thường sang cấu trúc nhúng (/preview)
+function formatGoogleDriveEmbedUrl(url) {
+  if (!url || !url.includes('drive.google.com')) return url;
+  
+  if (url.includes('/file/d/')) {
+    const parts = url.split('/file/d/');
+    if (parts[1]) {
+      // Bóc tách lấy ID độc nhất của file video
+      const fileId = parts[1].split('/')[0].split('?')[0];
+      return `https://drive.google.com/file/d/${fileId}/preview`;
+    }
+  }
+  return url;
+}
+
+// 3. Khởi tạo cấu trúc thẻ iframe
 function createIframeFromUrl(embedUrl, title = 'Video player') {
+  // Tự động ép link về dạng chuẩn hiển thị trước khi gán vào src
+  const finalUrl = formatGoogleDriveEmbedUrl(embedUrl);
+  
   const iframe = document.createElement('iframe');
-  iframe.src = embedUrl;
+  iframe.src = finalUrl;
   iframe.title = title;
   iframe.className = 'watch-iframe';
   iframe.setAttribute('allow', 'autoplay; fullscreen; picture-in-picture');
