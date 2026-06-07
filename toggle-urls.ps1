@@ -19,9 +19,10 @@ $jsFiles = @(
     "$projectRoot\js\detail.js",
     "$projectRoot\js\watch.js",
     "$projectRoot\js\core.js",
+    "$projectRoot\js\Privacy-policy.js",
     "$projectRoot\detail.html",
     "$projectRoot\index.html",
-    "$projectRoot\watch.html"
+    "$projectRoot\Privacy-policy.html"
 )
 
 # Each pair: [CleanURL, HtmlURL]
@@ -31,13 +32,14 @@ $pairs = @(
     @{ Clean = '"watch?id=';   Html = '"watch.html?id='   }
     @{ Clean = "'detail?id=";  Html = "'detail.html?id="  }
     @{ Clean = "'watch?id=";   Html = "'watch.html?id="   }
-    # Các pattern cho './' (phải để pattern dài hơn lên trước)
     @{ Clean = '"./?focus=genres"';  Html = '"index.html?focus=genres"'  }
     @{ Clean = "'./?focus=genres'";  Html = "'index.html?focus=genres'"  }
     @{ Clean = '"./?view=saved"';   Html = '"index.html?view=saved"'   }
     @{ Clean = "'./?view=saved'";   Html = "'index.html?view=saved'"   }
     @{ Clean = '"./"';              Html = '"index.html"'              }
     @{ Clean = "'./'";              Html = "'index.html'"              }
+    @{ Clean = '"Privacy-policy"';              Html = '"Privacy-policy.html"'              }
+    @{ Clean = "'Privacy-policy'";              Html = "'Privacy-policy.html'"              }
 )
 
 $totalChanges = 0
