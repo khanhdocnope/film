@@ -25,12 +25,19 @@ $jsFiles = @(
 )
 
 # Each pair: [CleanURL, HtmlURL]
+# Hỗ trợ cả nháy đơn và nháy kép
 $pairs = @(
-    @{ Clean = '"detail?id=';  Html = '"detail.html?id='  },
-    @{ Clean = '"watch?id=';   Html = '"watch.html?id='   },
-    @{ Clean = '`detail?id=';  Html = '`detail.html?id='  },
-    @{ Clean = '`watch?id=';   Html = '`watch.html?id='   },
-    @{ Clean = '`./';   Html = '`index.html'   }
+    @{ Clean = '"detail?id=';  Html = '"detail.html?id='  }
+    @{ Clean = '"watch?id=';   Html = '"watch.html?id='   }
+    @{ Clean = "'detail?id=";  Html = "'detail.html?id="  }
+    @{ Clean = "'watch?id=";   Html = "'watch.html?id="   }
+    # Các pattern cho './' (phải để pattern dài hơn lên trước)
+    @{ Clean = '"./?focus=genres"';  Html = '"index.html?focus=genres"'  }
+    @{ Clean = "'./?focus=genres'";  Html = "'index.html?focus=genres'"  }
+    @{ Clean = '"./?view=saved"';   Html = '"index.html?view=saved"'   }
+    @{ Clean = "'./?view=saved'";   Html = "'index.html?view=saved'"   }
+    @{ Clean = '"./"';              Html = '"index.html"'              }
+    @{ Clean = "'./'";              Html = "'index.html'"              }
 )
 
 $totalChanges = 0

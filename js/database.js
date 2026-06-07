@@ -7,7 +7,7 @@ const MOVIE_DATABASE = [
     "banner": "https://i.ibb.co/nMX4wrvc/Screenshot-2026-06-07-175152.png",
     "rating": 7.75,
     "year": "năm 2007",
-    "duration": "86 phút",
+    "duration": "89 phút",
     "genres": [
       "Anime",
       "Hành Động",
@@ -32,7 +32,7 @@ const MOVIE_DATABASE = [
     "banner": "https://i.ibb.co/Z1tmRdRp/pokemon-18.png",
     "rating": 8.0,
     "year": "năm 2015",
-    "duration": "76 phút",
+    "duration": "78 phút",
     "genres": [
       "Anime",
       "Hành Động",

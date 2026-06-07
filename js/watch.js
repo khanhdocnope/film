@@ -29,12 +29,12 @@ function getQueryParam(name) {
 function loadMovieDetails() {
   const id = getQueryParam("id");
   if (!id) {
-    window.location.href = "index.html";
+    window.location.href = "./";
     return;
   }
   currentMovie = MOVIE_DATABASE.find(m => m.id === id);
   if (!currentMovie) {
-    window.location.href = "index.html";
+    window.location.href = "./";
     return;
   }
 
@@ -342,9 +342,9 @@ function setupNavigation() {
   WatchDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
-      if (tab === "home") window.location.href = "index.html";
-      else if (tab === "genres") window.location.href = "index.html?focus=genres";
-      else if (tab === "saved") window.location.href = "index.html?view=saved";
+      if (tab === "home") window.location.href = "./";
+      else if (tab === "genres") window.location.href = "./?focus=genres";
+      else if (tab === "saved") window.location.href = "./?view=saved";
     });
   });
   if (WatchDOM.bookmarkBtn) {

@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Search redirection logic if not on homepage
   const _p = window.location.pathname;
-  const isHomepage = _p.endsWith("index.html") ||
+  const isHomepage = _p.endsWith("") ||
     _p.endsWith("/") ||
     (_p !== "/" && !_p.includes("detail") && !_p.includes("watch"));
 
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInputs = document.querySelectorAll(".js-search-input");
     searchInputs.forEach(input => {
       input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && input.value.trim() !== "") {
+        if (e.key === "Enter" && input.value.trim() !== " index.html " ) {
           window.location.href = `./?search=${encodeURIComponent(input.value.trim())}`;
         }
       });
