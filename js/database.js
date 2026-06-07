@@ -3,8 +3,8 @@ const MOVIE_DATABASE = [
     "id": "pokemon-movie-10",
     "title": "Pokemon: Cuộc đối đầu giữa Dialga, Palkia và Darkrai",
     "originalTitle": "Pokémon: The Rise of Darkrai",
-    "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIZo-82j78x4nkAatBCezag-UA6IXA2P4vHA&s",
-    "banner": "https://pic.bstarstatic.com/ugc/7d9677dfdb91dfbd7d02b4155d2cd9f4a513c94a.jpg",
+    "poster": "https://i.ibb.co/nMX4wrvc/Screenshot-2026-06-07-175152.png",
+    "banner": "https://i.ibb.co/nMX4wrvc/Screenshot-2026-06-07-175152.png",
     "rating": 7.75,
     "year": "ngày 14 tháng 7 năm 2007",
     "duration": "86 phút",
@@ -23,6 +23,31 @@ const MOVIE_DATABASE = [
         "videoUrl": "https://drive.google.com/file/d/1cT3phJ6hr0uhmac9Fbpvy9jVVsdWDsld/view"
       }
     ]
+  },
+  {
+    "id": "pokemon-movie-18",
+    "title": "Pokemon: Hoopa và Cuộc đụng độ giữa các thời đại",
+    "originalTitle": "Pokémon the Movie: Hoopa and the Clash of Ages",
+    "poster": "https://i.ibb.co/qY7VsDLt/Screenshot-2026-06-07-200328.png",
+    "banner": "https://i.ibb.co/Z1tmRdRp/pokemon-18.png",
+    "rating": 8.0,
+    "year": "18 tháng 7, 2015",
+    "duration": "76 phút",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "kỳ ảo (Fantasy)"
+    ],
+    "description": "Satoshi và các bạn gặp Hoopa, một Pokémon có chiếc vòng ma thuật dịch chuyển được vạn vật. Sức mạnh hắc ám bị phong ấn của Hoopa bất ngờ trỗi dậy, ép nó phải tự chiến đấu với chính bóng tối của mình. Trận chiến bùng nổ khi cả hai bên cùng triệu hồi hàng loạt Pokémon huyền thoại đại chiến để bảo vệ thành phố sa mạc.",
+    "isFeatured": true,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Thuyết Minh",
+        "videoUrl": "https://drive.google.com/file/d/1_MxNPGfdip-Ses9xTRR6G7i2xz-HLAKv/preview"
+      }
+    ]
   }
 ];
 
@@ -36,6 +61,5 @@ const GENRES = [
   "Kinh Dị",
   "Kịch Tính",
   "Lãng Mạn",
-  "Hình Sự",
-  "kỳ ảo (Fantasy)"
+  "Hình Sự"
 ];
