@@ -36,5 +36,6 @@ const GENRES = [
   "Kinh Dị",
   "Kịch Tính",
   "Lãng Mạn",
-  "Hình Sự"
+  "Hình Sự",
+  "kỳ ảo (Fantasy)"
 ];
