@@ -1,12 +1,12 @@
 // ==========================================
-// TERMS OF USE PAGE CONTROLLER
-// (Cấu trúc và phong cách giống home.js)
+// TERMS OF USE PAGE CONTROLLER - FIXED SYNC THEME
+// (Đồng bộ hoàn toàn với core.js và home.js)
 // ==========================================
 
 (function() {
   'use strict';
 
-  // --- DOM Cache (giống HomeDOM) ---
+  // --- DOM Cache ---
   const TermsDOM = {
     themeToggle: document.getElementById('themeToggleBtn'),
     mobileNavItems: document.querySelectorAll('.mobile-nav-item'),
@@ -15,23 +15,19 @@
     metaThemeColor: document.getElementById('themeColorMeta')
   };
 
-  // --- Hàm đồng bộ giao diện sáng/tối ---
-  function setTheme(isDark) {
+  // --- HÀM ĐỒNG BỘ THEME (DÙNG CHUNG VỚI CORE.JS) ---
+  function applyTheme(isDark) {
+    // Áp dụng class lên body
     if (isDark) {
       document.body.classList.add('dark-mode');
-      if (TermsDOM.metaThemeColor) {
-        TermsDOM.metaThemeColor.setAttribute('content', '#0b1120');
-      }
-      localStorage.setItem('filmxem-theme', 'dark');
     } else {
       document.body.classList.remove('dark-mode');
-      if (TermsDOM.metaThemeColor) {
-        TermsDOM.metaThemeColor.setAttribute('content', '#f8fafc');
-      }
-      localStorage.setItem('filmxem-theme', 'light');
     }
-
-    // Cập nhật icon cho nút toggle
+    // Cập nhật meta theme-color
+    if (TermsDOM.metaThemeColor) {
+      TermsDOM.metaThemeColor.setAttribute('content', isDark ? '#0b1120' : '#f8fafc');
+    }
+    // Cập nhật icon trên nút toggle
     if (TermsDOM.themeToggle) {
       const icon = TermsDOM.themeToggle.querySelector('i');
       if (icon) {
@@ -41,33 +37,68 @@
     }
   }
 
-  // --- Khởi tạo theme từ localStorage hoặc hệ thống ---
+  // --- KHỞI TẠO THEME (ƯU TIÊN DÙNG CORE.JS NẾU CÓ) ---
   function initTheme() {
+    // Thử gọi hàm initTheme từ core.js (nếu tồn tại)
+    if (window.core && typeof window.core.initTheme === 'function') {
+      window.core.initTheme();
+      // Sau khi core khởi tạo, đồng bộ lại giao diện cho trang terms
+      const isDark = document.body.classList.contains('dark-mode');
+      applyTheme(isDark);
+      return;
+    }
+
+    // Nếu không có core.js, tự xử lý dựa trên localStorage
     const savedTheme = localStorage.getItem('filmxem-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
-    setTheme(isDark);
+    applyTheme(isDark);
+    localStorage.setItem('filmxem-theme', isDark ? 'dark' : 'light');
   }
 
-  // --- Thiết lập sự kiện cho nút toggle theme ---
-  function setupThemeToggle() {
-    if (!TermsDOM.themeToggle) return;
-    TermsDOM.themeToggle.addEventListener('click', () => {
+  // --- TOGGLE THEME (GỌI HÀM TỪ CORE NẾU CÓ, KHÔNG THÌ TỰ XỬ LÝ) ---
+  function toggleTheme() {
+    if (window.core && typeof window.core.toggleTheme === 'function') {
+      window.core.toggleTheme();
+      // Cập nhật lại trạng thái sau khi core thực hiện
+      setTimeout(() => {
+        const isDark = document.body.classList.contains('dark-mode');
+        applyTheme(isDark);
+      }, 10);
+    } else {
       const isDark = !document.body.classList.contains('dark-mode');
-      setTheme(isDark);
+      applyTheme(isDark);
+      localStorage.setItem('filmxem-theme', isDark ? 'dark' : 'light');
+    }
+  }
+
+  // --- LẮNG NGHE THAY ĐỔI THEME TỪ TAB KHÁC (QUAN TRỌNG ĐỂ ĐỒNG BỘ) ---
+  function listenToStorageChanges() {
+    window.addEventListener('storage', (e) => {
+      if (e.key === 'filmxem-theme') {
+        const isDark = e.newValue === 'dark';
+        applyTheme(isDark);
+      }
     });
   }
 
-  // --- Điều hướng cho mobile bottom nav (chuyển về trang chính hoặc tủ sách) ---
+  // --- THIẾT LẬP NÚT TOGGLE ---
+  function setupThemeToggle() {
+    if (!TermsDOM.themeToggle) return;
+    TermsDOM.themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      toggleTheme();
+    });
+  }
+
+  // --- MOBILE NAVIGATION (GIỮ NGUYÊN) ---
   function setupMobileNavigation() {
-    // Mapping giữa id nút và đường dẫn
     const navMap = {
       mobileHomeBtn: './',
       mobileGenresBtn: './',
       mobileSearchBtn: './',
       mobileSavedBtn: './?view=saved'
     };
-
     Object.keys(navMap).forEach(id => {
       const btn = document.getElementById(id);
       if (btn) {
@@ -78,52 +109,36 @@
     });
   }
 
-  // --- Cập nhật trạng thái active cho nav (desktop + mobile) dựa trên URL ---
+  // --- ACTIVE NAV STATE ---
   function updateNavActiveState() {
     const isSavedView = window.location.search.includes('view=saved');
-
-    // Desktop nav
     TermsDOM.desktopNavLinks.forEach(link => {
       const view = link.getAttribute('data-view');
-      if (view === 'saved' && isSavedView) {
-        link.classList.add('active');
-      } else if (view === 'home' && !isSavedView) {
-        link.classList.add('active');
-      } else {
-        link.classList.remove('active');
-      }
+      link.classList.toggle('active', (view === 'saved' && isSavedView) || (view === 'home' && !isSavedView));
     });
-
-    // Mobile nav (data-tab)
     TermsDOM.mobileNavItems.forEach(item => {
       const tab = item.getAttribute('data-tab');
-      if (tab === 'saved' && isSavedView) {
-        item.classList.add('active');
-      } else if (tab === 'home' && !isSavedView) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
+      item.classList.toggle('active', (tab === 'saved' && isSavedView) || (tab === 'home' && !isSavedView));
     });
   }
 
-  // --- Ẩn thanh tìm kiếm trên trang terms (không cần chức năng tìm phim) ---
+  // --- ẨN SEARCH TRÊN TERMS PAGE ---
   function hideSearchInputs() {
     TermsDOM.searchInputs.forEach(input => {
       if (input) input.style.display = 'none';
     });
   }
 
-  // --- Khởi chạy toàn bộ khi DOM sẵn sàng (giống home.js) ---
+  // --- KHỞI CHẠY ---
   function init() {
-    initTheme();
-    setupThemeToggle();
-    setupMobileNavigation();
-    updateNavActiveState();
-    hideSearchInputs();
+    initTheme();               // Khởi tạo theme (dùng core nếu có)
+    setupThemeToggle();       // Gán sự kiện cho nút
+    setupMobileNavigation();  // Mobile nav
+    updateNavActiveState();   // Active menu
+    hideSearchInputs();       // Ẩn thanh tìm kiếm
+    listenToStorageChanges(); // Lắng nghe thay đổi từ tab khác
   }
 
-  // Đảm bảo DOM đã tải xong mới chạy
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
