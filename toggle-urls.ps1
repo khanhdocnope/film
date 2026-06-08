@@ -22,26 +22,31 @@ $jsFiles = @(
     "$projectRoot\js\Privacy-policy.js",
     "$projectRoot\detail.html",
     "$projectRoot\index.html",
-    "$projectRoot\Privacy-policy.html"
+    "$projectRoot\Terms-of-use.html",
+    "$projectRoot\watch.html",
+    "$projectRoot\detail.html",
+    "$projectRoot\js\Terms-of-use.js"
+
 )
 
 # Each pair: [CleanURL, HtmlURL]
 # Hỗ trợ cả nháy đơn và nháy kép
 $pairs = @(
     @{ Clean = '"detail?id=';  Html = '"detail.html?id='  }
-    @{ Clean = '"watch?id=';   Html = '"watch.html?id='   }
     @{ Clean = "'detail?id=";  Html = "'detail.html?id="  }
+    @{ Clean = '"watch?id=';   Html = '"watch.html?id='   }
     @{ Clean = "'watch?id=";   Html = "'watch.html?id="   }
-    @{ Clean = '"./?focus=genres"';  Html = '"index.html?focus=genres"'  }
-    @{ Clean = "'./?focus=genres'";  Html = "'index.html?focus=genres'"  }
-    @{ Clean = '"./?view=saved"';   Html = '"index.html?view=saved"'   }
-    @{ Clean = "'./?view=saved'";   Html = "'index.html?view=saved'"   }
-    @{ Clean = '"./"';              Html = '"index.html"'              }
-    @{ Clean = "'./'";              Html = "'index.html'"              }
-    @{ Clean = '"Privacy-policy"';              Html = '"Privacy-policy.html"'              }
-    @{ Clean = "'Privacy-policy'";              Html = "'Privacy-policy.html'"              }
+    @{ Clean = '"./?focus=genres"';    Html = '"index.html?focus=genres"'  }
+    @{ Clean = "'./?focus=genres'";    Html = "'index.html?focus=genres'"  }
+    @{ Clean = '"./?view=saved"';     Html = '"index.html?view=saved"'   }
+    @{ Clean = "'./?view=saved'";     Html = "'index.html?view=saved'"   }
+    @{ Clean = '"./Privacy-policy"';  Html = '"Privacy-policy.html"'     }
+    @{ Clean = "'./Privacy-policy'";  Html = "'Privacy-policy.html'"     }
+    @{ Clean = '"./Terms-of-use"';    Html = '"Terms-of-use.html"'       }
+    @{ Clean = "'./Terms-of-use'";    Html = "'Terms-of-use.html'"       }
+    @{ Clean = '"./"';                Html = '"index.html"'              }
+    @{ Clean = "'./'";                Html = "'index.html'"              }
 )
-
 $totalChanges = 0
 
 Write-Host ""
