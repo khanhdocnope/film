@@ -16,7 +16,7 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   transition: var(--transition-smooth);
 }
@@ -248,7 +248,7 @@ body:not(.dark-mode) .hero-overlay {
   }
 
   .hero-banner {
-    height: 320px;
+    height: 670px;
     border-radius: var(--radius-md);
   }
 
