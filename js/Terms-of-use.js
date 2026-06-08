@@ -129,14 +129,13 @@
     });
   }
 
-  // --- KHỞI CHẠY ---
   function init() {
-    initTheme();               // Khởi tạo theme (dùng core nếu có)
-    setupThemeToggle();       // Gán sự kiện cho nút
-    setupMobileNavigation();  // Mobile nav
-    updateNavActiveState();   // Active menu
-    hideSearchInputs();       // Ẩn thanh tìm kiếm
-    listenToStorageChanges(); // Lắng nghe thay đổi từ tab khác
+    initTheme();       
+    setupThemeToggle();      
+    setupMobileNavigation();
+    updateNavActiveState();  
+    hideSearchInputs();  
+    listenToStorageChanges();
   }
 
   if (document.readyState === 'loading') {

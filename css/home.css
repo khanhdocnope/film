@@ -235,6 +235,7 @@ body:not(.dark-mode) .hero-overlay {
   .hero-banner {
     height: 400px;
   }
+
   .hero-title {
     font-size: 2.2rem;
   }
@@ -310,6 +311,7 @@ body:not(.dark-mode) .hero-overlay {
     gap: 14px;
   }
 }
+
 /* ==========================================
    GENRES SCROLL - CHỈ KÉO NGANG KHI CÓ TỪ 2 DÒNG
    ========================================== */
@@ -326,7 +328,8 @@ body:not(.dark-mode) .hero-overlay {
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Ẩn thanh cuộn nhưng vẫn kéo được */
+  scrollbar-width: none;
+  /* Ẩn thanh cuộn nhưng vẫn kéo được */
   cursor: grab;
   padding-bottom: 12px;
 }
@@ -340,7 +343,8 @@ body:not(.dark-mode) .hero-overlay {
 }
 
 .genres-scroll .genre-badge {
-  flex: 0 0 auto; /* Khi scrollable, badge không co dãn */
+  flex: 0 0 auto;
+  /* Khi scrollable, badge không co dãn */
   white-space: nowrap;
 }
 
@@ -351,12 +355,294 @@ body:not(.dark-mode) .hero-overlay {
     overflow-x: visible;
     justify-content: center;
   }
+
   .genres-scroll.scrollable {
     flex-wrap: wrap;
     overflow-x: visible;
     cursor: default;
   }
+
   .genres-scroll.scrollable:active {
     cursor: default;
+  }
+}
+
+/* ==========================================
+   FEATURED CAROUSEL
+   ========================================== */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.carousel-slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Override hero-overlay để nằm bên trong từng slide */
+.carousel-slide .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0) 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 6%;
+}
+
+body:not(.dark-mode) .carousel-slide .hero-overlay {
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 25%, rgba(15, 23, 42, 0.6) 60%, rgba(15, 23, 42, 0.2) 100%);
+}
+
+/* Nút điều khiển */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  background: var(--accent);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-btn.prev {
+  left: 20px;
+}
+
+.carousel-btn.next {
+  right: 20px;
+}
+
+/* Dots */
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dot.active {
+  width: 24px;
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+/* Responsive mobile cho carousel */
+@media (max-width: 768px) {
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-btn.prev {
+    left: 8px;
+  }
+
+  .carousel-btn.next {
+    right: 8px;
+  }
+
+  .carousel-dots {
+    bottom: 12px;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .dot.active {
+    width: 18px;
+  }
+}
+
+/* ==========================================
+   CAROUSEL CHO NHIỀU BANNER NỔI BẬT
+   ========================================== */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  /* đảm bảo chiều cao cố định */
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #000;
+  /* fallback nếu ảnh lỗi */
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Overlay gradient giống bản gốc */
+.carousel-slide .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0) 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 6%;
+}
+
+body:not(.dark-mode) .carousel-slide .hero-overlay {
+  background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 25%, rgba(15, 23, 42, 0.6) 60%, rgba(15, 23, 42, 0.2) 100%);
+}
+
+/* Nút điều khiển */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  background: var(--accent);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.carousel-btn.prev {
+  left: 20px;
+}
+
+.carousel-btn.next {
+  right: 20px;
+}
+
+/* Dots indicator */
+.carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  z-index: 10;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dot.active {
+  width: 28px;
+  background: var(--accent);
+  border-radius: 20px;
+}
+
+/* Responsive mobile */
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 320px;
+  }
+
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+  }
+
+  .carousel-btn.prev {
+    left: 8px;
+  }
+
+  .carousel-btn.next {
+    right: 8px;
+  }
+
+  .carousel-dots {
+    bottom: 12px;
+    gap: 8px;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+  }
+
+  .dot.active {
+    width: 20px;
   }
 }
