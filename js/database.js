@@ -1,8 +1,8 @@
 const MOVIE_DATABASE = [
   {
     "id": "pokemon-movie-10",
-    "title": "Pokemon: Cuộc đối đầu giữa Dialga, Palkia và Darkrai",
-    "originalTitle": "Pokémon: The Rise of Darkrai",
+    "title": "Pokemon Movie 10: Cuộc đối đầu giữa Dialga, Palkia và Darkrai",
+    "originalTitle": "Pokémon the Movie 10: The Rise of Darkrai",
     "poster": "https://i.ibb.co/nMX4wrvc/Screenshot-2026-06-07-175152.png",
     "banner": "https://i.ibb.co/nMX4wrvc/Screenshot-2026-06-07-175152.png",
     "rating": 7.75,
@@ -26,8 +26,8 @@ const MOVIE_DATABASE = [
   },
   {
     "id": "pokemon-movie-18",
-    "title": "Pokemon: Hoopa và Cuộc đụng độ giữa các thời đại",
-    "originalTitle": "Pokémon the Movie: Hoopa and the Clash of Ages",
+    "title": "Pokemon Movie 18: Hoopa và Cuộc đụng độ giữa các thời đại",
+    "originalTitle": "Pokémon the Movie 18: Hoopa and the Clash of Ages",
     "poster": "https://i.ibb.co/qY7VsDLt/Screenshot-2026-06-07-200328.png",
     "banner": "https://i.ibb.co/Z1tmRdRp/pokemon-18.png",
     "rating": 8.0,
@@ -48,6 +48,101 @@ const MOVIE_DATABASE = [
         "videoUrl": "https://drive.google.com/file/d/1_MxNPGfdip-Ses9xTRR6G7i2xz-HLAKv/preview"
       }
     ]
+  },
+  {
+    "id": "pokemon-movie-2",
+    "title": "pokemon movie 2: Sự Bùng Nổ Của Lugia Huyền Thoại",
+    "originalTitle": "Pokémon The Movie 2000: The Power of One",
+    "poster": "https://vi.wikipedia.org/wiki/T%E1%BA%ADp_tin:Pok%C3%A9mon_The_Movie_2000.jpg",
+    "banner": "https://vi.wikipedia.org/wiki/T%E1%BA%ADp_tin:Pok%C3%A9mon_The_Movie_2000.jpg",
+    "rating": 7.85,
+    "year": "năm 2000",
+    "duration": "85",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Pokémon Movie 2 kể về thảm họa diệt vong đe dọa trái đất khi kẻ thu thập Lawrence III bắt giữ bộ ba chim huyền thoại Articuno, Zapdos và Moltres, khiến thời tiết toàn cầu bị đảo lộn nghiêm trọng. Trở thành \"người được chọn\" theo một lời tiên tri cổ xưa tại quần đảo Orange, Satoshi phải vượt qua giông bão để thu thập ba viên ngọc nguyên tố nhằm xoa dịu thiên nhiên. Cuối cùng, nhờ sự trợ giúp dũng cảm của Pokémon hộ vệ biển cả Lugia cùng giai điệu sáo thần, Satoshi đã kịp thời hoàn thành sứ mệnh, khôi phục lại sự cân bằng cho thế giới.",
+    "isFeatured": true,
+    "episodes": []
+  },
+  {
+    "id": "pokemon-moive-3",
+    "title": "pokemon  movie 3: Hoàng đế của tháp tinh thể: Entei.",
+    "originalTitle": "Pokémon the movie 3: The Movie - Spell of the Unown.",
+    "poster": "",
+    "banner": "",
+    "rating": 7.75,
+    "year": "năm 2000",
+    "duration": "",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Bộ phim kể về Mee, một cô bé cô độc vô tình triệu hồi các Pokémon cổ xưa Unown sau khi cha cô mất tích bí ẩn. Sức mạnh tâm linh của Unown đã biến đổi toàn bộ thị trấn Greenfield xinh đẹp thành một tòa tháp tinh thể băng giá, đồng thời tạo ra Pokémon huyền thoại Entei để làm cha nuôi bảo vệ Mee. Để hoàn thiện gia đình trong mơ của cô bé, Entei đã bắt cóc mẹ của Satoshi (Ash) về tháp. Satoshi cùng các bạn buộc phải đột nhập vào thế giới ảo ảnh đầy nguy hiểm này để giải cứu mẹ, đối đầu với Entei và giúp Mee nhận ra sự thật để giải thoát cho thị trấn.",
+    "isFeatured": false,
+    "episodes": []
+  },
+  {
+    "id": "pokemon-movie-4",
+    "title": "pokemon movie 4: Celebi: Cuộc gặp gỡ vượt thời gian",
+    "originalTitle": "Pokémon the movie 4Ever: Celebi - Voice of the Forest.",
+    "poster": "",
+    "banner": "",
+    "rating": 7.85,
+    "year": "2001",
+    "duration": "",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Bộ phim bắt đầu ở quá khứ khi một cậu bé tên Yukinari (Sammy) cố gắng bảo vệ Pokémon huyền thoại Celebi khỏi tay thợ săn. Để trốn thoát, Celebi đã dùng năng lượng thức tỉnh để dịch chuyển thời gian, vô tình đưa cả hai đến thế giới hiện tại—thời điểm của Satoshi (Ash). Tại đây, Yukinari kết bạn với Satoshi nhưng nguy hiểm lại ập đến khi thợ săn bóng đêm Marauder xuất hiện. Hắn sử dụng bóng chứa bóng tối (Dark Ball) để tẩy não, biến Celebi thành một sinh vật tàn ác nhằm hủy diệt khu rừng. Để giải cứu thần rừng, Satoshi và Yukinari phải hợp lực chiến đấu cùng sự trợ giúp của Pokémon huyền thoại Suicune. Sau khi tà ác bị đánh bại và trật tự khu rừng được khôi phục, Celebi đưa Yukinari trở về thời đại của mình. Bộ phim khép lại với tiết lộ bất ngờ: cậu bé Yukinari năm xưa chính là Giáo sư Okido (Oak) lúc nhỏ.",
+    "isFeatured": true,
+    "episodes": []
+  },
+  {
+    "id": "pokemon-moive-5",
+    "title": "pokemon moive 5: Thần hộ mệnh của Thành phố Nước: Latias và Latios.",
+    "originalTitle": "Pokémon the Movie 5:",
+    "poster": "",
+    "banner": "",
+    "rating": 8.1,
+    "year": "2002",
+    "duration": "",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Bộ phim đưa Satoshi (Ash) và các bạn đến ghé thăm Alto Mare, một thành phố xinh đẹp với những con kênh uốn lượn được lấy cảm hứng từ Venice, Ý. Nơi đây được bảo hộ bởi hai anh em Pokémon huyền thoại Latios và Latias, cùng báu vật linh thiêng gọi là Giọt nước Tâm hồn",
+    "isFeatured": true,
+    "episodes": []
+  },
+  {
+    "id": "pokemon-movie-6",
+    "title": "pokemon movie 6: Ngôi sao bảy đêm của sự nguyện ước: Jirachi.",
+    "originalTitle": "Pokémon the Movie 6: Jirachi - Wish Maker.",
+    "poster": "",
+    "banner": "",
+    "rating": 8.7,
+    "year": "năm 2003",
+    "duration": "",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Bộ phim xoay quanh Jirachi, một Pokémon huyền thoại ngàn năm mới thức tỉnh một lần trong vòng bảy ngày, trùng khớp với thời gian sao chổi Thiên Niên Kỷ đi qua trái đất. Trong dịp này, Satoshi (Ash) và các bạn đã ghé thăm một hội chợ di động và làm quen với ảo thuật gia Butler cùng trợ lý Diane. Jirachi đã thức tỉnh và chọn Masato (Max) – em trai của Haruka (May) – làm người bạn tri kỷ của mình trong những ngày ngắn ngủi này. Tuy nhiên, Butler thực chất là một cựu nhà khoa học của Đội Hỏa Tiễn (Team Rocket), kẻ âm mưu lợi dụng năng lượng sao chổi hấp thụ từ Jirachi để hồi sinh Pokémon siêu cổ đại Groudon. Thí nghiệm thất bại đã tạo ra một \"Groudon bóng tối\" giả mạo, một quái vật tàn ác hấp thụ mọi sinh vật xung quanh để tăng cường sức mạnh. Để sửa chữa sai lầm và bảo vệ các bạn, Butler đã hoàn lương, cùng Satoshi và Masato giúp Jirachi giải phóng nguồn năng lượng tối thượng, tiêu diệt quái thú và đưa Jirachi trở lại giấc ngủ ngàn năm an lành.",
+    "isFeatured": true,
+    "episodes": []
   }
 ];
 
