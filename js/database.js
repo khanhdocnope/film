@@ -182,7 +182,7 @@ const MOVIE_DATABASE = [
     "banner": "https://i.ibb.co/xtFkt3dD/MV5-BMTg5-ODY1-Mz-Et-MGRm-MS00-ZWM3-L.jpg",
     "rating": 8.5,
     "year": "2004",
-    "duration": "(error)",
+    "duration": "100 phút",
     "genres": [
       "Anime",
       "Hành Động",
