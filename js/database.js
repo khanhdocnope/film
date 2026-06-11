@@ -70,7 +70,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/1qQ1OgP5atjfxDWm-wzIY_YGcErXvBVeA/preview"
+        "videoUrl": "https://ia600500.us.archive.org/3/items/pokemon-movie-2-2026/pokemon-movie-2-2026.mp4"
       }
     ]
   },
@@ -221,6 +221,436 @@ const MOVIE_DATABASE = [
         "episodeId": 1,
         "title": "Thuyết minh",
         "videoUrl": "https://drive.google.com/file/d/18Sbtzxndiizh_JUOfMZeFIZCnDL_ES4m/preview"
+      }
+    ]
+  },
+  {
+    "id": "pokemon-ss1",
+    "title": "pokemon Season 1.",
+    "originalTitle": "Pokémon: Indigo League.",
+    "poster": "https://wallpapercave.com/wp/wp7308785.jpg",
+    "banner": "https://wallpapercave.com/wp/wp7308569.jpg",
+    "rating": 8.9,
+    "year": "năm 1997",
+    "duration": "82 tập",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Câu chuyện xoay quanh hành trình của cậu bé 10 tuổi Ash Ketchum (Satoshi) cùng người bạn đồng hành Pikachu. Mục tiêu của Ash là thu thập đủ 8 Huy hiệu Gym tại vùng Kanto để tham gia Giải Liên Minh Pokémon.",
+    "isFeatured": true,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_11.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_12.mp4"
+      },
+      {
+        "episodeId": 13,
+        "title": "Tập 13",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_13.mp4"
+      },
+      {
+        "episodeId": 14,
+        "title": "Tập 14",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_14.mp4"
+      },
+      {
+        "episodeId": 15,
+        "title": "Tập 15",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_15.mp4"
+      },
+      {
+        "episodeId": 16,
+        "title": "Tập 16",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_16.mp4"
+      },
+      {
+        "episodeId": 17,
+        "title": "Tập 17",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_17.mp4"
+      },
+      {
+        "episodeId": 18,
+        "title": "Tập 18",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_18.mp4"
+      },
+      {
+        "episodeId": 19,
+        "title": "Tập 19",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_19.mp4"
+      },
+      {
+        "episodeId": 20,
+        "title": "Tập 20",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_20.mp4"
+      },
+      {
+        "episodeId": 21,
+        "title": "Tập 21",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_21.mp4"
+      },
+      {
+        "episodeId": 22,
+        "title": "Tập 22",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_22.mp4"
+      },
+      {
+        "episodeId": 23,
+        "title": "Tập 23",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_23.mp4"
+      },
+      {
+        "episodeId": 24,
+        "title": "Tập 24",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_24.mp4"
+      },
+      {
+        "episodeId": 25,
+        "title": "Tập 25",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_25.mp4"
+      },
+      {
+        "episodeId": 26,
+        "title": "Tập 26",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_26.mp4"
+      },
+      {
+        "episodeId": 27,
+        "title": "Tập 27",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_27.mp4"
+      },
+      {
+        "episodeId": 28,
+        "title": "Tập 28",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_28.mp4"
+      },
+      {
+        "episodeId": 29,
+        "title": "Tập 29",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_29.mp4"
+      },
+      {
+        "episodeId": 30,
+        "title": "Tập 30",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_30.mp4"
+      },
+      {
+        "episodeId": 31,
+        "title": "Tập 31",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_31.mp4"
+      },
+      {
+        "episodeId": 32,
+        "title": "Tập 32",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_32.mp4"
+      },
+      {
+        "episodeId": 33,
+        "title": "Tập 33",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_33.mp4"
+      },
+      {
+        "episodeId": 34,
+        "title": "Tập 34",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_34.mp4"
+      },
+      {
+        "episodeId": 35,
+        "title": "Tập 35",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_35.mp4"
+      },
+      {
+        "episodeId": 36,
+        "title": "Tập 36",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_36.mp4"
+      },
+      {
+        "episodeId": 37,
+        "title": "Tập 37",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_37.mp4"
+      },
+      {
+        "episodeId": 38,
+        "title": "Tập 38",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_38.mp4"
+      },
+      {
+        "episodeId": 39,
+        "title": "Tập 39",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_39.mp4"
+      },
+      {
+        "episodeId": 40,
+        "title": "Tập 40",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_40.mp4"
+      },
+      {
+        "episodeId": 41,
+        "title": "Tập 41",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_41.mp4"
+      },
+      {
+        "episodeId": 42,
+        "title": "Tập 42",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_42.mp4"
+      },
+      {
+        "episodeId": 43,
+        "title": "Tập 43",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_43.mp4"
+      },
+      {
+        "episodeId": 44,
+        "title": "Tập 44",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_44.mp4"
+      },
+      {
+        "episodeId": 45,
+        "title": "Tập 45",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_45.mp4"
+      },
+      {
+        "episodeId": 46,
+        "title": "Tập 46",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_46.mp4"
+      },
+      {
+        "episodeId": 47,
+        "title": "Tập 47",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_47.mp4"
+      },
+      {
+        "episodeId": 48,
+        "title": "Tập 48",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_48.mp4"
+      },
+      {
+        "episodeId": 49,
+        "title": "Tập 49",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_49.mp4"
+      },
+      {
+        "episodeId": 50,
+        "title": "Tập 50",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_50.mp4"
+      },
+      {
+        "episodeId": 51,
+        "title": "Tập 51",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_51.mp4"
+      },
+      {
+        "episodeId": 52,
+        "title": "Tập 52",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_52.mp4"
+      },
+      {
+        "episodeId": 53,
+        "title": "Tập 53",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_53.mp4"
+      },
+      {
+        "episodeId": 54,
+        "title": "Tập 54",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_54.mp4"
+      },
+      {
+        "episodeId": 55,
+        "title": "Tập 55",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_55.mp4"
+      },
+      {
+        "episodeId": 56,
+        "title": "Tập 56",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_56.mp4"
+      },
+      {
+        "episodeId": 57,
+        "title": "Tập 57",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_57.mp4"
+      },
+      {
+        "episodeId": 58,
+        "title": "Tập 58",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_58.mp4"
+      },
+      {
+        "episodeId": 59,
+        "title": "Tập 59",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_59.mp4"
+      },
+      {
+        "episodeId": 60,
+        "title": "Tập 60",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_60.mp4"
+      },
+      {
+        "episodeId": 61,
+        "title": "Tập 61",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_61.mp4"
+      },
+      {
+        "episodeId": 62,
+        "title": "Tập 62",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_62.mp4"
+      },
+      {
+        "episodeId": 63,
+        "title": "Tập 63",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_63.mp4"
+      },
+      {
+        "episodeId": 64,
+        "title": "Tập 64",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_64.mp4"
+      },
+      {
+        "episodeId": 65,
+        "title": "Tập 65",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_65.mp4"
+      },
+      {
+        "episodeId": 66,
+        "title": "Tập 66",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_66.mp4"
+      },
+      {
+        "episodeId": 67,
+        "title": "Tập 67",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_67.mp4"
+      },
+      {
+        "episodeId": 68,
+        "title": "Tập 68",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_68.mp4"
+      },
+      {
+        "episodeId": 69,
+        "title": "Tập 69",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_69.mp4"
+      },
+      {
+        "episodeId": 70,
+        "title": "Tập 70",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_70.mp4"
+      },
+      {
+        "episodeId": 71,
+        "title": "Tập 71",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_71.mp4"
+      },
+      {
+        "episodeId": 72,
+        "title": "Tập 72",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_72.mp4"
+      },
+      {
+        "episodeId": 73,
+        "title": "Tập 73",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_73.mp4"
+      },
+      {
+        "episodeId": 74,
+        "title": "Tập 74",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_74.mp4"
+      },
+      {
+        "episodeId": 75,
+        "title": "Tập 75",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_75.mp4"
+      },
+      {
+        "episodeId": 76,
+        "title": "Tập 76",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_76.mp4"
+      },
+      {
+        "episodeId": 77,
+        "title": "Tập 77",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_77.mp4"
+      },
+      {
+        "episodeId": 78,
+        "title": "Tập 78",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_78.mp4"
+      },
+      {
+        "episodeId": 79,
+        "title": "Tập 79",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_79.mp4"
+      },
+      {
+        "episodeId": 80,
+        "title": "Tập 80",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_80.mp4"
+      },
+      {
+        "episodeId": 81,
+        "title": "Tập 81",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_81.mp4"
+      },
+      {
+        "episodeId": 82,
+        "title": "Tập 82",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss1/resolve/main/pokemon_tap_82.mp4"
       }
     ]
   }

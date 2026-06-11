@@ -110,6 +110,70 @@ def add_episode(movies):
     save_data(movies)
     print(f" Đã thêm tập '{title}' cho phim '{movie['title']}'")
 
+def add_episodes_bulk(movies):
+    if not movies:
+        print(" ❌ Chưa có phim nào, hãy thêm phim trước.")
+        return
+    
+    list_movies(movies)
+    try:
+        idx = int(input("\nChọn số thứ tự phim cần thêm hàng loạt: ")) - 1
+        if idx < 0 or idx >= len(movies):
+            print(" ❌ Số thứ tự không hợp lệ")
+            return
+        movie = movies[idx]
+    except ValueError:
+        print(" ❌ Vui lòng nhập số")
+        return
+
+    file_path = "link.txt"
+    if not os.path.exists(file_path):
+        print(f" ❌ Không tìm thấy file '{file_path}'. Vui lòng tạo file này ở cùng thư mục script.")
+        return
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        links = [line.strip() for line in f if line.strip()]
+
+    if not links:
+        print(" ❌ File link.txt trống hoặc không có link hợp lệ.")
+        return
+
+    print(f"\n Tìm thấy {len(links)} đường link trong file '{file_path}'.")
+
+    episodes = movie.get('episodes', [])
+    auto_next_id = max([ep['episodeId'] for ep in episodes], default=0) + 1
+    
+    try:
+        start_num_input = input(f"Bắt đầu từ số tập mấy? (Để trống để tự động lấy tiếp theo là Tập {auto_next_id}): ").strip()
+        if start_num_input == "":
+            start_num = auto_next_id
+        else:
+            start_num = int(start_num_input)
+            if start_num < 1:
+                print(" ❌ Số tập phải lớn hơn hoặc bằng 1. Đã tự động đổi về 1.")
+                start_num = 1
+    except ValueError:
+        print(" ❌ Nhập sai định dạng số. Sử dụng số tập tự động mặc định.")
+        start_num = auto_next_id
+
+    current_num = start_num
+    for video_url in links:
+        next_id = max([ep['episodeId'] for ep in episodes], default=0) + 1
+        title = f"Tập {current_num}"
+        
+        new_ep = {
+            "episodeId": next_id,
+            "title": title,
+            "videoUrl": video_url
+        }
+        episodes.append(new_ep)
+        print(f" ➕ Đã chuẩn bị: {title} -> {video_url}")
+        current_num += 1
+
+    movie['episodes'] = episodes
+    save_data(movies)
+    print(f"  Thêm thành công {len(links)} tập phim vào '{movie['title']}'!")
+
 def main():
     movies = load_data()
     while True:
@@ -117,8 +181,9 @@ def main():
         print(" QUẢN LÝ PHIM & TẬP")
         print("1. Xem danh sách phim")
         print("2. Thêm phim mới")
-        print("3. Thêm tập cho phim có sẵn")
-        print("4. Xuất ra database.js (cập nhật file JS)")
+        print("3. Thêm một tập thủ công")
+        print("4. Thêm tập hàng loạt từ file 'link.txt'")
+        print("5. Xuất ra database.js (cập nhật file JS)")
         print("0. Thoát")
         choice = input("Chọn: ").strip()
         if choice == "0":
@@ -131,6 +196,8 @@ def main():
         elif choice == "3":
             add_episode(movies)
         elif choice == "4":
+            add_episodes_bulk(movies)
+        elif choice == "5":
             export_to_js(movies)  
         else:
             print(" Lựa chọn không hợp lệ")
