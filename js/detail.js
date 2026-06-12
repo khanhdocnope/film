@@ -107,6 +107,17 @@ function loadMovieCard() {
   // Related suggestions
   renderRelatedSuggestions();
 
+  // Khôi phục tiến trình xem nếu có để cập nhật nút Xem Phim
+  const progress = getMovieProgress(currentMovie.id);
+  if (progress && DetailDOM.playBtn) {
+    if (progress.time > 0 && progress.duration > 0) {
+      const percent = Math.round((progress.time / progress.duration) * 100);
+      DetailDOM.playBtn.innerHTML = `<i class="fa-solid fa-play"></i> Tiếp Tục Xem (Tập ${progress.episodeIndex + 1} - ${percent}%)`;
+    } else {
+      DetailDOM.playBtn.innerHTML = `<i class="fa-solid fa-play"></i> Tiếp Tục Xem Tập ${progress.episodeIndex + 1}`;
+    }
+  }
+
   // Listeners for poster click & watch button click -> goes to watch.html
   const watchUrl = `watch?id=${currentMovie.id}`;
 
@@ -160,6 +171,28 @@ function renderRelatedSuggestions() {
 
   DetailDOM.relatedGrid.innerHTML = related.map(movie => {
     const mainGenre = movie.genres[0] || "";
+
+    // Kiểm tra tiến trình xem
+    const progress = getMovieProgress(movie.id);
+    let progressBadgeHTML = "";
+    let progressBarHTML = "";
+    if (progress) {
+      const epText = `Tập ${progress.episodeIndex + 1}`;
+      progressBadgeHTML = `
+        <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
+          <i class="fa-solid fa-clock"></i> ${epText}
+        </span>
+      `;
+      if (progress.time > 0 && progress.duration > 0) {
+        const percent = Math.min(100, Math.max(0, (progress.time / progress.duration) * 100));
+        progressBarHTML = `
+          <div class="card-progress-bar-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); z-index: 5; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden;">
+            <div class="card-progress-bar" style="width: ${percent}%; height: 100%; background: var(--accent);"></div>
+          </div>
+        `;
+      }
+    }
+
     return `
       <a href="detail?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
@@ -169,7 +202,9 @@ function renderRelatedSuggestions() {
             <span class="card-badge badge-rating">
               <i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}
             </span>
+            ${progressBadgeHTML}
           </div>
+          ${progressBarHTML}
           <div class="card-hover-overlay">
             <div class="play-circle">
               <i class="fa-solid fa-play"></i>
