@@ -51,7 +51,18 @@ function saveMovieProgress(movieId, episodeIndex, time = 0, duration = 0) {
       duration: duration,
       updatedAt: Date.now()
     };
-    localStorage.setItem("filmXem_progress", JSON.stringify(allProgress));
+
+    // Chuyển thành mảng, sắp xếp theo thời gian cập nhật mới nhất giảm dần
+    const entries = Object.entries(allProgress);
+    entries.sort((a, b) => b[1].updatedAt - a[1].updatedAt);
+
+    // Chỉ giữ lại tối đa 4 tiến trình gần nhất
+    const limitedProgress = {};
+    entries.slice(0, 4).forEach(([key, val]) => {
+      limitedProgress[key] = val;
+    });
+
+    localStorage.setItem("filmXem_progress", JSON.stringify(limitedProgress));
   } catch (e) {
     console.error("Lỗi lưu tiến trình xem:", e);
   }
