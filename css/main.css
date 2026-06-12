@@ -5,65 +5,65 @@
    ========================================== */
 :root {
   /* Fonts */
-  --font-primary: 'Outfit', sans-serif;
-  --font-display: 'Space Grotesk', sans-serif;
+  --font-primary: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Colors (Light Mode Default - Tông Trắng Sang Trọng) */
-  --bg-primary: #f8fafc;       /* Xám trắng tinh khôi */
-  --bg-secondary: #ffffff;     /* Trắng tinh khiết */
-  --text-primary: #0f172a;     /* Slate 900 */
-  --text-secondary: #475569;   /* Slate 600 */
-  --text-muted: #94a3b8;       /* Slate 400 */
+  /* Colors (Light Mode Default - Clean & Flat) */
+  --bg-primary: #F2F2F7;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #1C1C1E;
+  --text-secondary: #8E8E93;
+  --text-muted: #AEAEB2;
   
-  --accent: #f43f5e;           /* Rose 500 (Vibrant Movie Pink/Red) */
-  --accent-rgb: 244, 63, 94;
-  --accent-gradient: linear-gradient(135deg, #ff2e93, #f43f5e);
-  --accent-light: rgba(244, 63, 94, 0.1);
+  --accent: #FF2A54;           /* Vibrant Red/Pink branding */
+  --accent-rgb: 255, 42, 84;
+  --accent-gradient: #FF2A54;
+  --accent-light: rgba(255, 42, 84, 0.08);
   
-  --border-color: rgba(226, 232, 240, 0.8); /* Slate 200 */
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  --backdrop-blur: blur(20px);
+  --border-color: #E5E5EA;
+  --glass-bg: #FFFFFF;
+  --glass-border: #E5E5EA;
+  --backdrop-blur: none;       /* NO Glassmorphism */
   
-  /* Shadows */
-  --shadow-sm: 0 2px 8px -2px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 12px 30px -4px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
-  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.03), 0 8px 16px -6px rgba(0, 0, 0, 0.03);
+  /* Shadows - Minimal usage, very light */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-lg: 0 1px 4px rgba(0,0,0,0.08);
+  --card-shadow: 0 1px 4px rgba(0,0,0,0.08);
   
   /* Radii */
   --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
   --radius-full: 9999px;
 
   /* Layout */
   --header-height: 72px;
   --mobile-nav-height: 64px;
-  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.2s ease;
 }
 
-/* Dark Mode Variables (Chế độ tối) */
+/* Dark Mode Variables (Netflix/Apple TV+ style) */
 body.dark-mode {
-  --bg-primary: #07090e;       /* Đen sâu thẳm */
-  --bg-secondary: #0f1319;     /* Slate 950 */
-  --text-primary: #f8fafc;     /* Slate 50 */
-  --text-secondary: #94a3b8;   /* Slate 400 */
-  --text-muted: #64748b;       /* Slate 500 */
+  --bg-primary: #0A0A0B;       /* Flat deep black */
+  --bg-secondary: #16161A;     /* Solid dark gray */
+  --text-primary: rgba(255, 255, 255, 0.95); /* Pure white (opacity 95%) */
+  --text-secondary: #8E8E93;   /* Muted gray */
+  --text-muted: #636366;       /* Darker muted gray */
   
-  --accent: #ff2e93;           /* Neon Pink */
-  --accent-rgb: 255, 46, 147;
-  --accent-gradient: linear-gradient(135deg, #ff2e93, #ff5e62);
-  --accent-light: rgba(255, 46, 147, 0.15);
+  --accent: #FF2A54;           /* Vibrant Red/Pink */
+  --accent-rgb: 255, 42, 84;
+  --accent-gradient: #FF2A54;
+  --accent-light: rgba(255, 42, 84, 0.1);
   
-  --border-color: rgba(30, 41, 59, 0.7); /* Slate 800 */
-  --glass-bg: rgba(15, 19, 25, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.05);
+  --border-color: #2C2C2E;
+  --glass-bg: #16161A;
+  --glass-border: #2C2C2E;
   
-  --shadow-sm: 0 2px 8px -2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 12px 30px -4px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
-  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-md: 0 1px 4px rgba(0,0,0,0.08);
+  --shadow-lg: 0 1px 4px rgba(0,0,0,0.08);
+  --card-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 /* ==========================================
@@ -334,83 +334,91 @@ img {
    SHARED MOVIE CARDS (FOR RELATED GRIDS)
    ========================================== */
 .movie-card {
-  background-color: var(--bg-secondary);
-  border-radius: var(--radius-md);
-  border: 1.5px solid var(--border-color);
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: var(--transition-smooth);
+  background-color: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  overflow: visible !important;
+  box-shadow: none !important;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: auto;
+  text-decoration: none;
 }
 
 .movie-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--accent);
+  transform: none;
 }
 
 .card-poster-wrapper {
   position: relative;
+  width: 100%;
   aspect-ratio: 2 / 3;
+  border-radius: 8px;
   overflow: hidden;
-  background-color: var(--bg-primary);
+  background-color: var(--bg-secondary);
+  transition: transform 0.2s ease;
+}
+
+.movie-card:hover .card-poster-wrapper {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
 }
 
 .card-poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.movie-card:hover .card-poster {
-  transform: scale(1.08);
 }
 
 .card-badges {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
   z-index: 2;
+  pointer-events: none;
 }
 
 .card-badge {
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-size: 0.75rem;
+  position: absolute;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: none;
 }
 
 .badge-quality {
-  background-color: #0ea5e9;
+  top: 0;
+  left: 0;
+  background-color: var(--accent);
 }
 
 .badge-rating {
-  background-color: #fbbf24;
-  color: #0f172a;
+  top: 0;
+  right: 0;
+  background-color: #FF9500;
+  color: #0A0A0B;
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
 }
 
 .badge-year {
-  background-color: rgba(15, 23, 42, 0.8);
-  backdrop-filter: var(--backdrop-blur);
+  bottom: 0;
+  left: 0;
+  background-color: rgba(10, 10, 11, 0.8);
 }
 
 .card-hover-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.4);
-  backdrop-filter: blur(2px);
+  background: rgba(10, 10, 11, 0.4);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -424,16 +432,16 @@ img {
 }
 
 .play-circle {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-full);
-  background: var(--accent-gradient);
+  background: var(--accent);
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 15px rgba(244, 63, 94, 0.5);
+  font-size: 1.25rem;
+  box-shadow: none;
   transform: scale(0.8);
   transition: var(--transition-smooth);
 }
@@ -443,20 +451,20 @@ img {
 }
 
 .card-info {
-  padding: 12px;
+  padding: 8px 0 0 0;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  background-color: transparent !important;
 }
 
 .card-title {
   font-size: 0.95rem;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.3;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -464,7 +472,7 @@ img {
 .card-title-sub {
   font-size: 0.8rem;
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -475,16 +483,16 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 4px;
-  margin-top: auto;
+  margin-top: 2px;
 }
 
 .card-tag {
   font-size: 0.7rem;
-  color: var(--text-muted);
-  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
   padding: 2px 6px;
   border-radius: 4px;
-  border: 1px solid var(--border-color);
+  border: none;
 }
 
 /* ==========================================

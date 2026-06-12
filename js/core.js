@@ -34,8 +34,7 @@ function toggleBookmark(movieId, callback = null) {
 // Theme management
 function initTheme() {
   const savedTheme = localStorage.getItem("filmXem_theme");
-  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const isDark = savedTheme === "dark" || (!savedTheme && systemPrefersDark);
+  const isDark = savedTheme ? savedTheme === "dark" : true; // Default to dark mode
 
   if (isDark) {
     document.body.classList.add("dark-mode");

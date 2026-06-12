@@ -2,62 +2,91 @@
    HOMEPAGE SPECIFIC STYLES
    ========================================== */
 
-/* Hero Banner */
 .hero-wrapper {
-  margin-top: calc(var(--header-height) + 20px);
-  padding: 0 4%;
+  margin-top: 0;
+  padding: 0;
   position: relative;
+  width: 100%;
 }
 
 .hero-banner {
   position: relative;
   width: 100%;
-  height: 480px;
-  border-radius: var(--radius-lg);
+  height: 560px;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  background-size: contain;
-  background-position: center;
-  transition: var(--transition-smooth);
+  background-color: #000;
 }
 
-.hero-overlay {
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.carousel-slide .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0) 100%);
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(10, 10, 11, 0.3) 60%, transparent 100%),
+              linear-gradient(to right, rgba(10, 10, 11, 0.95) 20%, rgba(10, 10, 11, 0.4) 60%, transparent 100%);
   display: flex;
   align-items: center;
-  padding: 0 6%;
+  padding: var(--header-height) 6% 0;
+  box-sizing: border-box;
 }
 
-body:not(.dark-mode) .hero-overlay {
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 25%, rgba(15, 23, 42, 0.6) 60%, rgba(15, 23, 42, 0.2) 100%);
+body:not(.dark-mode) .carousel-slide .hero-overlay {
+  background: linear-gradient(to top, var(--bg-primary) 0%, rgba(255, 255, 255, 0.3) 60%, transparent 100%),
+              linear-gradient(to right, rgba(255, 255, 255, 0.95) 20%, rgba(255, 255, 255, 0.4) 60%, transparent 100%);
 }
 
 .hero-content {
-  max-width: 550px;
-  color: white;
+  max-width: 600px;
+  color: #FFFFFF;
   z-index: 2;
   animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+body:not(.dark-mode) .hero-content {
+  color: #1C1C1E;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--accent-gradient);
+  background-color: var(--accent);
+  color: white !important;
   padding: 6px 12px;
   border-radius: var(--radius-full);
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.5px;
   text-transform: uppercase;
   margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);
 }
 
 .hero-title {
-  font-family: var(--font-display);
+  font-family: var(--font-primary);
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 1.15;
@@ -69,9 +98,13 @@ body:not(.dark-mode) .hero-overlay {
   align-items: center;
   flex-wrap: wrap;
   gap: 16px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.8);
   margin-bottom: 20px;
+}
+
+body:not(.dark-mode) .hero-meta {
+  color: var(--text-secondary);
 }
 
 .meta-item {
@@ -80,20 +113,32 @@ body:not(.dark-mode) .hero-overlay {
   gap: 4px;
 }
 
+.meta-item i {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body:not(.dark-mode) .meta-item i {
+  color: var(--text-muted);
+}
+
 .meta-item.rating {
-  color: #fbbf24;
+  color: #FF9500;
   font-weight: 700;
 }
 
 .hero-desc {
   font-size: 1rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8);
   margin-bottom: 28px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+body:not(.dark-mode) .hero-desc {
+  color: var(--text-secondary);
 }
 
 .hero-actions {
@@ -102,7 +147,6 @@ body:not(.dark-mode) .hero-overlay {
   gap: 16px;
 }
 
-/* Common buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -110,32 +154,42 @@ body:not(.dark-mode) .hero-overlay {
   gap: 8px;
   padding: 12px 28px;
   font-weight: 600;
-  border-radius: var(--radius-md);
+  border-radius: 8px;
   font-size: 0.95rem;
   transition: var(--transition-smooth);
 }
 
 .btn-primary {
-  background: var(--accent-gradient);
+  background-color: var(--accent);
   color: white;
-  box-shadow: 0 8px 20px rgba(244, 63, 94, 0.3);
+  box-shadow: none;
 }
 
 .btn-primary:hover {
+  background-color: #ff476f;
   transform: translateY(-2px);
-  box-shadow: 0 12px 24px rgba(244, 63, 94, 0.45);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: none;
+}
+
+body:not(.dark-mode) .btn-secondary {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1C1C1E;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.25);
   transform: translateY(-2px);
+}
+
+body:not(.dark-mode) .btn-secondary:hover {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Categories Section */
@@ -151,21 +205,17 @@ body:not(.dark-mode) .hero-overlay {
 }
 
 .section-title {
-  font-family: var(--font-display);
+  font-family: var(--font-primary);
   font-size: 1.5rem;
   font-weight: 700;
-  position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
+/* Remove vertical pink bar indicator */
 .section-title::before {
-  content: '';
-  width: 4px;
-  height: 20px;
-  background: var(--accent-gradient);
-  border-radius: var(--radius-full);
+  display: none !important;
 }
 
 .genres-scroll {
@@ -180,28 +230,26 @@ body:not(.dark-mode) .hero-overlay {
 .genre-badge {
   scroll-snap-align: start;
   flex: 0 0 auto;
-  padding: 10px 20px;
+  padding: 8px 18px;
   background-color: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: none !important;
   border-radius: var(--radius-full);
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-secondary);
   transition: var(--transition-smooth);
-  box-shadow: var(--shadow-sm);
+  box-shadow: none !important;
 }
 
 .genre-badge:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  transform: translateY(-2px);
+  color: var(--text-primary);
+  background-color: var(--border-color);
+  transform: none;
 }
 
 .genre-badge.active {
-  background: var(--accent-gradient);
-  border-color: transparent;
-  color: white;
-  box-shadow: 0 6px 15px rgba(244, 63, 94, 0.25);
+  background-color: var(--accent) !important;
+  color: white !important;
 }
 
 /* Movie Grid */
@@ -211,7 +259,7 @@ body:not(.dark-mode) .hero-overlay {
 
 .movies-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 24px;
 }
 
@@ -228,12 +276,71 @@ body:not(.dark-mode) .hero-overlay {
   color: var(--text-muted);
 }
 
+/* Carousel controls */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(10, 10, 11, 0.5);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-btn:hover {
+  background: var(--accent);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.prev {
+  left: 24px;
+}
+
+.carousel-btn.next {
+  right: 24px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dot.active {
+  width: 24px;
+  background: var(--accent);
+  border-radius: 10px;
+}
+
 /* ==========================================
    HOMEPAGE MEDIA QUERIES
    ========================================== */
 @media (max-width: 900px) {
   .hero-banner {
-    height: 400px;
+    height: 480px;
   }
 
   .hero-title {
@@ -243,19 +350,25 @@ body:not(.dark-mode) .hero-overlay {
 
 @media (max-width: 768px) {
   .hero-wrapper {
-    padding: 0 10px;
-    margin-top: calc(var(--header-height) + 12px);
+    padding: 0;
+    margin-top: 0;
   }
 
   .hero-banner {
-    height: 670px;
-    border-radius: var(--radius-md);
+    height: 480px;
+    border-radius: 0;
   }
 
-  .hero-overlay {
-    padding: 20px;
-    background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 40%, rgba(15, 23, 42, 0.4) 80%, rgba(15, 23, 42, 0) 100%) !important;
+  .carousel-slide .hero-overlay {
+    padding: calc(var(--header-height) + 20px) 16px 20px;
+    background: linear-gradient(to top, var(--bg-primary) 0%, rgba(10, 10, 11, 0.4) 60%, transparent 100%),
+                linear-gradient(to right, rgba(10, 10, 11, 0.95) 20%, rgba(10, 10, 11, 0.4) 60%, transparent 100%) !important;
     align-items: flex-end;
+  }
+
+  body:not(.dark-mode) .carousel-slide .hero-overlay {
+    background: linear-gradient(to top, var(--bg-primary) 0%, rgba(255, 255, 255, 0.4) 60%, transparent 100%),
+                linear-gradient(to right, rgba(255, 255, 255, 0.95) 20%, rgba(255, 255, 255, 0.4) 60%, transparent 100%) !important;
   }
 
   .hero-content {
@@ -269,7 +382,7 @@ body:not(.dark-mode) .hero-overlay {
   }
 
   .hero-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin-bottom: 6px;
   }
 
@@ -291,7 +404,7 @@ body:not(.dark-mode) .hero-overlay {
     flex: 1;
     padding: 10px;
     font-size: 0.85rem;
-    border-radius: var(--radius-sm);
+    border-radius: 8px;
   }
 
   .categories-section {
@@ -310,6 +423,20 @@ body:not(.dark-mode) .hero-overlay {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .carousel-btn.prev {
+    left: 10px;
+  }
+
+  .carousel-btn.next {
+    right: 10px;
+  }
 }
 
 /* ==========================================
@@ -323,13 +450,11 @@ body:not(.dark-mode) .hero-overlay {
   transition: all 0.2s;
 }
 
-/* Khi có class .scrollable -> chuyển sang kéo ngang */
 .genres-scroll.scrollable {
   flex-wrap: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  /* Ẩn thanh cuộn nhưng vẫn kéo được */
   cursor: grab;
   padding-bottom: 12px;
 }
@@ -344,11 +469,9 @@ body:not(.dark-mode) .hero-overlay {
 
 .genres-scroll .genre-badge {
   flex: 0 0 auto;
-  /* Khi scrollable, badge không co dãn */
   white-space: nowrap;
 }
 
-/* Trên desktop: vẫn wrap và không kéo ngang */
 @media (min-width: 768px) {
   .genres-scroll {
     flex-wrap: wrap;
@@ -364,285 +487,5 @@ body:not(.dark-mode) .hero-overlay {
 
   .genres-scroll.scrollable:active {
     cursor: default;
-  }
-}
-
-/* ==========================================
-   FEATURED CAROUSEL
-   ========================================== */
-.carousel-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-}
-
-.carousel-slides {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-.carousel-slide {
-  flex: 0 0 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-/* Override hero-overlay để nằm bên trong từng slide */
-.carousel-slide .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0) 100%);
-  display: flex;
-  align-items: center;
-  padding: 0 6%;
-}
-
-body:not(.dark-mode) .carousel-slide .hero-overlay {
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 25%, rgba(15, 23, 42, 0.6) 60%, rgba(15, 23, 42, 0.2) 100%);
-}
-
-/* Nút điều khiển */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-btn:hover {
-  background: var(--accent);
-  transform: translateY(-50%) scale(1.05);
-}
-
-.carousel-btn.prev {
-  left: 20px;
-}
-
-.carousel-btn.next {
-  right: 20px;
-}
-
-/* Dots */
-.carousel-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  z-index: 10;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.dot.active {
-  width: 24px;
-  background: var(--accent);
-  border-radius: 10px;
-}
-
-/* Responsive mobile cho carousel */
-@media (max-width: 768px) {
-  .carousel-btn {
-    width: 32px;
-    height: 32px;
-    font-size: 0.9rem;
-  }
-
-  .carousel-btn.prev {
-    left: 8px;
-  }
-
-  .carousel-btn.next {
-    right: 8px;
-  }
-
-  .carousel-dots {
-    bottom: 12px;
-    gap: 8px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-  }
-
-  .dot.active {
-    width: 18px;
-  }
-}
-
-/* ==========================================
-   CAROUSEL CHO NHIỀU BANNER NỔI BẬT
-   ========================================== */
-.hero-banner {
-  position: relative;
-  width: 100%;
-  height: 480px;
-  /* đảm bảo chiều cao cố định */
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  background: #000;
-  /* fallback nếu ảnh lỗi */
-}
-
-.carousel-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.carousel-slides {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.5s ease-in-out;
-}
-
-.carousel-slide {
-  flex: 0 0 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-}
-
-/* Overlay gradient giống bản gốc */
-.carousel-slide .hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 0.4) 60%, rgba(15, 23, 42, 0) 100%);
-  display: flex;
-  align-items: center;
-  padding: 0 6%;
-}
-
-body:not(.dark-mode) .carousel-slide .hero-overlay {
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.95) 25%, rgba(15, 23, 42, 0.6) 60%, rgba(15, 23, 42, 0.2) 100%);
-}
-
-/* Nút điều khiển */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  border: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-btn:hover {
-  background: var(--accent);
-  transform: translateY(-50%) scale(1.05);
-}
-
-.carousel-btn.prev {
-  left: 20px;
-}
-
-.carousel-btn.next {
-  right: 20px;
-}
-
-/* Dots indicator */
-.carousel-dots {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  z-index: 10;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.dot.active {
-  width: 28px;
-  background: var(--accent);
-  border-radius: 20px;
-}
-
-/* Responsive mobile */
-@media (max-width: 768px) {
-  .hero-banner {
-    height: 320px;
-  }
-
-  .carousel-btn {
-    width: 34px;
-    height: 34px;
-    font-size: 0.9rem;
-  }
-
-  .carousel-btn.prev {
-    left: 8px;
-  }
-
-  .carousel-btn.next {
-    right: 8px;
-  }
-
-  .carousel-dots {
-    bottom: 12px;
-    gap: 8px;
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-  }
-
-  .dot.active {
-    width: 20px;
   }
 }
