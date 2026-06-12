@@ -31,6 +31,32 @@ function toggleBookmark(movieId, callback = null) {
   window.dispatchEvent(new CustomEvent("bookmarkChanged", { detail: { movieId, isBookmarked: status } }));
 }
 
+// Progress Tracking management
+function getMovieProgress(movieId) {
+  try {
+    const allProgress = JSON.parse(localStorage.getItem("filmXem_progress")) || {};
+    return allProgress[movieId] || null;
+  } catch (e) {
+    console.error("Lỗi đọc tiến trình xem:", e);
+    return null;
+  }
+}
+
+function saveMovieProgress(movieId, episodeIndex, time = 0, duration = 0) {
+  try {
+    const allProgress = JSON.parse(localStorage.getItem("filmXem_progress")) || {};
+    allProgress[movieId] = {
+      episodeIndex: episodeIndex,
+      time: time,
+      duration: duration,
+      updatedAt: Date.now()
+    };
+    localStorage.setItem("filmXem_progress", JSON.stringify(allProgress));
+  } catch (e) {
+    console.error("Lỗi lưu tiến trình xem:", e);
+  }
+}
+
 // Theme management
 function initTheme() {
   const savedTheme = localStorage.getItem("filmXem_theme");
