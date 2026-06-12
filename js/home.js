@@ -230,6 +230,28 @@ function filterAndRenderMovies() {
 
   HomeDOM.moviesGrid.innerHTML = movies.map(movie => {
     const mainGenre = movie.genres[0] || "";
+    
+    // Kiểm tra tiến trình xem
+    const progress = getMovieProgress(movie.id);
+    let progressBadgeHTML = "";
+    let progressBarHTML = "";
+    if (progress) {
+      const epText = `Tập ${progress.episodeIndex + 1}`;
+      progressBadgeHTML = `
+        <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
+          <i class="fa-solid fa-clock"></i> ${epText}
+        </span>
+      `;
+      if (progress.time > 0 && progress.duration > 0) {
+        const percent = Math.min(100, Math.max(0, (progress.time / progress.duration) * 100));
+        progressBarHTML = `
+          <div class="card-progress-bar-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); z-index: 5; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden;">
+            <div class="card-progress-bar" style="width: ${percent}%; height: 100%; background: var(--accent);"></div>
+          </div>
+        `;
+      }
+    }
+
     return `
       <a href="detail?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
@@ -240,7 +262,9 @@ function filterAndRenderMovies() {
               <i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}
             </span>
             <span class="card-badge badge-year">${movie.year}</span>
+            ${progressBadgeHTML}
           </div>
+          ${progressBarHTML}
           <div class="card-hover-overlay">
             <div class="play-circle">
               <i class="fa-solid fa-play"></i>

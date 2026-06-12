@@ -38,6 +38,15 @@ function loadMovieDetails() {
     return;
   }
 
+  // Khôi phục tập phim đã xem trước đó
+  const progress = getMovieProgress(currentMovie.id);
+  if (progress && progress.episodeIndex !== undefined) {
+    const episodes = currentMovie.episodes || [];
+    if (progress.episodeIndex < episodes.length) {
+      currentEpisodeIndex = progress.episodeIndex;
+    }
+  }
+
   document.title = `Xem phim ${currentMovie.title} - FilmXem`;
   WatchDOM.movieTitle.textContent = currentMovie.title;
   WatchDOM.movieOriginalTitle.textContent = currentMovie.originalTitle;
@@ -224,6 +233,8 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
   if (isIframeEmbedUrl(videoUrl)) {
     const iframe = createIframeFromUrl(videoUrl, episodeTitle);
     container.appendChild(iframe);
+    // Lưu tiến trình xem cho iframe
+    saveMovieProgress(currentMovie.id, currentEpisodeIndex, 0, 0);
   } else {
     const video = document.createElement('video');
     video.id = 'videoPlayer';
@@ -238,6 +249,35 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     }
     video.src = playableUrl;
     container.appendChild(video);
+
+    // Khôi phục tiến trình xem nếu có
+    const progress = getMovieProgress(currentMovie.id);
+    if (progress && progress.episodeIndex === currentEpisodeIndex && progress.time > 0) {
+      video.addEventListener('loadedmetadata', () => {
+        video.currentTime = progress.time;
+        const minutes = Math.floor(progress.time / 60);
+        const seconds = Math.floor(progress.time % 60).toString().padStart(2, '0');
+        showToast(`Tiếp tục xem tập ${currentEpisodeIndex + 1} từ ${minutes}:${seconds}`);
+      }, { once: true });
+    }
+
+    // Theo dõi và lưu tiến trình xem phim
+    let lastSavedTime = 0;
+    video.addEventListener('timeupdate', () => {
+      const currentTime = video.currentTime;
+      const duration = video.duration;
+      if (Math.abs(currentTime - lastSavedTime) > 4 && duration > 0) {
+        saveMovieProgress(currentMovie.id, currentEpisodeIndex, currentTime, duration);
+        lastSavedTime = currentTime;
+      }
+    });
+
+    video.addEventListener('pause', () => {
+      if (video.duration > 0) {
+        saveMovieProgress(currentMovie.id, currentEpisodeIndex, video.currentTime, video.duration);
+      }
+    });
+
     const onError = async () => {
       if (video.hasAttribute('data-error-handled')) return;
       video.setAttribute('data-error-handled', 'true');
@@ -275,10 +315,10 @@ function renderEpisodes() {
       changeEpisode(idx);
     });
   });
-  changeEpisode(currentEpisodeIndex);
+  changeEpisode(currentEpisodeIndex, true);
 }
 
-async function changeEpisode(index) {
+async function changeEpisode(index, isRestore = false) {
   currentEpisodeIndex = index;
   const episodes = currentMovie.episodes || [];
   if (!episodes[index]) return;
@@ -293,6 +333,9 @@ async function changeEpisode(index) {
     }
   });
   const episode = episodes[index];
+  if (!isRestore) {
+    saveMovieProgress(currentMovie.id, currentEpisodeIndex, 0, 0);
+  }
   await renderPlayerForUrl(episode.videoUrl, episode.title);
 }
 
@@ -383,6 +426,11 @@ function adjustPlaylistPosition() {
 
 window.addEventListener('beforeunload', () => {
   if (currentVideoBlobUrl) URL.revokeObjectURL(currentVideoBlobUrl);
+  // Lưu tiến trình xem cuối cùng khi rời trang
+  const video = document.getElementById("videoPlayer");
+  if (video && video.duration > 0) {
+    saveMovieProgress(currentMovie.id, currentEpisodeIndex, video.currentTime, video.duration);
+  }
 });
 window.addEventListener('resize', () => setTimeout(adjustPlaylistPosition, 100));
 
