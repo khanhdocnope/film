@@ -119,6 +119,13 @@ button {
     box-shadow: 0 4px 8px rgba(244, 63, 94, 0.3);
 }
 
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
 /* Search container (giữ nguyên để đồng bộ, có thể ẩn bằng JS) */
 .search-container {
     flex: 1;

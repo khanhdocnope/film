@@ -181,6 +181,13 @@ img {
   box-shadow: 0 4px 10px rgba(244, 63, 94, 0.3);
 }
 
+.logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
 /* Search Box */
 .search-container {
   flex: 0 1 450px;
