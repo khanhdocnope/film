@@ -4,6 +4,8 @@
 let currentMovie = null;
 let currentEpisodeIndex = 0;
 let currentVideoBlobUrl = null;
+let autoplayTimer = null;
+let autoplayOverlay = null;
 
 const WatchDOM = {
   videoPlayer: document.getElementById("videoPlayer"),
@@ -206,6 +208,87 @@ function showVideoErrorOnlyRetry(originalUrl) {
   };
 }
 
+// ========== HÀM BỔ TRỢ TỰ ĐỘNG CHUYỂN TẬP ==========
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function cancelAutoplayCountdown() {
+  if (autoplayTimer) {
+    clearInterval(autoplayTimer);
+    autoplayTimer = null;
+  }
+  if (autoplayOverlay) {
+    autoplayOverlay.remove();
+    autoplayOverlay = null;
+  }
+}
+
+function triggerAutoplayCountdown(nextEpIndex) {
+  cancelAutoplayCountdown();
+
+  const wrapper = document.querySelector('.watch-player-wrapper');
+  if (!wrapper) return;
+
+  const episodes = currentMovie.episodes || [];
+  const nextEp = episodes[nextEpIndex];
+  if (!nextEp) return;
+
+  autoplayOverlay = document.createElement('div');
+  autoplayOverlay.className = 'autoplay-next-overlay';
+
+  let countdown = 10;
+
+  autoplayOverlay.innerHTML = `
+    <div class="autoplay-card">
+      <div class="autoplay-info">
+        <span class="autoplay-label">TẬP TIẾP THEO</span>
+        <h4 class="autoplay-title">${escapeHtml(nextEp.title)}</h4>
+      </div>
+      <div class="autoplay-actions">
+        <button class="btn-autoplay btn-cancel">Hủy</button>
+        <button class="btn-autoplay btn-confirm">Phát ngay (${countdown}s)</button>
+      </div>
+    </div>
+  `;
+
+  wrapper.appendChild(autoplayOverlay);
+
+  const cancelBtn = autoplayOverlay.querySelector('.btn-cancel');
+  const confirmBtn = autoplayOverlay.querySelector('.btn-confirm');
+
+  cancelBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    cancelAutoplayCountdown();
+  });
+
+  confirmBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    cancelAutoplayCountdown();
+    changeEpisode(nextEpIndex);
+  });
+
+  autoplayTimer = setInterval(() => {
+    countdown--;
+    if (countdown <= 0) {
+      cancelAutoplayCountdown();
+      changeEpisode(nextEpIndex);
+    } else {
+      if (confirmBtn) {
+        confirmBtn.textContent = `Phát ngay (${countdown}s)`;
+      }
+    }
+  }, 1000);
+}
+
 // Hàm chính render player
 async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
   const activeEpIndex = currentEpisodeIndex; // capture current episode index to prevent race conditions during transitions
@@ -265,14 +348,36 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       }
     }
 
-    // Theo dõi và lưu tiến trình xem phim
+    // Theo dõi và lưu tiến trình xem phim & tự động chuyển tập
     let lastSavedTime = 0;
+    let autoplayPromptShown = false;
     video.addEventListener('timeupdate', () => {
       const currentTime = video.currentTime;
       const duration = video.duration;
+      
+      // Lưu tiến trình định kỳ
       if (Math.abs(currentTime - lastSavedTime) > 4 && duration > 0) {
         saveMovieProgress(currentMovie.id, activeEpIndex, currentTime, duration);
         lastSavedTime = currentTime;
+      }
+
+      // Tự động chuyển tập khi còn dưới 2 phút (120 giây)
+      const nextEpIndex = activeEpIndex + 1;
+      const episodes = currentMovie.episodes || [];
+      if (duration > 120 && nextEpIndex < episodes.length) {
+        const timeLeft = duration - currentTime;
+        if (timeLeft <= 120) {
+          if (!autoplayPromptShown) {
+            autoplayPromptShown = true;
+            triggerAutoplayCountdown(nextEpIndex);
+          }
+        } else {
+          // Reset nếu tua ngược lại trước mốc 2 phút
+          if (autoplayPromptShown) {
+            autoplayPromptShown = false;
+            cancelAutoplayCountdown();
+          }
+        }
       }
     });
 
@@ -323,6 +428,9 @@ function renderEpisodes() {
 }
 
 async function changeEpisode(index, isRestore = false) {
+  // Hủy đếm ngược tự chuyển tập nếu có
+  cancelAutoplayCountdown();
+
   // Trước khi đổi sang tập mới, lưu lại tiến trình và hủy phát tập cũ ngay lập tức để tránh lỗi bất đồng bộ
   if (!isRestore) {
     const prevVideo = document.getElementById("videoPlayer");
