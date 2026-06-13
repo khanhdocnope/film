@@ -203,4 +203,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Search redirection logic if not on homepage
+  const _p = window.location.pathname;
+  const isHomepage = _p.endsWith("") ||
+    _p.endsWith("/") ||
+    (_p !== "/" && !_p.includes("detail") && !_p.includes("watch"));
 
+  if (!isHomepage) {
+    const searchInputs = document.querySelectorAll(".js-search-input");
+    searchInputs.forEach(input => {
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter" && input.value.trim() !== " index.html " ) {
+          window.location.href = `./?search=${encodeURIComponent(input.value.trim())}`;
+        }
+      });
+    });
+  }
+});
+
+// Đăng ký Service Worker cho PWA (Bộ nhớ đệm thông minh)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then((reg) => {
+        console.log('PWA Service Worker đã đăng ký thành công:', reg.scope);
+      })
+      .catch((err) => {
+        console.error('Đăng ký Service Worker thất bại:', err);
+      });
+  });
+}
