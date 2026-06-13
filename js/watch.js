@@ -69,25 +69,25 @@ function loadMovieDetails() {
 }
 // Trước khi truyền link vào Player, hãy giải mã nó
 function getDecryptedUrl(encryptedUrl) {
-    const SECRET_KEY = 'MySuperSecretKey123!'; // Phải trùng với key lúc mã hóa
-    try {
-        const bytes = CryptoJS.AES.decrypt(encryptedUrl, SECRET_KEY);
-        const originalUrl = bytes.toString(CryptoJS.enc.Utf8);
-        return originalUrl; // Trả về link Google Drive gốc cho Player
-    } catch (e) {
-        console.error("Giải mã thất bại:", e);
-        return null;
-    }
+  const SECRET_KEY = 'MySuperSecretKey123!'; // Phải trùng với key lúc mã hóa
+  try {
+    const bytes = CryptoJS.AES.decrypt(encryptedUrl, SECRET_KEY);
+    const originalUrl = bytes.toString(CryptoJS.enc.Utf8);
+    return originalUrl; // Trả về link Google Drive gốc cho Player
+  } catch (e) {
+    console.error("Giải mã thất bại:", e);
+    return null;
+  }
 }
 // ========== XỬ LÝ VIDEO / IFRAME (ĐÃ CẢI TẠO HỖ TRỢ GOOGLE DRIVE) ==========
 
 // 1. Kiểm tra xem link có phải định dạng cần nhúng iframe hay không
 function isIframeEmbedUrl(url) {
   if (!url) return false;
-  
+
   const isFcloud = url.includes('fcloud.live/cinema/') && url.includes('.');
   const isGoogleDrive = url.includes('drive.google.com');
-  
+
   return isFcloud || isGoogleDrive;
 }
 
@@ -96,17 +96,17 @@ function isIframeEmbedUrl(url) {
 // 1. Kiểm tra xem đường liên kết có thuộc diện nhúng iframe hay không
 function isIframeEmbedUrl(url) {
   if (!url) return false;
-  
+
   const isFcloud = url.includes('fcloud.live/cinema/') && url.includes('.');
   const isGoogleDrive = url.includes('drive.google.com');
-  
+
   return isFcloud || isGoogleDrive;
 }
 
 // 2. Chuyển đổi link Google Drive thông thường sang cấu trúc nhúng (/preview)
 function formatGoogleDriveEmbedUrl(url) {
   if (!url || !url.includes('drive.google.com')) return url;
-  
+
   if (url.includes('/file/d/')) {
     const parts = url.split('/file/d/');
     if (parts[1]) {
@@ -122,7 +122,7 @@ function formatGoogleDriveEmbedUrl(url) {
 function createIframeFromUrl(embedUrl, title = 'Video player') {
   // Tự động ép link về dạng chuẩn hiển thị trước khi gán vào src
   const finalUrl = formatGoogleDriveEmbedUrl(embedUrl);
-  
+
   const iframe = document.createElement('iframe');
   iframe.src = finalUrl;
   iframe.title = title;
@@ -160,7 +160,7 @@ async function isVideoUrlAccessible(url) {
   if (url.startsWith('blob:')) return true;
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // Tăng thời gian lắng nghe lên 15 giây
     const response = await fetch(url, { method: 'HEAD', signal: controller.signal });
     clearTimeout(timeoutId);
     return response.ok || response.status === 206;
@@ -341,9 +341,6 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       if (epProgress.time > 0) {
         video.addEventListener('loadedmetadata', () => {
           video.currentTime = epProgress.time;
-          const minutes = Math.floor(epProgress.time / 60);
-          const seconds = Math.floor(epProgress.time % 60).toString().padStart(2, '0');
-          showToast(`Tiếp tục xem tập ${activeEpIndex + 1} từ ${minutes}:${seconds}`);
         }, { once: true });
       }
     }
@@ -354,7 +351,7 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     video.addEventListener('timeupdate', () => {
       const currentTime = video.currentTime;
       const duration = video.duration;
-      
+
       // Lưu tiến trình định kỳ
       if (Math.abs(currentTime - lastSavedTime) > 4 && duration > 0) {
         saveMovieProgress(currentMovie.id, activeEpIndex, currentTime, duration);
@@ -390,9 +387,30 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     const onError = async () => {
       if (video.hasAttribute('data-error-handled')) return;
       video.setAttribute('data-error-handled', 'true');
+
+      // Kiểm tra xem đường truyền thực tế có truy cập được không với timeout 15s mới quyết định báo lỗi
       const accessible = await isVideoUrlAccessible(video.src);
-      if (!accessible) showVideoErrorOnlyRetry(videoUrl);
-      else showVideoErrorOnlyRetry(videoUrl);
+      if (!accessible) {
+        // Nếu thực sự không truy cập được, dừng phát hoàn toàn để tránh phát tiếng ngầm và hiện lỗi
+        try {
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+        } catch (e) {
+          console.warn("Lỗi tắt âm thanh video ngầm:", e);
+        }
+        showVideoErrorOnlyRetry(videoUrl);
+      } else {
+        // Nếu đường truyền vẫn tốt (có thể do lỗi nghẽn tạm thời hoặc bị chặn autoplay), cho phép tự động tải lại
+        console.log("Đường truyền vẫn hoạt động tốt, đang tự động tải lại video...");
+        video.removeAttribute('data-error-handled');
+        try {
+          video.load();
+          await video.play();
+        } catch (e) {
+          console.log("Không thể tự động phát lại sau khi khôi phục:", e);
+        }
+      }
     };
     video.addEventListener('error', onError);
     video.load();
