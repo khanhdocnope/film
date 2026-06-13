@@ -236,14 +236,16 @@ function filterAndRenderMovies() {
     let progressBadgeHTML = "";
     let progressBarHTML = "";
     if (progress) {
-      const epText = `Tập ${progress.episodeIndex + 1}`;
+      const lastEpIdx = progress.lastWatchedEpisodeIndex !== undefined ? progress.lastWatchedEpisodeIndex : 0;
+      const epText = `Tập ${lastEpIdx + 1}`;
       progressBadgeHTML = `
         <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
           <i class="fa-solid fa-clock"></i> ${epText}
         </span>
       `;
-      if (progress.time > 0 && progress.duration > 0) {
-        const percent = Math.min(100, Math.max(0, (progress.time / progress.duration) * 100));
+      const epProgress = progress.episodes ? progress.episodes[lastEpIdx] : null;
+      if (epProgress && epProgress.time > 0 && epProgress.duration > 0) {
+        const percent = Math.min(100, Math.max(0, (epProgress.time / epProgress.duration) * 100));
         progressBarHTML = `
           <div class="card-progress-bar-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); z-index: 5; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden;">
             <div class="card-progress-bar" style="width: ${percent}%; height: 100%; background: var(--accent);"></div>

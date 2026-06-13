@@ -40,10 +40,10 @@ function loadMovieDetails() {
 
   // Khôi phục tập phim đã xem trước đó
   const progress = getMovieProgress(currentMovie.id);
-  if (progress && progress.episodeIndex !== undefined) {
+  if (progress && progress.lastWatchedEpisodeIndex !== undefined) {
     const episodes = currentMovie.episodes || [];
-    if (progress.episodeIndex < episodes.length) {
-      currentEpisodeIndex = progress.episodeIndex;
+    if (progress.lastWatchedEpisodeIndex < episodes.length) {
+      currentEpisodeIndex = progress.lastWatchedEpisodeIndex;
     }
   }
 
@@ -208,6 +208,7 @@ function showVideoErrorOnlyRetry(originalUrl) {
 
 // Hàm chính render player
 async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
+  const activeEpIndex = currentEpisodeIndex; // capture current episode index to prevent race conditions during transitions
   const wrapper = document.querySelector('.watch-player-wrapper');
   if (!wrapper) return;
   let container = document.getElementById('playerContainer');
@@ -234,7 +235,7 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     const iframe = createIframeFromUrl(videoUrl, episodeTitle);
     container.appendChild(iframe);
     // Lưu tiến trình xem cho iframe
-    saveMovieProgress(currentMovie.id, currentEpisodeIndex, 0, 0);
+    saveMovieProgress(currentMovie.id, activeEpIndex, 0, 0);
   } else {
     const video = document.createElement('video');
     video.id = 'videoPlayer';
@@ -250,15 +251,18 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     video.src = playableUrl;
     container.appendChild(video);
 
-    // Khôi phục tiến trình xem nếu có
+    // Khôi phục tiến trình xem nếu có cho tập phim hiện tại
     const progress = getMovieProgress(currentMovie.id);
-    if (progress && progress.episodeIndex === currentEpisodeIndex && progress.time > 0) {
-      video.addEventListener('loadedmetadata', () => {
-        video.currentTime = progress.time;
-        const minutes = Math.floor(progress.time / 60);
-        const seconds = Math.floor(progress.time % 60).toString().padStart(2, '0');
-        showToast(`Tiếp tục xem tập ${currentEpisodeIndex + 1} từ ${minutes}:${seconds}`);
-      }, { once: true });
+    if (progress && progress.episodes && progress.episodes[activeEpIndex]) {
+      const epProgress = progress.episodes[activeEpIndex];
+      if (epProgress.time > 0) {
+        video.addEventListener('loadedmetadata', () => {
+          video.currentTime = epProgress.time;
+          const minutes = Math.floor(epProgress.time / 60);
+          const seconds = Math.floor(epProgress.time % 60).toString().padStart(2, '0');
+          showToast(`Tiếp tục xem tập ${activeEpIndex + 1} từ ${minutes}:${seconds}`);
+        }, { once: true });
+      }
     }
 
     // Theo dõi và lưu tiến trình xem phim
@@ -267,14 +271,14 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       const currentTime = video.currentTime;
       const duration = video.duration;
       if (Math.abs(currentTime - lastSavedTime) > 4 && duration > 0) {
-        saveMovieProgress(currentMovie.id, currentEpisodeIndex, currentTime, duration);
+        saveMovieProgress(currentMovie.id, activeEpIndex, currentTime, duration);
         lastSavedTime = currentTime;
       }
     });
 
     video.addEventListener('pause', () => {
       if (video.duration > 0) {
-        saveMovieProgress(currentMovie.id, currentEpisodeIndex, video.currentTime, video.duration);
+        saveMovieProgress(currentMovie.id, activeEpIndex, video.currentTime, video.duration);
       }
     });
 
@@ -319,6 +323,23 @@ function renderEpisodes() {
 }
 
 async function changeEpisode(index, isRestore = false) {
+  // Trước khi đổi sang tập mới, lưu lại tiến trình và hủy phát tập cũ ngay lập tức để tránh lỗi bất đồng bộ
+  if (!isRestore) {
+    const prevVideo = document.getElementById("videoPlayer");
+    if (prevVideo) {
+      if (prevVideo.duration > 0) {
+        saveMovieProgress(currentMovie.id, currentEpisodeIndex, prevVideo.currentTime, prevVideo.duration);
+      }
+      try {
+        prevVideo.pause();
+        prevVideo.src = "";
+        prevVideo.load();
+      } catch (e) {
+        console.log("Lỗi dừng video cũ:", e);
+      }
+    }
+  }
+
   currentEpisodeIndex = index;
   const episodes = currentMovie.episodes || [];
   if (!episodes[index]) return;
@@ -333,7 +354,12 @@ async function changeEpisode(index, isRestore = false) {
     }
   });
   const episode = episodes[index];
-  if (!isRestore) {
+
+  // Lấy tiến trình xem đã lưu của tập mới
+  const progress = getMovieProgress(currentMovie.id);
+  const epProgress = (progress && progress.episodes) ? progress.episodes[index] : null;
+
+  if (!isRestore && !epProgress) {
     saveMovieProgress(currentMovie.id, currentEpisodeIndex, 0, 0);
   }
   await renderPlayerForUrl(episode.videoUrl, episode.title);
@@ -361,14 +387,16 @@ function renderRelatedMovies() {
     let progressBadgeHTML = "";
     let progressBarHTML = "";
     if (progress) {
-      const epText = `Tập ${progress.episodeIndex + 1}`;
+      const lastEpIdx = progress.lastWatchedEpisodeIndex !== undefined ? progress.lastWatchedEpisodeIndex : 0;
+      const epText = `Tập ${lastEpIdx + 1}`;
       progressBadgeHTML = `
         <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
           <i class="fa-solid fa-clock"></i> ${epText}
         </span>
       `;
-      if (progress.time > 0 && progress.duration > 0) {
-        const percent = Math.min(100, Math.max(0, (progress.time / progress.duration) * 100));
+      const epProgress = progress.episodes ? progress.episodes[lastEpIdx] : null;
+      if (epProgress && epProgress.time > 0 && epProgress.duration > 0) {
+        const percent = Math.min(100, Math.max(0, (epProgress.time / epProgress.duration) * 100));
         progressBarHTML = `
           <div class="card-progress-bar-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); z-index: 5; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden;">
             <div class="card-progress-bar" style="width: ${percent}%; height: 100%; background: var(--accent);"></div>

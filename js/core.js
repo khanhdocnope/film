@@ -45,18 +45,30 @@ function getMovieProgress(movieId) {
 function saveMovieProgress(movieId, episodeIndex, time = 0, duration = 0) {
   try {
     const allProgress = JSON.parse(localStorage.getItem("filmXem_progress")) || {};
-    allProgress[movieId] = {
-      episodeIndex: episodeIndex,
-      time: time,
-      duration: duration,
-      updatedAt: Date.now()
+    
+    // Khởi tạo hoặc lấy tiến trình cũ của bộ phim
+    const movieProgress = allProgress[movieId] || {
+      lastWatchedEpisodeIndex: episodeIndex,
+      episodes: {}
     };
+    
+    // Cập nhật tập phim xem gần nhất
+    movieProgress.lastWatchedEpisodeIndex = episodeIndex;
+    
+    // Cập nhật thời gian của tập phim cụ thể đó
+    movieProgress.episodes[episodeIndex] = {
+      time: time,
+      duration: duration
+    };
+    movieProgress.updatedAt = Date.now();
+    
+    allProgress[movieId] = movieProgress;
 
     // Chuyển thành mảng, sắp xếp theo thời gian cập nhật mới nhất giảm dần
     const entries = Object.entries(allProgress);
     entries.sort((a, b) => b[1].updatedAt - a[1].updatedAt);
 
-    // Chỉ giữ lại tối đa 4 tiến trình gần nhất
+    // Chỉ giữ lại tối đa 4 bộ phim có tiến trình gần nhất
     const limitedProgress = {};
     entries.slice(0, 4).forEach(([key, val]) => {
       limitedProgress[key] = val;
