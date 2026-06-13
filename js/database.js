@@ -44,7 +44,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết Minh",
-        "videoUrl": "https://drive.google.com/file/d/1cT3phJ6hr0uhmac9Fbpvy9jVVsdWDsld/view"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/poke-ca/resolve/main/pokemon-movie-10-2026.mp4"
       }
     ]
   },
@@ -119,7 +119,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/1lLx9StNRcjTRUv6mcZlbXItJWseDeHoG/preview"
+        "videoUrl": "https://ia902903.us.archive.org/33/items/pokemon-movie-3-2026/pokemon-movie-3-2026.mp4"
       }
     ]
   },
@@ -144,7 +144,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/1dwFlzItMI5kkamkHhBYjm8MOxmich7v7/preview"
+        "videoUrl": "https://ia600505.us.archive.org/28/items/pokemon-movie-4-2026/pokemon-movie-4-2026.mp4"
       }
     ]
   },
@@ -169,7 +169,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/1wuBqwdzI-a7vBTsGtT-49YDNQDHWgs9c/preview"
+        "videoUrl": "https://ia601802.us.archive.org/18/items/pokemon-movie-5-2026/pokemon-movie-5-2026.mp4"
       }
     ]
   },
@@ -194,7 +194,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/1XTPEWTnLivCXpP09ctut8KCvzch8zTeQ/preview"
+        "videoUrl": "https://ia600107.us.archive.org/8/items/pokemon-movie-6-2026/pokemon-movie-6-2026.mp4"
       }
     ]
   },
@@ -219,7 +219,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/1Vqar6VjpA7r0OGFHATL0AsVUNFVU-Bmz/preview"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/my-portfolio-assets/resolve/main/pokemon-movie-7-2026.mp4"
       }
     ]
   },
@@ -244,7 +244,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://drive.google.com/file/d/18Sbtzxndiizh_JUOfMZeFIZCnDL_ES4m/preview"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/my-portfolio-assets/resolve/main/pokemon-movie-8-2026.mp4"
       }
     ]
   },
