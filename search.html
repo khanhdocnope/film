@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <!-- SEO Meta Tags -->
+  <title>FilmXem - Kết Quả Tìm Kiếm</title>
+  <meta name="description"
+    content="Kết quả tìm kiếm phim trên FilmXem. Nền tảng xem phim chất lượng cao HD thuyết minh miễn phí.">
+  <meta name="robots" content="noindex, follow">
+  
+  <!-- Favicon / Theme Color for Android / PWA Manifest -->
+  <meta name="theme-color" content="#f8fafc" id="themeColorMeta">
+  <link rel="icon" type="image/png"
+    href="https://i.ibb.co/qMSpTGq1/gugugaga.png">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+
+  <!-- ==========================================
+       MAIN HEADER (DESKTOP)
+       ========================================== -->
+  <header class="main-header" id="mainHeader">
+    <a href="index.html" class="logo" id="headerLogo">
+      <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
+      FilmXem
+    </a>
+
+    <!-- Search Bar -->
+    <div class="search-container" id="searchContainer">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim, thể loại, diễn viên..."
+          id="desktopSearchInput">
+      </div>
+    </div>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" id="desktopNav">
+      <a href="index.html" class="nav-link" id="navHomeLink">Trang Chủ</a>
+      <a href="index.html?view=saved" class="nav-link" id="navSavedLink">Tủ Sách Phim</a>
+    </nav>
+
+    <!-- Header Actions (Theme Toggle) -->
+    <div class="header-actions" id="headerActions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện sáng/tối">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       MOBILE SEARCH OVERLAY
+       ========================================== -->
+  <div class="mobile-search-overlay" id="mobileSearchOverlay">
+    <button class="theme-toggle-btn" id="closeMobileSearch" aria-label="Đóng tìm kiếm">
+      <i class="fa-solid fa-arrow-left"></i>
+    </button>
+    <div class="mobile-search-box">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="mobile-search-input js-search-input" placeholder="Tìm kiếm phim..."
+        id="mobileSearchInput">
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MAIN MOVIES LIST
+       ========================================== -->
+  <main class="movies-section" id="moviesSection" style="margin-top: 100px; min-height: 70vh;">
+    <div class="section-header">
+      <h2 class="section-title" id="sectionTitle">Kết quả tìm kiếm</h2>
+    </div>
+
+    <div class="movies-grid" id="moviesGrid">
+      <!-- Kết quả được tải động bởi js/search.js -->
+    </div>
+  </main>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="main-footer" id="mainFooter">
+    <div class="footer-logo">
+      <div class="logo-icon" style="box-shadow: none;"><i class="fa-solid fa-play animate-pulse"></i></div>
+      FilmXem
+    </div>
+    <div class="footer-links">
+      <a href="Terms-of-use.html" class="footer-link">Điều khoản sử dụng</a>
+      <a href="Privacy-policy.html" class="footer-link">Chính sách bảo mật</a>
+      <a href="https://github.com/khanhdocnope/film/tree/main" class="footer-link">Mã nguồn trang</a>
+    </div>
+    <p>&copy; 2026 FilmXem. Phát triển tối ưu trải nghiệm thiết bị di động.</p>
+  </footer>
+
+  <!-- ==========================================
+       MOBILE BOTTOM NAVIGATION BAR
+       ========================================== -->
+  <nav class="mobile-nav-bar" id="mobileNavBar">
+    <a href="index.html" class="mobile-nav-item" id="btnTabHome">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </a>
+    <a href="index.html?focus=genres" class="mobile-nav-item" id="btnTabGenres">
+      <i class="fa-solid fa-shapes"></i>
+      <span>Thể loại</span>
+    </a>
+    <button class="mobile-nav-item active" data-tab="search" id="btnTabSearch">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Tìm kiếm</span>
+    </button>
+    <a href="index.html?view=saved" class="mobile-nav-item" id="btnTabSaved">
+      <i class="fa-solid fa-bookmark"></i>
+      <span>Đã lưu</span>
+    </a>
+  </nav>
+
+  <!-- Load Scripts -->
+  <script src="js/database.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/search.js"></script>
+</body>
+
+</html>

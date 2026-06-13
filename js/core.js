@@ -209,16 +209,14 @@ document.addEventListener("DOMContentLoaded", () => {
     _p.endsWith("/") ||
     (_p !== "/" && !_p.includes("detail") && !_p.includes("watch"));
 
-  if (!isHomepage) {
-    const searchInputs = document.querySelectorAll(".js-search-input");
-    searchInputs.forEach(input => {
-      input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && input.value.trim() !== "") {
-          window.location.href = `./?search=${encodeURIComponent(input.value.trim())}`;
-        }
-      });
+  const searchInputsForNav = document.querySelectorAll(".js-search-input");
+  searchInputsForNav.forEach(input => {
+    input.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && input.value.trim() !== "") {
+        window.location.href = "search.html?q=" + encodeURIComponent(input.value.trim());
+      }
     });
-  }
+  });
 
   // Khởi tạo CSS cho gợi ý tìm kiếm gợi ý (Autocomplete Suggestions)
   const style = document.createElement("style");

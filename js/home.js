@@ -349,20 +349,8 @@ function renderNormalMovies() {
   if (currentGenre !== "Tất cả") {
     movies = movies.filter(m => m.genres.includes(currentGenre));
   }
-  if (searchQuery.trim() !== "") {
-    const query = searchQuery.toLowerCase().trim();
-    movies = movies.filter(m =>
-      m.title.toLowerCase().includes(query) ||
-      m.originalTitle.toLowerCase().includes(query) ||
-      m.genres.some(g => g.toLowerCase().includes(query))
-    );
-  }
 
-  if (searchQuery.trim() !== "") {
-    HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm cho "${searchQuery}"`;
-  } else {
-    HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
-  }
+  HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
 
   if (movies.length === 0) {
     HomeDOM.moviesGrid.innerHTML = `
@@ -440,19 +428,14 @@ function setupHomeListeners() {
     input.addEventListener("input", (e) => {
       searchQuery = e.target.value;
       HomeDOM.searchInputs.forEach(i => { if (i !== e.target) i.value = searchQuery; });
-      currentView = "home";
-      filterAndRenderMovies();
     });
   });
 
   // Mobile search close
   if (HomeDOM.closeMobileSearch) {
     HomeDOM.closeMobileSearch.addEventListener("click", () => {
-      if (searchQuery !== "") {
-        searchQuery = "";
-        HomeDOM.searchInputs.forEach(input => input.value = "");
-        filterAndRenderMovies();
-      }
+      searchQuery = "";
+      HomeDOM.searchInputs.forEach(input => input.value = "");
     });
   }
 
@@ -508,13 +491,8 @@ function setupHomeListeners() {
 // ========== INITIALIZE ==========
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
-  const searchParam = params.get("search");
   const viewParam = params.get("view");
 
-  if (searchParam) {
-    searchQuery = decodeURIComponent(searchParam);
-    HomeDOM.searchInputs.forEach(input => input.value = searchQuery);
-  }
   if (viewParam === "saved") currentView = "saved";
 
   renderFeaturedMovies();   // Carousel nhiều phim nổi bật

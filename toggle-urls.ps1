@@ -25,8 +25,9 @@ $jsFiles = @(
     "$projectRoot\Terms-of-use.html",
     "$projectRoot\watch.html",
     "$projectRoot\404.html",
-    "$projectRoot\js\Terms-of-use.js"
-
+    "$projectRoot\js\Terms-of-use.js",
+    "$projectRoot\js\search.js",
+    "$projectRoot\search.html"
 )
 
 # Each pair: [CleanURL, HtmlURL]
@@ -36,6 +37,8 @@ $pairs = @(
     @{ Clean = "'detail?id=";  Html = "'detail.html?id="  }
     @{ Clean = '"watch?id=';   Html = '"watch.html?id='   }
     @{ Clean = "'watch?id=";   Html = "'watch.html?id="   }
+    @{ Clean = '"search?q=';   Html = '"search.html?q='   }
+    @{ Clean = "'search?q=";   Html = "'search.html?q="   }
     @{ Clean = '"./?focus=genres"';    Html = '"index.html?focus=genres"'  }
     @{ Clean = "'./?focus=genres'";    Html = "'index.html?focus=genres'"  }
     @{ Clean = '"./?view=saved"';     Html = '"index.html?view=saved"'   }
