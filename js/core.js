@@ -229,12 +229,13 @@ document.addEventListener("DOMContentLoaded", () => {
       background: var(--bg-secondary);
       border: 1.5px solid var(--border-color);
       border-radius: var(--radius-md);
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
       z-index: 99999;
-      max-height: 320px;
+      max-height: 350px;
       overflow-y: auto;
       margin-top: 6px;
       display: none;
+      padding: 6px 0;
     }
     .search-suggestions-dropdown.active {
       display: block;
@@ -242,23 +243,19 @@ document.addEventListener("DOMContentLoaded", () => {
     .suggestion-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
+      gap: 14px;
+      padding: 10px 16px;
       cursor: pointer;
       transition: background-color 0.2s ease;
-      border-bottom: 1px solid var(--border-color);
       text-decoration: none;
       color: inherit;
-    }
-    .suggestion-item:last-child {
-      border-bottom: none;
     }
     .suggestion-item:hover {
       background-color: var(--accent-light);
     }
     .suggestion-poster {
-      width: 38px;
-      height: 52px;
+      width: 44px;
+      height: 60px;
       object-fit: cover;
       border-radius: 4px;
       border: 1px solid var(--border-color);
@@ -268,9 +265,10 @@ document.addEventListener("DOMContentLoaded", () => {
       min-width: 0;
       display: flex;
       flex-direction: column;
+      gap: 4px;
     }
     .suggestion-title {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: var(--text-primary);
       white-space: nowrap;
@@ -278,26 +276,11 @@ document.addEventListener("DOMContentLoaded", () => {
       text-overflow: ellipsis;
     }
     .suggestion-subtitle {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       color: var(--text-secondary);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      margin-top: 2px;
-    }
-    .suggestion-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 2px;
-      font-size: 0.7rem;
-    }
-    .suggestion-rating {
-      color: var(--accent);
-      font-weight: bold;
-    }
-    .suggestion-year {
-      color: var(--text-muted);
     }
     .suggestion-empty {
       padding: 16px;
@@ -334,22 +317,26 @@ document.addEventListener("DOMContentLoaded", () => {
       const matches = typeof MOVIE_DATABASE !== 'undefined' ? MOVIE_DATABASE.filter(movie => 
         (movie.title && movie.title.toLowerCase().includes(val)) ||
         (movie.originalTitle && movie.originalTitle.toLowerCase().includes(val))
-      ).slice(0, 5) : [];
+      ).slice(0, 6) : []; // Hiển thị tối đa 6 kết quả giống ảnh mẫu
 
       if (matches.length === 0) {
         dropdown.innerHTML = '<div class="suggestion-empty">Không tìm thấy phim phù hợp</div>';
       } else {
         dropdown.innerHTML = matches.map(movie => {
+          // Định dạng phụ đề giống ảnh mẫu: "Tập X VietSub" hoặc "Full VietSub"
+          let subtitleText = "Full VietSub";
+          if (movie.episodes && movie.episodes.length > 1) {
+            subtitleText = `Tập ${movie.episodes.length} VietSub`;
+          } else if (movie.duration && movie.duration.includes("tập")) {
+            subtitleText = `Full ${movie.duration.split(" ")[0]} VietSub`;
+          }
+          
           return `
             <a href="detail.html?id=${movie.id}" class="suggestion-item">
               <img class="suggestion-poster" src="${movie.poster}" alt="${movie.title}">
               <div class="suggestion-info">
                 <div class="suggestion-title">${movie.title}</div>
-                <div class="suggestion-subtitle">${movie.originalTitle}</div>
-                <div class="suggestion-meta">
-                  <span class="suggestion-rating"><i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}</span>
-                  <span class="suggestion-year">${movie.year}</span>
-                </div>
+                <div class="suggestion-subtitle">${subtitleText}</div>
               </div>
             </a>
           `;
