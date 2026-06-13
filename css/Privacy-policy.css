@@ -2,17 +2,17 @@
        GLOBAL VARIABLES & RESET (tương tự giao diện chính)
        ========================================== */
 :root {
-    --bg-primary: #F2F2F7;
+    --bg-primary: #F5F3FF;
     --bg-secondary: #FFFFFF;
-    --bg-tertiary: #E5E5EA;
+    --bg-tertiary: #F3E8FF;
     --surface-card: #FFFFFF;
     --text-primary: #1C1C1E;
     --text-secondary: #8E8E93;
     --text-muted: #AEAEB2;
-    --border-color: #E5E5EA;
-    --accent: #FF2A54;
-    --accent-light: rgba(255, 42, 84, 0.08);
-    --accent-gradient: #FF2A54;
+    --border-color: #E9D5FF;
+    --accent: #FF9500;
+    --accent-light: rgba(255, 149, 0, 0.08);
+    --accent-gradient: #8B5CF6;
     --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
     --shadow-md: 0 1px 4px rgba(0,0,0,0.08);
     --shadow-lg: 0 1px 4px rgba(0,0,0,0.08);
@@ -28,14 +28,17 @@
 }
 
 body.dark-mode {
-    --bg-primary: #0A0A0B;
-    --bg-secondary: #16161A;
-    --bg-tertiary: #2C2C2E;
-    --surface-card: #16161A;
+    --bg-primary: #0D0B14;
+    --bg-secondary: #151221;
+    --bg-tertiary: #1C182E;
+    --surface-card: #151221;
     --text-primary: rgba(255, 255, 255, 0.95);
     --text-secondary: #8E8E93;
     --text-muted: #636366;
-    --border-color: #2C2C2E;
+    --border-color: #2E224F;
+    --accent: #FFB000;
+    --accent-light: rgba(255, 176, 0, 0.1);
+    --accent-gradient: #A78BFA;
     --shadow-sm: 0 1px 4px rgba(0,0,0,0.08);
     --shadow-md: 0 1px 4px rgba(0,0,0,0.08);
 }

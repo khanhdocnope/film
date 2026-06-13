@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=192&auto=format&fit=crop&q=80",
+      "src": "https://i.ibb.co/qMSpTGq1/gugugaga.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=512&auto=format&fit=crop&q=80",
+      "src": "https://i.ibb.co/qMSpTGq1/gugugaga.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
