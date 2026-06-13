@@ -71,7 +71,7 @@ def add_movie(movies):
         "isFeatured": is_featured,
         "episodes": []
     }
-    movies.append(new_movie)
+    movies.insert(0, new_movie) # Chèn phim mới vào đầu danh sách để hiển thị trên cùng
     save_data(movies)
     print(f"Đã thêm phim '{title}'")
 

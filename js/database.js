@@ -1,5 +1,29 @@
 const MOVIE_DATABASE = [
   {
+    "id": "your-name",
+    "title": "tên cậu là gì ?",
+    "originalTitle": "your name ?",
+    "poster": "https://i.ibb.co/Mk07T2Fx/43-1.jpg",
+    "banner": "https://i.ibb.co/Mk07T2Fx/43-1.jpg",
+    "rating": 9.1,
+    "year": "năm 2016",
+    "duration": "107 phút",
+    "genres": [
+      "Anime",
+      "Kỳ Ảo",
+      "Lãng Mạn"
+    ],
+    "description": "Bộ phim kể về câu chuyện của hai thiếu niên xa lạ bỗng nhiên bị hoán đổi cơ thể cho nhau. Mitsuha: Một nữ sinh trung học sống tại vùng thôn quê hẻo lánh Itomori, luôn khao khát cuộc sống nhộn nhịp ở thủ đô. Taki: Một nam sinh trung học sống tại trung tâm thành phố Tokyo bận rộn, có đam mê với hội họa và kiến trúc.Sau khi hoán đổi, họ phải học cách sống cuộc đời của đối phương thông qua những lời nhắn để lại trên điện thoại hay sổ tay. Tuy nhiên, một sự kiện thiên văn kỳ bí (sao chổi đi qua Trái Đất) đã hé lộ một bí mật động trời về khoảng cách thời gian giữa cả hai, buộc họ phải tìm cách cứu lấy nhau trước khi ký ức về tên của đối phương hoàn toàn biến mất.",
+    "isFeatured": true,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Vietsub",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/ten-ban-la-gi/resolve/main/video_downloaded.mp4"
+      }
+    ]
+  },
+  {
     "id": "pokemon-movie-10",
     "title": "Pokemon Movie 10: Cuộc đối đầu giữa Dialga, Palkia và Darkrai",
     "originalTitle": "Pokémon the Movie 10: The Rise of Darkrai",
