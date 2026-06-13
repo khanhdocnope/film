@@ -35,7 +35,7 @@ function createMovieCardHTML(movie) {
   }
 
   return `
-    <a href="detail.html?id=${movie.id}" class="movie-card" style="position: relative;">
+    <a href="detail?id=${movie.id}" class="movie-card" style="position: relative;">
       <div class="card-poster-wrapper">
         <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
         <div class="card-badges">

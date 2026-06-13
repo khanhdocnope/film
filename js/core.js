@@ -170,19 +170,43 @@ document.addEventListener("DOMContentLoaded", () => {
     themeToggleBtn.addEventListener("click", toggleTheme);
   }
 
+  // Tự động thêm nút tìm kiếm trên di động vào headerActions
+  const headerActions = document.getElementById("headerActions");
+  if (headerActions && !document.getElementById("mobileSearchTriggerBtn")) {
+    const searchBtn = document.createElement("button");
+    searchBtn.className = "theme-toggle-btn";
+    searchBtn.id = "mobileSearchTriggerBtn";
+    searchBtn.setAttribute("aria-label", "Mở tìm kiếm");
+    searchBtn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+    
+    if (themeToggleBtn) {
+      headerActions.insertBefore(searchBtn, themeToggleBtn);
+    } else {
+      headerActions.appendChild(searchBtn);
+    }
+  }
+
   // Mobile search opening click listener
   const btnTabSearch = document.getElementById("btnTabSearch");
   const mobileSearchOverlay = document.getElementById("mobileSearchOverlay");
   const mobileSearchInput = document.getElementById("mobileSearchInput");
   const closeMobileSearch = document.getElementById("closeMobileSearch");
+  const mobileSearchTriggerBtn = document.getElementById("mobileSearchTriggerBtn");
 
-  if (btnTabSearch && mobileSearchOverlay) {
-    btnTabSearch.addEventListener("click", () => {
+  const openMobileSearchFunc = () => {
+    if (mobileSearchOverlay) {
       mobileSearchOverlay.classList.add("active");
       if (mobileSearchInput) {
         setTimeout(() => mobileSearchInput.focus(), 100);
       }
-    });
+    }
+  };
+
+  if (btnTabSearch && mobileSearchOverlay) {
+    btnTabSearch.addEventListener("click", openMobileSearchFunc);
+  }
+  if (mobileSearchTriggerBtn && mobileSearchOverlay) {
+    mobileSearchTriggerBtn.addEventListener("click", openMobileSearchFunc);
   }
 
   if (closeMobileSearch && mobileSearchOverlay) {
@@ -213,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
   searchInputsForNav.forEach(input => {
     input.addEventListener("keypress", (e) => {
       if (e.key === "Enter" && input.value.trim() !== "") {
-        window.location.href = "search.html?q=" + encodeURIComponent(input.value.trim());
+        window.location.href = "search?q=" + encodeURIComponent(input.value.trim());
       }
     });
   });
@@ -332,7 +356,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           
           return `
-            <a href="detail.html?id=${movie.id}" class="suggestion-item">
+            <a href="detail?id=${movie.id}" class="suggestion-item">
               <img class="suggestion-poster" src="${movie.poster}" alt="${movie.title}">
               <div class="suggestion-info">
                 <div class="suggestion-title">${movie.title}</div>

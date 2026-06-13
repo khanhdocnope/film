@@ -285,6 +285,10 @@ img {
   background-color: var(--border-color);
 }
 
+#mobileSearchTriggerBtn {
+  display: none;
+}
+
 /* ==========================================
    MOBILE SEARCH OVERLAY
    ========================================== */
@@ -607,6 +611,10 @@ img {
 
   .desktop-nav, .search-container {
     display: none;
+  }
+
+  #mobileSearchTriggerBtn {
+    display: flex;
   }
 
   .main-header {
