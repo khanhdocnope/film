@@ -178,20 +178,177 @@ function renderGenres() {
   checkAndEnableGenresScroll();
 }
 
-// ========== FILTER & RENDER MOVIES ==========
-function filterAndRenderMovies() {
-  if (!HomeDOM.moviesGrid) return;
+// ========== HELPER: TẠO HTML CHO CARD PHIM ==========
+function createMovieCardHTML(movie, type = "normal") {
+  const mainGenre = movie.genres[0] || "";
+  const progress = getMovieProgress(movie.id);
+  let progressBadgeHTML = "";
+  let progressBarHTML = "";
+
+  if (progress) {
+    const lastEpIdx = progress.lastWatchedEpisodeIndex !== undefined ? progress.lastWatchedEpisodeIndex : 0;
+    const epText = `Tập ${lastEpIdx + 1}`;
+    progressBadgeHTML = `
+      <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
+        <i class="fa-solid fa-clock"></i> ${epText}
+      </span>
+    `;
+    const epProgress = progress.episodes ? progress.episodes[lastEpIdx] : null;
+    if (epProgress && epProgress.time > 0 && epProgress.duration > 0) {
+      const percent = Math.min(100, Math.max(0, (epProgress.time / epProgress.duration) * 100));
+      progressBarHTML = `
+        <div class="card-progress-bar-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); z-index: 5; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden;">
+          <div class="card-progress-bar" style="width: ${percent}%; height: 100%; background: var(--accent);"></div>
+        </div>
+      `;
+    }
+  }
+
+  // Nút hành động nhanh ở góc poster (chỉ dành cho trang thư viện)
+  let actionBtnHTML = "";
+  if (type === "watching") {
+    actionBtnHTML = `
+      <button class="btn-quick-action btn-clear-progress" data-id="${movie.id}" title="Xóa tiến trình xem">
+        <i class="fa-solid fa-trash-can"></i>
+      </button>
+    `;
+  } else if (type === "saved") {
+    actionBtnHTML = `
+      <button class="btn-quick-action btn-remove-bookmark" data-id="${movie.id}" title="Bỏ lưu khỏi thư viện">
+        <i class="fa-solid fa-bookmark"></i>
+      </button>
+    `;
+  }
+
+  return `
+    <a href="detail?id=${movie.id}" class="movie-card" style="position: relative;">
+      <div class="card-poster-wrapper">
+        <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
+        <div class="card-badges">
+          <span class="card-badge badge-quality">HD</span>
+          <span class="card-badge badge-rating"><i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}</span>
+          <span class="card-badge badge-year">${movie.year}</span>
+          ${progressBadgeHTML}
+        </div>
+        ${progressBarHTML}
+        ${actionBtnHTML}
+        <div class="card-hover-overlay"><div class="play-circle"><i class="fa-solid fa-play"></i></div></div>
+      </div>
+      <div class="card-info">
+        <h3 class="card-title">${movie.title}</h3>
+        <p class="card-title-sub">${movie.originalTitle}</p>
+        <div class="card-tags">
+          <span class="card-tag">${mainGenre}</span>
+          <span class="card-tag">${movie.duration}</span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+// ========== RENDER THƯ VIỆN CÁ NHÂN (TIẾN TRÌNH & ĐÃ LƯU) ==========
+function renderLibraryView() {
+  HomeDOM.moviesGrid.className = "library-wrapper";
+  HomeDOM.moviesGrid.style.cssText = "display: flex; flex-direction: column; gap: 40px; width: 100%;";
+
+  // Lấy dữ liệu phim đang xem và phim đã lưu
+  let watchingMovies = MOVIE_DATABASE.filter(m => getMovieProgress(m.id) !== null);
+  let savedMovies = MOVIE_DATABASE.filter(m => isBookmarked(m.id));
+
+  // Áp dụng bộ lọc thể loại & tìm kiếm nếu có
+  if (currentGenre !== "Tất cả") {
+    watchingMovies = watchingMovies.filter(m => m.genres.includes(currentGenre));
+    savedMovies = savedMovies.filter(m => m.genres.includes(currentGenre));
+  }
+  if (searchQuery.trim() !== "") {
+    const query = searchQuery.toLowerCase().trim();
+    const filterFn = m =>
+      m.title.toLowerCase().includes(query) ||
+      m.originalTitle.toLowerCase().includes(query) ||
+      m.genres.some(g => g.toLowerCase().includes(query));
+    watchingMovies = watchingMovies.filter(filterFn);
+    savedMovies = savedMovies.filter(filterFn);
+  }
+
+  // Cập nhật tiêu đề thư viện
+  if (searchQuery.trim() !== "") {
+    HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm trong thư viện: "${searchQuery}"`;
+  } else if (currentGenre !== "Tất cả") {
+    HomeDOM.sectionTitle.textContent = `Thư viện - Thể loại: ${currentGenre}`;
+  } else {
+    HomeDOM.sectionTitle.textContent = "Thư viện cá nhân của bạn";
+  }
+
+  const watchingGridHTML = watchingMovies.length > 0
+    ? `<div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px; width: 100%;">${watchingMovies.map(m => createMovieCardHTML(m, "watching")).join("")}</div>`
+    : `<p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 10px; margin-bottom: 20px;"><i class="fa-solid fa-circle-info"></i> Bạn chưa có phim nào đang xem dở.</p>`;
+
+  const savedGridHTML = savedMovies.length > 0
+    ? `<div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px; width: 100%;">${savedMovies.map(m => createMovieCardHTML(m, "saved")).join("")}</div>`
+    : `<p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 10px; margin-bottom: 20px;"><i class="fa-solid fa-circle-info"></i> Thư viện phim đang trống.</p>`;
+
+  HomeDOM.moviesGrid.innerHTML = `
+    <div class="library-section" style="display: flex; flex-direction: column; width: 100%;">
+      <h3 class="library-section-title">
+        <i class="fa-solid fa-clock-rotate-left"></i> TIẾP TỤC XEM
+      </h3>
+      ${watchingGridHTML}
+    </div>
+    <div class="library-section" style="display: flex; flex-direction: column; width: 100%; margin-top: 20px;">
+      <h3 class="library-section-title">
+        <i class="fa-solid fa-bookmark"></i> PHIM ĐÃ LƯU
+      </h3>
+      ${savedGridHTML}
+    </div>
+  `;
+
+  setupLibraryActionListeners();
+}
+
+// ========== THIẾT LẬP LẮNG NGHE SỰ KIỆN CHO THƯ VIỆN ==========
+function setupLibraryActionListeners() {
+  HomeDOM.moviesGrid.querySelectorAll(".btn-clear-progress").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = btn.getAttribute("data-id");
+      try {
+        const allProgress = JSON.parse(localStorage.getItem("filmXem_progress")) || {};
+        if (allProgress[id]) {
+          delete allProgress[id];
+          localStorage.setItem("filmXem_progress", JSON.stringify(allProgress));
+          showToast("Đã xóa tiến trình xem của phim.");
+          filterAndRenderMovies();
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  });
+
+  HomeDOM.moviesGrid.querySelectorAll(".btn-remove-bookmark").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = btn.getAttribute("data-id");
+      toggleBookmark(id, () => {
+        showToast("Đã bỏ lưu khỏi thư viện.");
+        filterAndRenderMovies();
+      });
+    });
+  });
+}
+
+// ========== RENDER DANH SÁCH PHIM BÌNH THƯỜNG ==========
+function renderNormalMovies() {
+  HomeDOM.moviesGrid.className = "movies-grid";
+  HomeDOM.moviesGrid.style.cssText = "";
 
   let movies = MOVIE_DATABASE;
-
-  if (currentView === "saved") {
-    movies = movies.filter(m => isBookmarked(m.id));
-  }
 
   if (currentGenre !== "Tất cả") {
     movies = movies.filter(m => m.genres.includes(currentGenre));
   }
-
   if (searchQuery.trim() !== "") {
     const query = searchQuery.toLowerCase().trim();
     movies = movies.filter(m =>
@@ -201,21 +358,10 @@ function filterAndRenderMovies() {
     );
   }
 
-  // Cập nhật tiêu đề
-  if (currentView === "saved") {
-    if (searchQuery.trim() !== "") {
-      HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm trong tủ sách: "${searchQuery}"`;
-    } else if (currentGenre !== "Tất cả") {
-      HomeDOM.sectionTitle.textContent = `Tủ sách phim - Thể loại: ${currentGenre}`;
-    } else {
-      HomeDOM.sectionTitle.textContent = "Phim đã lưu của bạn";
-    }
+  if (searchQuery.trim() !== "") {
+    HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm cho "${searchQuery}"`;
   } else {
-    if (searchQuery.trim() !== "") {
-      HomeDOM.sectionTitle.textContent = `Kết quả tìm kiếm cho "${searchQuery}"`;
-    } else {
-      HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
-    }
+    HomeDOM.sectionTitle.textContent = currentGenre === "Tất cả" ? "Phim mới cập nhật" : `Thể loại: ${currentGenre}`;
   }
 
   if (movies.length === 0) {
@@ -228,62 +374,17 @@ function filterAndRenderMovies() {
     return;
   }
 
-  HomeDOM.moviesGrid.innerHTML = movies.map(movie => {
-    const mainGenre = movie.genres[0] || "";
-    
-    // Kiểm tra tiến trình xem
-    const progress = getMovieProgress(movie.id);
-    let progressBadgeHTML = "";
-    let progressBarHTML = "";
-    if (progress) {
-      const lastEpIdx = progress.lastWatchedEpisodeIndex !== undefined ? progress.lastWatchedEpisodeIndex : 0;
-      const epText = `Tập ${lastEpIdx + 1}`;
-      progressBadgeHTML = `
-        <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
-          <i class="fa-solid fa-clock"></i> ${epText}
-        </span>
-      `;
-      const epProgress = progress.episodes ? progress.episodes[lastEpIdx] : null;
-      if (epProgress && epProgress.time > 0 && epProgress.duration > 0) {
-        const percent = Math.min(100, Math.max(0, (epProgress.time / epProgress.duration) * 100));
-        progressBarHTML = `
-          <div class="card-progress-bar-container" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background: rgba(255, 255, 255, 0.2); z-index: 5; border-radius: 0 0 var(--radius-sm) var(--radius-sm); overflow: hidden;">
-            <div class="card-progress-bar" style="width: ${percent}%; height: 100%; background: var(--accent);"></div>
-          </div>
-        `;
-      }
-    }
+  HomeDOM.moviesGrid.innerHTML = movies.map(movie => createMovieCardHTML(movie, "normal")).join("");
+}
 
-    return `
-      <a href="detail?id=${movie.id}" class="movie-card">
-        <div class="card-poster-wrapper">
-          <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
-          <div class="card-badges">
-            <span class="card-badge badge-quality">HD</span>
-            <span class="card-badge badge-rating">
-              <i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}
-            </span>
-            <span class="card-badge badge-year">${movie.year}</span>
-            ${progressBadgeHTML}
-          </div>
-          ${progressBarHTML}
-          <div class="card-hover-overlay">
-            <div class="play-circle">
-              <i class="fa-solid fa-play"></i>
-            </div>
-          </div>
-        </div>
-        <div class="card-info">
-          <h3 class="card-title">${movie.title}</h3>
-          <p class="card-title-sub">${movie.originalTitle}</p>
-          <div class="card-tags">
-            <span class="card-tag">${mainGenre}</span>
-            <span class="card-tag">${movie.duration}</span>
-          </div>
-        </div>
-      </a>
-    `;
-  }).join("");
+// ========== FILTER & RENDER MOVIES ==========
+function filterAndRenderMovies() {
+  if (!HomeDOM.moviesGrid) return;
+  if (currentView === "saved") {
+    renderLibraryView();
+  } else {
+    renderNormalMovies();
+  }
 }
 
 // ========== UPDATE NAVIGATION STATES ==========
