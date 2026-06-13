@@ -1,5 +1,205 @@
 const MOVIE_DATABASE = [
   {
+    "id": "pokemon-ss2",
+    "title": "pokemon Season 2: Quần đảo Orange",
+    "originalTitle": "Pokémon: Adventures in the Orange Islands",
+    "poster": "https://i.ibb.co/LzrhZP7t/pkm-ss2.jpg",
+    "banner": "https://i.ibb.co/LzrhZP7t/pkm-ss2.jpg",
+    "rating": 7.6,
+    "year": "năm 1999",
+    "duration": "36 tập",
+    "genres": [
+      "Anime",
+      "Hành Động",
+      "Phiêu Lưu",
+      "Kỳ ảo (Fantasy)"
+    ],
+    "description": "Sau khi kết thúc giải đấu Kanto, Giáo sư Oak giao cho Ash nhiệm vụ đến Quần đảo Orange để nhận một quả cầu Poké Ball bí ẩn mang tên GS Ball từ Giáo sư Ivy. Khi đặt chân đến vùng đất này, Ash bị thu hút bởi giải đấu Liên Minh Orange và quyết định tham gia thử thách.",
+    "isFeatured": false,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_11.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_12.mp4"
+      },
+      {
+        "episodeId": 13,
+        "title": "Tập 13",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_13.mp4"
+      },
+      {
+        "episodeId": 14,
+        "title": "Tập 14",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_14.mp4"
+      },
+      {
+        "episodeId": 15,
+        "title": "Tập 15",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_15.mp4"
+      },
+      {
+        "episodeId": 16,
+        "title": "Tập 16",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_16.mp4"
+      },
+      {
+        "episodeId": 17,
+        "title": "Tập 17",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_17.mp4"
+      },
+      {
+        "episodeId": 18,
+        "title": "Tập 18",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_18.mp4"
+      },
+      {
+        "episodeId": 19,
+        "title": "Tập 19",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_19.mp4"
+      },
+      {
+        "episodeId": 20,
+        "title": "Tập 20",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_20.mp4"
+      },
+      {
+        "episodeId": 21,
+        "title": "Tập 21",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_21.mp4"
+      },
+      {
+        "episodeId": 22,
+        "title": "Tập 22",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_22.mp4"
+      },
+      {
+        "episodeId": 23,
+        "title": "Tập 23",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_23.mp4"
+      },
+      {
+        "episodeId": 24,
+        "title": "Tập 24",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_24.mp4"
+      },
+      {
+        "episodeId": 25,
+        "title": "Tập 25",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_25.mp4"
+      },
+      {
+        "episodeId": 26,
+        "title": "Tập 26",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_26.mp4"
+      },
+      {
+        "episodeId": 27,
+        "title": "Tập 27",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_27.mp4"
+      },
+      {
+        "episodeId": 28,
+        "title": "Tập 28",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_28.mp4"
+      },
+      {
+        "episodeId": 29,
+        "title": "Tập 29",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_29.mp4"
+      },
+      {
+        "episodeId": 30,
+        "title": "Tập 30",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_30.mp4"
+      },
+      {
+        "episodeId": 31,
+        "title": "Tập 31",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_31.mp4"
+      },
+      {
+        "episodeId": 32,
+        "title": "Tập 32",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_32.mp4"
+      },
+      {
+        "episodeId": 33,
+        "title": "Tập 33",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_33.mp4"
+      },
+      {
+        "episodeId": 34,
+        "title": "Tập 34",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_34.mp4"
+      },
+      {
+        "episodeId": 35,
+        "title": "Tập 35",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_35.mp4"
+      },
+      {
+        "episodeId": 36,
+        "title": "Tập 36",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/pokemon-ss2/resolve/main/video_tap_36.mp4"
+      }
+    ]
+  },
+  {
     "id": "your-name",
     "title": "tên cậu là gì ?",
     "originalTitle": "your name ?",
@@ -44,7 +244,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết Minh",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/poke-ca/resolve/main/pokemon-movie-10-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/1cT3phJ6hr0uhmac9Fbpvy9jVVsdWDsld/view"
       }
     ]
   },
@@ -119,7 +319,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://ia902903.us.archive.org/33/items/pokemon-movie-3-2026/pokemon-movie-3-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/1lLx9StNRcjTRUv6mcZlbXItJWseDeHoG/preview"
       }
     ]
   },
@@ -144,7 +344,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://ia600505.us.archive.org/28/items/pokemon-movie-4-2026/pokemon-movie-4-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/1dwFlzItMI5kkamkHhBYjm8MOxmich7v7/preview"
       }
     ]
   },
@@ -169,7 +369,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://ia601802.us.archive.org/18/items/pokemon-movie-5-2026/pokemon-movie-5-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/1wuBqwdzI-a7vBTsGtT-49YDNQDHWgs9c/preview"
       }
     ]
   },
@@ -194,7 +394,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://ia600107.us.archive.org/8/items/pokemon-movie-6-2026/pokemon-movie-6-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/1XTPEWTnLivCXpP09ctut8KCvzch8zTeQ/preview"
       }
     ]
   },
@@ -219,7 +419,7 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/my-portfolio-assets/resolve/main/pokemon-movie-7-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/1Vqar6VjpA7r0OGFHATL0AsVUNFVU-Bmz/preview"
       }
     ]
   },
@@ -244,13 +444,13 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Thuyết minh",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/my-portfolio-assets/resolve/main/pokemon-movie-8-2026.mp4"
+        "videoUrl": "https://drive.google.com/file/d/18Sbtzxndiizh_JUOfMZeFIZCnDL_ES4m/preview"
       }
     ]
   },
   {
     "id": "pokemon-ss1",
-    "title": "",
+    "title": "pokemon Season .",
     "originalTitle": "Pokémon: Indigo League",
     "poster": "https://wallpapercave.com/wp/wp7308785.jpg",
     "banner": "https://wallpapercave.com/wp/wp7308569.jpg",

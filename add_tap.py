@@ -150,10 +150,10 @@ def add_episodes_bulk(movies):
         else:
             start_num = int(start_num_input)
             if start_num < 1:
-                print(" ❌ Số tập phải lớn hơn hoặc bằng 1. Đã tự động đổi về 1.")
+                print("  Số tập phải lớn hơn hoặc bằng 1. Đã tự động đổi về 1.")
                 start_num = 1
     except ValueError:
-        print(" ❌ Nhập sai định dạng số. Sử dụng số tập tự động mặc định.")
+        print("  Nhập sai định dạng số. Sử dụng số tập tự động mặc định.")
         start_num = auto_next_id
 
     current_num = start_num
@@ -167,7 +167,7 @@ def add_episodes_bulk(movies):
             "videoUrl": video_url
         }
         episodes.append(new_ep)
-        print(f" ➕ Đã chuẩn bị: {title} -> {video_url}")
+        print(f"  Đã chuẩn bị: {title} -> {video_url}")
         current_num += 1
 
     movie['episodes'] = episodes
