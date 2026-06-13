@@ -31,12 +31,12 @@ function getQueryParam(name) {
 function loadMovieDetails() {
   const id = getQueryParam("id");
   if (!id) {
-    window.location.href = "./";
+    window.location.href = "index.html";
     return;
   }
   currentMovie = MOVIE_DATABASE.find(m => m.id === id);
   if (!currentMovie) {
-    window.location.href = "./";
+    window.location.href = "index.html";
     return;
   }
 
@@ -532,7 +532,7 @@ function renderRelatedMovies() {
     }
 
     return `
-      <a href="detail?id=${movie.id}" class="movie-card">
+      <a href="detail.html?id=${movie.id}" class="movie-card">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           <div class="card-badges">
@@ -563,9 +563,9 @@ function setupNavigation() {
   WatchDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
-      if (tab === "home") window.location.href = "./";
-      else if (tab === "genres") window.location.href = "./?focus=genres";
-      else if (tab === "saved") window.location.href = "./?view=saved";
+      if (tab === "home") window.location.href = "index.html";
+      else if (tab === "genres") window.location.href = "index.html?focus=genres";
+      else if (tab === "saved") window.location.href = "index.html?view=saved";
     });
   });
   if (WatchDOM.bookmarkBtn) {

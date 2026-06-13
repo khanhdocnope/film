@@ -213,12 +213,167 @@ document.addEventListener("DOMContentLoaded", () => {
     const searchInputs = document.querySelectorAll(".js-search-input");
     searchInputs.forEach(input => {
       input.addEventListener("keypress", (e) => {
-        if (e.key === "Enter" && input.value.trim() !== " index.html " ) {
+        if (e.key === "Enter" && input.value.trim() !== "") {
           window.location.href = `./?search=${encodeURIComponent(input.value.trim())}`;
         }
       });
     });
   }
+
+  // Khởi tạo CSS cho gợi ý tìm kiếm gợi ý (Autocomplete Suggestions)
+  const style = document.createElement("style");
+  style.textContent = `
+    .search-suggestions-dropdown {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      z-index: 99999;
+      max-height: 320px;
+      overflow-y: auto;
+      margin-top: 6px;
+      display: none;
+    }
+    .search-suggestions-dropdown.active {
+      display: block;
+    }
+    .suggestion-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      border-bottom: 1px solid var(--border-color);
+      text-decoration: none;
+      color: inherit;
+    }
+    .suggestion-item:last-child {
+      border-bottom: none;
+    }
+    .suggestion-item:hover {
+      background-color: var(--accent-light);
+    }
+    .suggestion-poster {
+      width: 38px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+    .suggestion-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .suggestion-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .suggestion-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .suggestion-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2px;
+      font-size: 0.7rem;
+    }
+    .suggestion-rating {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .suggestion-year {
+      color: var(--text-muted);
+    }
+    .suggestion-empty {
+      padding: 16px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Tạo và thiết lập dropdown gợi ý cho tất cả các ô tìm kiếm
+  const allSearchInputs = document.querySelectorAll(".js-search-input");
+  allSearchInputs.forEach(input => {
+    const parentBox = input.closest('.search-box') || input.closest('.mobile-search-box');
+    if (!parentBox) return;
+
+    parentBox.style.position = 'relative';
+
+    let dropdown = parentBox.querySelector('.search-suggestions-dropdown');
+    if (!dropdown) {
+      dropdown = document.createElement('div');
+      dropdown.className = 'search-suggestions-dropdown';
+      parentBox.appendChild(dropdown);
+    }
+
+    input.addEventListener('input', (e) => {
+      const val = e.target.value.trim().toLowerCase();
+      if (!val) {
+        dropdown.classList.remove('active');
+        dropdown.innerHTML = '';
+        return;
+      }
+
+      const matches = typeof MOVIE_DATABASE !== 'undefined' ? MOVIE_DATABASE.filter(movie => 
+        (movie.title && movie.title.toLowerCase().includes(val)) ||
+        (movie.originalTitle && movie.originalTitle.toLowerCase().includes(val))
+      ).slice(0, 5) : [];
+
+      if (matches.length === 0) {
+        dropdown.innerHTML = '<div class="suggestion-empty">Không tìm thấy phim phù hợp</div>';
+      } else {
+        dropdown.innerHTML = matches.map(movie => {
+          return `
+            <a href="detail.html?id=${movie.id}" class="suggestion-item">
+              <img class="suggestion-poster" src="${movie.poster}" alt="${movie.title}">
+              <div class="suggestion-info">
+                <div class="suggestion-title">${movie.title}</div>
+                <div class="suggestion-subtitle">${movie.originalTitle}</div>
+                <div class="suggestion-meta">
+                  <span class="suggestion-rating"><i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}</span>
+                  <span class="suggestion-year">${movie.year}</span>
+                </div>
+              </div>
+            </a>
+          `;
+        }).join('');
+      }
+      dropdown.classList.add('active');
+    });
+
+    // Ẩn dropdown khi click ra ngoài
+    document.addEventListener('click', (e) => {
+      if (!parentBox.contains(e.target)) {
+        dropdown.classList.remove('active');
+      }
+    });
+
+    // Ẩn dropdown khi nhấn Escape
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('active');
+      }
+    });
+  });
 });
 
 // Đăng ký Service Worker cho PWA (Bộ nhớ đệm thông minh)

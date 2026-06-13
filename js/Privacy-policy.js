@@ -19,10 +19,10 @@
   // --- Setup mobile bottom navigation (redirect to main site) ---
   function setupMobileNav() {
     const redirectMap = [
-      { element: dom.mobileHome, url: './' },
-      { element: dom.mobileGenres, url: './' },
-      { element: dom.mobileSearch, url: './' },
-      { element: dom.mobileSaved, url: './?view=saved' }
+      { element: dom.mobileHome, url: 'index.html' },
+      { element: dom.mobileGenres, url: 'index.html' },
+      { element: dom.mobileSearch, url: 'index.html' },
+      { element: dom.mobileSaved, url: 'index.html?view=saved' }
     ];
 
     redirectMap.forEach(item => {
@@ -53,9 +53,9 @@
       if (isPrivacyPage) return;
 
       const href = link.getAttribute('href');
-      if (href === './' && (currentPath === '/' || currentPath === '')) {
+      if (href === 'index.html' && (currentPath === '/' || currentPath === '')) {
         link.classList.add('active');
-      } else if (href === './?view=saved' && window.location.search.includes('view=saved')) {
+      } else if (href === 'index.html?view=saved' && window.location.search.includes('view=saved')) {
         link.classList.add('active');
       }
     });

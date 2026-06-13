@@ -16,10 +16,10 @@
   // --- MOBILE NAVIGATION ---
   function setupMobileNavigation() {
     const navMap = {
-      mobileHomeBtn: './',
-      mobileGenresBtn: './',
-      mobileSearchBtn: './',
-      mobileSavedBtn: './?view=saved'
+      mobileHomeBtn: 'index.html',
+      mobileGenresBtn: 'index.html',
+      mobileSearchBtn: 'index.html',
+      mobileSavedBtn: 'index.html?view=saved'
     };
     Object.keys(navMap).forEach(id => {
       const btn = document.getElementById(id);

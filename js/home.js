@@ -58,7 +58,7 @@ function renderFeaturedMovies() {
                 </div>
                 <p class="hero-desc">${escapeHtml(movie.description)}</p>
                 <div class="hero-actions">
-                  <a href="detail?id=${movie.id}" class="btn btn-primary">
+                  <a href="detail.html?id=${movie.id}" class="btn btn-primary">
                     <i class="fa-solid fa-play"></i> Xem ngay
                   </a>
                   <button class="btn btn-secondary js-hero-bookmark" data-id="${movie.id}">
@@ -221,7 +221,7 @@ function createMovieCardHTML(movie, type = "normal") {
   }
 
   return `
-    <a href="detail?id=${movie.id}" class="movie-card" style="position: relative;">
+    <a href="detail.html?id=${movie.id}" class="movie-card" style="position: relative;">
       <div class="card-poster-wrapper">
         <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
         <div class="card-badges">
