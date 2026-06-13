@@ -89,7 +89,7 @@ const MOVIE_DATABASE = [
       "Kỳ ảo (Fantasy)"
     ],
     "description": "Pokémon Movie 2 kể về thảm họa diệt vong đe dọa trái đất khi kẻ thu thập Lawrence III bắt giữ bộ ba chim huyền thoại Articuno, Zapdos và Moltres, khiến thời tiết toàn cầu bị đảo lộn nghiêm trọng. Trở thành \"người được chọn\" theo một lời tiên tri cổ xưa tại quần đảo Orange, Satoshi phải vượt qua giông bão để thu thập ba viên ngọc nguyên tố nhằm xoa dịu thiên nhiên. Cuối cùng, nhờ sự trợ giúp dũng cảm của Pokémon hộ vệ biển cả Lugia cùng giai điệu sáo thần, Satoshi đã kịp thời hoàn thành sứ mệnh, khôi phục lại sự cân bằng cho thế giới.",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
@@ -250,8 +250,8 @@ const MOVIE_DATABASE = [
   },
   {
     "id": "pokemon-ss1",
-    "title": "pokemon Season 1.",
-    "originalTitle": "Pokémon: Indigo League.",
+    "title": "",
+    "originalTitle": "Pokémon: Indigo League",
     "poster": "https://wallpapercave.com/wp/wp7308785.jpg",
     "banner": "https://wallpapercave.com/wp/wp7308569.jpg",
     "rating": 8.9,
