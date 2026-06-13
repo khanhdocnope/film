@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <!-- SEO Meta Tags -->
+  <title>Không tìm thấy trang - FilmXem</title>
+  <meta name="description"
+    content="Trang bạn tìm kiếm không tồn tại hoặc đã bị xóa trên FilmXem. Quay lại trang chủ để tìm các bộ phim chất lượng cao khác.">
+  <meta name="robots" content="noindex, follow">
+
+  <!-- Favicon / Theme Color for Android / PWA Manifest -->
+  <meta name="theme-color" content="#f8fafc" id="themeColorMeta">
+  <link rel="icon" type="image/png"
+    href="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=32&auto=format&fit=crop&q=80">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/error.css">
+</head>
+
+<body>
+
+  <!-- ==========================================
+       MAIN HEADER (DESKTOP)
+       ========================================== -->
+  <header class="main-header" id="mainHeader">
+    <a href="./" class="logo" id="headerLogo">
+      <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
+      FilmXem
+    </a>
+
+    <!-- Search Bar (Redirects to home on submit) -->
+    <div class="search-container" id="searchContainer">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input js-search-input" placeholder="Tìm tên phim, thể loại, diễn viên..."
+          id="desktopSearchInput">
+      </div>
+    </div>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav" id="desktopNav">
+      <a href="./" class="nav-link">Trang Chủ</a>
+      <a href="./?view=saved" class="nav-link">Tủ Sách Phim</a>
+    </nav>
+
+    <!-- Header Actions (Theme Toggle) -->
+    <div class="header-actions" id="headerActions">
+      <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Đổi giao diện sáng/tối">
+        <i class="fa-solid fa-moon"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       MAIN ERROR CONTENT
+       ========================================== -->
+  <main class="error-container">
+    <div class="error-card">
+      <div class="error-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h1 class="error-code">404</h1>
+      <h2 class="error-title">Không Tìm Thấy Trang</h2>
+      <p class="error-message">
+        Đường dẫn bạn truy cập có thể không hợp lệ, đã bị thay đổi hoặc không còn tồn tại trên hệ thống FilmXem.
+      </p>
+      <div class="error-actions">
+        <a href="./" class="btn-error-home">
+          <i class="fa-solid fa-house"></i> Quay lại Trang Chủ
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       MAIN FOOTER
+       ========================================== -->
+  <footer class="main-footer">
+    <div class="footer-links">
+      <a href="./" class="footer-link">Trang Chủ</a>
+      <a href="./Terms-of-use" class="footer-link">Điều khoản sử dụng</a>
+      <a href="Privacy-policy" class="footer-link">Chính sách bảo mật</a>
+      <a href="https://github.com/khanhdocnope/film/tree/main" class="footer-link">Mã nguồn trang</a>
+    </div>
+    <p>&copy; 2026 FilmXem. Phát triển tối ưu trải nghiệm thiết bị di động.</p>
+  </footer>
+
+  <!-- ==========================================
+       MOBILE BOTTOM NAVIGATION BAR
+       ========================================== -->
+  <nav class="mobile-nav-bar" id="mobileNavBar">
+    <button class="mobile-nav-item" data-tab="home" id="btnTabHome" onclick="window.location.href='./'">
+      <i class="fa-solid fa-house"></i>
+      <span>Trang chủ</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="genres" id="btnTabGenres" onclick="window.location.href='./?view=genres'">
+      <i class="fa-solid fa-shapes"></i>
+      <span>Thể loại</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="search" id="btnTabSearch" onclick="window.location.href='./?view=search'">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Tìm kiếm</span>
+    </button>
+    <button class="mobile-nav-item" data-tab="saved" id="btnTabSaved" onclick="window.location.href='./?view=saved'">
+      <i class="fa-solid fa-bookmark"></i>
+      <span>Đã lưu</span>
+    </button>
+  </nav>
+
+  <!-- Load Scripts -->
+  <script src="js/database.js"></script>
+  <script src="js/core.js"></script>
+  <script>
+    // Xử lý sự kiện click của các nút điều hướng trên mobile
+    document.querySelectorAll('.mobile-nav-bar .mobile-nav-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Class active sẽ do trang đích tự xử lý sau khi chuyển hướng
+      });
+    });
+  </script>
+</body>
+
+</html>

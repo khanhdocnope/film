@@ -24,7 +24,7 @@ $jsFiles = @(
     "$projectRoot\index.html",
     "$projectRoot\Terms-of-use.html",
     "$projectRoot\watch.html",
-    "$projectRoot\detail.html",
+    "$projectRoot\404.html",
     "$projectRoot\js\Terms-of-use.js"
 
 )
