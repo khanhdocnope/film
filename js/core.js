@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Khởi tạo CSS cho gợi ý tìm kiếm gợi ý (Autocomplete Suggestions)
+  // Khởi tạo CSS cho gợi ý tìm kiếm gợi ý (Autocomplete Suggestions) và nút Xóa nhanh
   const style = document.createElement("style");
   style.textContent = `
     .search-suggestions-dropdown {
@@ -312,10 +312,33 @@ document.addEventListener("DOMContentLoaded", () => {
       color: var(--text-secondary);
       font-size: 0.85rem;
     }
+    .btn-clear-search {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0;
+      font-size: 0.9rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      outline: none;
+      margin-left: 6px;
+      margin-right: 2px;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .btn-clear-search:hover {
+      color: var(--accent);
+      background-color: var(--border-color);
+    }
   `;
   document.head.appendChild(style);
 
-  // Tạo và thiết lập dropdown gợi ý cho tất cả các ô tìm kiếm
+  // Tạo và thiết lập gợi ý + nút xóa nhanh cho tất cả các ô tìm kiếm
   const allSearchInputs = document.querySelectorAll(".js-search-input");
   allSearchInputs.forEach(input => {
     const parentBox = input.closest('.search-box') || input.closest('.mobile-search-box');
@@ -323,6 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     parentBox.style.position = 'relative';
 
+    // Tạo dropdown nếu chưa có
     let dropdown = parentBox.querySelector('.search-suggestions-dropdown');
     if (!dropdown) {
       dropdown = document.createElement('div');
@@ -330,7 +354,32 @@ document.addEventListener("DOMContentLoaded", () => {
       parentBox.appendChild(dropdown);
     }
 
+    // Tạo nút xóa nhanh (Clear Button) nếu chưa có
+    let clearBtn = parentBox.querySelector('.btn-clear-search');
+    if (!clearBtn) {
+      clearBtn = document.createElement('button');
+      clearBtn.className = 'btn-clear-search';
+      clearBtn.type = 'button';
+      clearBtn.setAttribute('aria-label', 'Xóa tìm kiếm');
+      clearBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+      // Chèn ngay sau ô input
+      input.parentNode.insertBefore(clearBtn, input.nextSibling);
+    }
+
+    // Hàm hiển thị/ẩn nút xóa nhanh
+    const toggleClearBtn = () => {
+      if (input.value.trim() !== '') {
+        clearBtn.style.display = 'flex';
+      } else {
+        clearBtn.style.display = 'none';
+      }
+    };
+
+    // Khởi tạo trạng thái nút xóa nhanh lúc tải trang
+    toggleClearBtn();
+
     input.addEventListener('input', (e) => {
+      toggleClearBtn();
       const val = e.target.value.trim().toLowerCase();
       if (!val) {
         dropdown.classList.remove('active');
@@ -341,13 +390,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const matches = typeof MOVIE_DATABASE !== 'undefined' ? MOVIE_DATABASE.filter(movie => 
         (movie.title && movie.title.toLowerCase().includes(val)) ||
         (movie.originalTitle && movie.originalTitle.toLowerCase().includes(val))
-      ).slice(0, 6) : []; // Hiển thị tối đa 6 kết quả giống ảnh mẫu
+      ).slice(0, 6) : [];
 
       if (matches.length === 0) {
         dropdown.innerHTML = '<div class="suggestion-empty">Không tìm thấy phim phù hợp</div>';
       } else {
         dropdown.innerHTML = matches.map(movie => {
-          // Định dạng phụ đề giống ảnh mẫu: "Tập X VietSub" hoặc "Full VietSub"
           let subtitleText = "Full VietSub";
           if (movie.episodes && movie.episodes.length > 1) {
             subtitleText = `Tập ${movie.episodes.length} VietSub`;
@@ -367,6 +415,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join('');
       }
       dropdown.classList.add('active');
+    });
+
+    // Bắt sự kiện click nút xóa
+    clearBtn.addEventListener('click', () => {
+      input.value = '';
+      toggleClearBtn();
+      dropdown.classList.remove('active');
+      dropdown.innerHTML = '';
+      input.focus();
+      // Phát sự kiện input để cập nhật các thành phần liên quan nếu có
+      input.dispatchEvent(new Event('input'));
     });
 
     // Ẩn dropdown khi click ra ngoài
