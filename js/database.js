@@ -1,7 +1,7 @@
 const MOVIE_DATABASE = [
   {
     "id": "maid-san-wa-taberu-dake",
-    "title": "Maid-san wa Taberu dake",
+    "title": "Nhật ký ẩm thực của cô hầu gái",
     "originalTitle": "Maid-san wa Taberu dake",
     "poster": "https://i.ibb.co/jvzQcZM7/234636l.jpg",
     "banner": "https://i.ibb.co/Lhb40g8s/2-K-202606152040.jpg",
@@ -38,6 +38,41 @@ const MOVIE_DATABASE = [
         "episodeId": 5,
         "title": "Tập 5",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-11.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-12.mp4"
       }
     ]
   },
