@@ -450,9 +450,20 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js')
       .then((reg) => {
         console.log('PWA Service Worker đã đăng ký thành công:', reg.scope);
+        // Kiểm tra cập nhật Service Worker ngay lập tức khi tải trang
+        reg.update();
       })
       .catch((err) => {
         console.error('Đăng ký Service Worker thất bại:', err);
       });
+  });
+
+  // Tự động tải lại trang khi Service Worker mới được kích hoạt và kiểm soát trang
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true;
+      window.location.reload();
+    }
   });
 }

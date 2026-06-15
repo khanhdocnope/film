@@ -1,4 +1,4 @@
-const CACHE_NAME = 'filmxem-cache-v2';
+const CACHE_NAME = 'filmxem-cache-v3';
 const ASSETS_TO_CACHE = [
   'index.html',
   'detail.html',
@@ -48,10 +48,10 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
-  // Sử dụng chiến lược Network-First cho database.js để luôn cập nhật phim mới khi có mạng
+  // Sử dụng chiến lược Network-First cho database.js để luôn cập nhật phim mới khi có mạng (bẻ gãy HTTP Cache bằng timestamp)
   if (url.pathname.includes('database.js')) {
     e.respondWith(
-      fetch(e.request).then((networkResponse) => {
+      fetch(e.request.url + '?t=' + Date.now()).then((networkResponse) => {
         if (networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
