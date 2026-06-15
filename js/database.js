@@ -1,5 +1,27 @@
 const MOVIE_DATABASE = [
   {
+    "id": "maid-san-wa-taberu-dake",
+    "title": "Maid-san wa Taberu dake",
+    "originalTitle": "Maid-san wa Taberu dake",
+    "poster": "https://i.ibb.co/jvzQcZM7/234636l.jpg",
+    "banner": "https://i.ibb.co/Lhb40g8s/2-K-202606152040.jpg",
+    "rating": 8.0,
+    "year": "năm 2026",
+    "duration": "1 tập",
+    "genres": [
+      "Anime"
+    ],
+    "description": "Suzume Tachibana là một cô hầu gái tập sự tại một dinh thự ở Anh, người bất ngờ đến Nhật Bản một mình trong vòng một năm. Sống trong một căn hộ nhỏ, cô tự mình khám phá cuộc sống và thưởng thức những món ăn Nhật Bản vô cùng thơm ngon và hấp dẫn.",
+    "isFeatured": true,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-1.mp4"
+      }
+    ]
+  },
+  {
     "id": "pokemon-ss2",
     "title": "pokemon Season 2: Quần đảo Orange",
     "originalTitle": "Pokémon: Adventures in the Orange Islands",
