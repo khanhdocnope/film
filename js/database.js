@@ -7,7 +7,7 @@ const MOVIE_DATABASE = [
     "banner": "https://i.ibb.co/Lhb40g8s/2-K-202606152040.jpg",
     "rating": 8.0,
     "year": "năm 2026",
-    "duration": "1 tập",
+    "duration": "12 tập",
     "genres": [
       "Anime"
     ],
@@ -18,6 +18,26 @@ const MOVIE_DATABASE = [
         "episodeId": 1,
         "title": "Tập 1",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/Maid-san-wa-Taberu-dake/resolve/main/Maid-san-wa-Taberu-dake-tap-5.mp4"
       }
     ]
   },
