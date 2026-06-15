@@ -1,4 +1,4 @@
-const CACHE_NAME = 'filmxem-cache-v1';
+const CACHE_NAME = 'filmxem-cache-v2';
 const ASSETS_TO_CACHE = [
   'index.html',
   'detail.html',
@@ -47,6 +47,24 @@ self.addEventListener('activate', (e) => {
 // Xử lý các yêu cầu mạng với chiến lược Stale-While-Revalidate
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
+
+  // Sử dụng chiến lược Network-First cho database.js để luôn cập nhật phim mới khi có mạng
+  if (url.pathname.includes('database.js')) {
+    e.respondWith(
+      fetch(e.request).then((networkResponse) => {
+        if (networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(e.request, responseClone);
+          });
+        }
+        return networkResponse;
+      }).catch(() => {
+        return caches.match(e.request);
+      })
+    );
+    return;
+  }
 
   // Không lưu trữ video, iframe hoặc tài nguyên luồng lớn để tránh tràn bộ nhớ đệm
   if (
