@@ -1,5 +1,24 @@
 const MOVIE_DATABASE = [
   {
+    "id": "vua-dau-bep-sona-ss1",
+    "title": "Vua Đầu Bếp Soma",
+    "originalTitle": "Shokugeki no Sōma",
+    "poster": "https://i.ibb.co/q3Pr4sWL/2-K-202606161318.jpg",
+    "banner": "https://i.ibb.co/XrL4MQv4/n-ng-c-p-2-K-202606161321.jpg",
+    "rating": 7.8,
+    "year": "Năm 2015",
+    "duration": "24",
+    "genres": [
+      "Anime",
+      "Ẩm Thực",
+      "Học đường",
+      "Shounen"
+    ],
+    "description": "anime ẩm thực nổi tiếng xoay quanh Yukihira Soma, một chàng trai trẻ luôn mang trong mình ước mơ vượt qua cha mình để trở thành đầu bếp chính tại quán ăn gia đình. Cậu phải bước vào học viện ẩm thực Totsuki danh giá—nơi chỉ có 10% học sinh tốt nghiệp.",
+    "isFeatured": false,
+    "episodes": []
+  },
+  {
     "id": "tien-nghich",
     "title": "tiên ngịch",
     "originalTitle": "仙逆",
@@ -127,7 +146,10 @@ const MOVIE_DATABASE = [
     "year": "năm 2026",
     "duration": "12 tập",
     "genres": [
-      "Anime"
+      "Anime",
+      "Ẩm Thực",
+      "Hài hước",
+      "Đời Thường"
     ],
     "description": "Suzume Tachibana là một cô hầu gái tập sự tại một dinh thự ở Anh, người bất ngờ đến Nhật Bản một mình trong vòng một năm. Sống trong một căn hộ nhỏ, cô tự mình khám phá cuộc sống và thưởng thức những món ăn Nhật Bản vô cùng thơm ngon và hấp dẫn.",
     "isFeatured": true,
@@ -1086,5 +1108,10 @@ const GENRES = [
   "Kịch Tính",
   "Lãng Mạn",
   "Hình Sự",
-  "Kỳ ảo (Fantasy)"
+  "Kỳ ảo (Fantasy)",
+  "Ẩm Thực",
+  "Shounen",
+  "Hài hước",
+  "Đời Thường",
+  "Học đường"
 ];

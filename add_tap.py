@@ -20,7 +20,7 @@ def export_to_js(movies):
     # Tạo thư mục nếu chưa tồn tại
     os.makedirs(os.path.dirname(OUTPUT_JS), exist_ok=True)
     
-    js_content = "const MOVIE_DATABASE = " + json.dumps(movies, indent=2, ensure_ascii=False) + ";\n\nconst GENRES = [\n  \"Tất cả\",\n  \"Hành Động\",\n  \"Viễn Tưởng\",\n  \"Phiêu Lưu\",\n  \"Anime\",\n  \"Kỳ Ảo\",\n  \"Kinh Dị\",\n  \"Kịch Tính\",\n  \"Lãng Mạn\",\n  \"Hình Sự\",\n  \"Kỳ ảo (Fantasy)\"\n];"
+    js_content = "const MOVIE_DATABASE = " + json.dumps(movies, indent=2, ensure_ascii=False) + ";\n\nconst GENRES = [\n  \"Tất cả\",\n  \"Hành Động\",\n  \"Viễn Tưởng\",\n  \"Phiêu Lưu\",\n  \"Anime\",\n  \"Kỳ Ảo\",\n  \"Kinh Dị\",\n  \"Kịch Tính\",\n  \"Lãng Mạn\",\n  \"Hình Sự\",\n  \"Kỳ ảo (Fantasy)\",\n  \"Ẩm Thực\",\n  \"Shounen\",\n  \"Hài hước\",\n  \"Đời Thường\",\n  \"Học đường\"\n];"
     
     with open(OUTPUT_JS, "w", encoding="utf-8") as f:
         f.write(js_content)
