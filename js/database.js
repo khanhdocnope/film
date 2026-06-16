@@ -11,7 +11,7 @@ const MOVIE_DATABASE = [
     "genres": [
       "Anime",
       "Ẩm Thực",
-      "Học đường",
+      "Học Đường",
       "Shounen"
     ],
     "description": "anime ẩm thực nổi tiếng xoay quanh Yukihira Soma, một chàng trai trẻ luôn mang trong mình ước mơ vượt qua cha mình để trở thành đầu bếp chính tại quán ăn gia đình. Cậu phải bước vào học viện ẩm thực Totsuki danh giá—nơi chỉ có 10% học sinh tốt nghiệp.",
@@ -189,7 +189,7 @@ const MOVIE_DATABASE = [
     "genres": [
       "Anime",
       "Ẩm Thực",
-      "Hài hước",
+      "Hài Hước",
       "Đời Thường"
     ],
     "description": "Suzume Tachibana là một cô hầu gái tập sự tại một dinh thự ở Anh, người bất ngờ đến Nhật Bản một mình trong vòng một năm. Sống trong một căn hộ nhỏ, cô tự mình khám phá cuộc sống và thưởng thức những món ăn Nhật Bản vô cùng thơm ngon và hấp dẫn.",
