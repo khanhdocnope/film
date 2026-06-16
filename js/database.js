@@ -1,13 +1,13 @@
 const MOVIE_DATABASE = [
   {
-    "id": "vua-dau-bep-sona-ss1",
-    "title": "Vua Đầu Bếp Soma",
-    "originalTitle": "Shokugeki no Sōma",
+    "id": "vua-dau-bep-soma-ss1",
+    "title": "Vua Đầu Bếp Soma phần 1",
+    "originalTitle": "Shokugeki no Sōma ss1",
     "poster": "https://i.ibb.co/q3Pr4sWL/2-K-202606161318.jpg",
     "banner": "https://i.ibb.co/XrL4MQv4/n-ng-c-p-2-K-202606161321.jpg",
     "rating": 7.8,
     "year": "Năm 2015",
-    "duration": "24",
+    "duration": "24 tập",
     "genres": [
       "Anime",
       "Ẩm Thực",
@@ -16,7 +16,43 @@ const MOVIE_DATABASE = [
     ],
     "description": "anime ẩm thực nổi tiếng xoay quanh Yukihira Soma, một chàng trai trẻ luôn mang trong mình ước mơ vượt qua cha mình để trở thành đầu bếp chính tại quán ăn gia đình. Cậu phải bước vào học viện ẩm thực Totsuki danh giá—nơi chỉ có 10% học sinh tốt nghiệp.",
     "isFeatured": false,
-    "episodes": []
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-7.mp4"
+      }
+    ]
   },
   {
     "id": "tien-nghich",
