@@ -51,6 +51,11 @@ const MOVIE_DATABASE = [
         "episodeId": 7,
         "title": "Tập 7",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-8.mp4"
       }
     ]
   },
@@ -1147,7 +1152,7 @@ const GENRES = [
   "Kỳ ảo (Fantasy)",
   "Ẩm Thực",
   "Shounen",
-  "Hài hước",
+  "Hài Hước",
   "Đời Thường",
-  "Học đường"
+  "Học Đường"
 ];
