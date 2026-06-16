@@ -552,7 +552,7 @@ const MOVIE_DATABASE = [
       "Lãng Mạn"
     ],
     "description": "Bộ phim kể về câu chuyện của hai thiếu niên xa lạ bỗng nhiên bị hoán đổi cơ thể cho nhau. Mitsuha: Một nữ sinh trung học sống tại vùng thôn quê hẻo lánh Itomori, luôn khao khát cuộc sống nhộn nhịp ở thủ đô. Taki: Một nam sinh trung học sống tại trung tâm thành phố Tokyo bận rộn, có đam mê với hội họa và kiến trúc.Sau khi hoán đổi, họ phải học cách sống cuộc đời của đối phương thông qua những lời nhắn để lại trên điện thoại hay sổ tay. Tuy nhiên, một sự kiện thiên văn kỳ bí (sao chổi đi qua Trái Đất) đã hé lộ một bí mật động trời về khoảng cách thời gian giữa cả hai, buộc họ phải tìm cách cứu lấy nhau trước khi ký ức về tên của đối phương hoàn toàn biến mất.",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
@@ -602,7 +602,7 @@ const MOVIE_DATABASE = [
       "Kỳ ảo (Fantasy)"
     ],
     "description": "Satoshi và các bạn gặp Hoopa, một Pokémon có chiếc vòng ma thuật dịch chuyển được vạn vật. Sức mạnh hắc ám bị phong ấn của Hoopa bất ngờ trỗi dậy, ép nó phải tự chiến đấu với chính bóng tối của mình. Trận chiến bùng nổ khi cả hai bên cùng triệu hồi hàng loạt Pokémon huyền thoại đại chiến để bảo vệ thành phố sa mạc.",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
@@ -727,7 +727,7 @@ const MOVIE_DATABASE = [
       "Kỳ ảo (Fantasy)"
     ],
     "description": "Bộ phim xoay quanh Jirachi, một Pokémon huyền thoại ngàn năm mới thức tỉnh một lần trong vòng bảy ngày, trùng khớp với thời gian sao chổi Thiên Niên Kỷ đi qua trái đất. Trong dịp này, Satoshi (Ash) và các bạn đã ghé thăm một hội chợ di động và làm quen với ảo thuật gia Butler cùng trợ lý Diane. Jirachi đã thức tỉnh và chọn Masato (Max) – em trai của Haruka (May) – làm người bạn tri kỷ của mình trong những ngày ngắn ngủi này. Tuy nhiên, Butler thực chất là một cựu nhà khoa học của Đội Hỏa Tiễn (Team Rocket), kẻ âm mưu lợi dụng năng lượng sao chổi hấp thụ từ Jirachi để hồi sinh Pokémon siêu cổ đại Groudon. Thí nghiệm thất bại đã tạo ra một \"Groudon bóng tối\" giả mạo, một quái vật tàn ác hấp thụ mọi sinh vật xung quanh để tăng cường sức mạnh. Để sửa chữa sai lầm và bảo vệ các bạn, Butler đã hoàn lương, cùng Satoshi và Masato giúp Jirachi giải phóng nguồn năng lượng tối thượng, tiêu diệt quái thú và đưa Jirachi trở lại giấc ngủ ngàn năm an lành.",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
@@ -752,7 +752,7 @@ const MOVIE_DATABASE = [
       "Kỳ ảo (Fantasy)"
     ],
     "description": "Câu chuyện bắt đầu bằng vụ va chạm của một khối thiên thạch chứa Pokémon ngoài hành tinh Deoxys xuống Trái Đất, dẫn đến một trận chiến ác liệt với thủ lĩnh tầng ô-zôn Rayquaza. Bốn năm sau thảm họa đó, nhóm Satoshi (Ash) ghé thăm thành phố công nghệ cao LaRousse và kết bạn với Tory, một cậu bé mắc chứng sợ Pokémon nghiêm trọng do dư chấn từ sự kiện năm xưa.",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
@@ -802,7 +802,7 @@ const MOVIE_DATABASE = [
       "Kỳ ảo (Fantasy)"
     ],
     "description": "Câu chuyện xoay quanh hành trình của cậu bé 10 tuổi Ash Ketchum (Satoshi) cùng người bạn đồng hành Pikachu. Mục tiêu của Ash là thu thập đủ 8 Huy hiệu Gym tại vùng Kanto để tham gia Giải Liên Minh Pokémon.",
-    "isFeatured": true,
+    "isFeatured": false,
     "episodes": [
       {
         "episodeId": 1,
