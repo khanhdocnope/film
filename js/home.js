@@ -5,6 +5,10 @@ let currentGenre = "Tất cả";
 let searchQuery = "";
 let currentView = "home"; // "home" or "saved"
 
+// Pagination variables
+let currentPage = 1;
+let lastColumns = 4;
+
 // Carousel variables
 let autoSlideInterval = null;
 let currentSlide = 0;
@@ -18,7 +22,8 @@ const HomeDOM = {
   mobileSearchOverlay: document.getElementById("mobileSearchOverlay"),
   closeMobileSearch: document.getElementById("closeMobileSearch"),
   mobileNavItems: document.querySelectorAll(".mobile-nav-item"),
-  desktopNavLinks: document.querySelectorAll(".nav-link")
+  desktopNavLinks: document.querySelectorAll(".nav-link"),
+  paginationContainer: document.getElementById("paginationContainer")
 };
 
 // ========== CAROUSEL CHO NHIỀU PHIM NỔI BẬT ==========
@@ -167,6 +172,7 @@ function renderGenres() {
       currentGenre = badge.getAttribute("data-genre");
       searchQuery = "";
       HomeDOM.searchInputs.forEach(i => i.value = "");
+      currentPage = 1;
 
       updateNavStates();
       renderGenres();
@@ -339,6 +345,29 @@ function setupLibraryActionListeners() {
   });
 }
 
+// ========== HELPER: LẤY SỐ CỘT CỦA GRID PHIM ==========
+function getGridColumns() {
+  const grid = HomeDOM.moviesGrid;
+  if (!grid) return 4;
+
+  const gridComputedStyle = window.getComputedStyle(grid);
+  const gridTemplateColumns = gridComputedStyle.getPropertyValue("grid-template-columns");
+  if (gridTemplateColumns && gridTemplateColumns !== "none") {
+    const cols = gridTemplateColumns.trim().split(/\s+/).length;
+    if (cols > 0) return cols;
+  }
+
+  // Fallback
+  const width = grid.clientWidth;
+  if (width > 0) {
+    if (window.innerWidth <= 768) return 2;
+    const cols = Math.floor((width + 24) / (160 + 24));
+    return cols > 0 ? cols : 2;
+  }
+  
+  return window.innerWidth <= 768 ? 2 : 4;
+}
+
 // ========== RENDER DANH SÁCH PHIM BÌNH THƯỜNG ==========
 function renderNormalMovies() {
   HomeDOM.moviesGrid.className = "movies-grid";
@@ -359,10 +388,167 @@ function renderNormalMovies() {
         <p>Không tìm thấy bộ phim nào phù hợp.</p>
       </div>
     `;
+    if (HomeDOM.paginationContainer) HomeDOM.paginationContainer.innerHTML = "";
     return;
   }
 
-  HomeDOM.moviesGrid.innerHTML = movies.map(movie => createMovieCardHTML(movie, "normal")).join("");
+  const cols = getGridColumns();
+  const moviesPerPage = cols * 4;
+
+  const totalMovies = movies.length;
+  const totalPages = Math.ceil(totalMovies / moviesPerPage);
+
+  if (currentPage > totalPages) {
+    currentPage = totalPages || 1;
+  }
+  if (currentPage < 1) {
+    currentPage = 1;
+  }
+
+  const startIndex = (currentPage - 1) * moviesPerPage;
+  const endIndex = startIndex + moviesPerPage;
+  const paginatedMovies = movies.slice(startIndex, endIndex);
+
+  HomeDOM.moviesGrid.innerHTML = paginatedMovies.map(movie => createMovieCardHTML(movie, "normal")).join("");
+  
+  renderPagination(totalMovies, moviesPerPage);
+}
+
+// ========== RENDER PAGINATION ==========
+function renderPagination(totalMovies, moviesPerPage) {
+  const container = HomeDOM.paginationContainer;
+  if (!container) return;
+
+  const totalPages = Math.ceil(totalMovies / moviesPerPage);
+
+  if (currentView !== "home" || totalPages <= 1) {
+    container.innerHTML = "";
+    return;
+  }
+
+  const pageRange = getPageRange(currentPage, totalPages);
+
+  container.innerHTML = `
+    <div class="pagination-wrapper">
+      <div class="pagination-pages">
+        <button class="page-btn prev-page" ${currentPage === 1 ? 'disabled' : ''} aria-label="Trang trước">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        
+        ${pageRange.map(page => {
+          if (page === '...') {
+            return `<span class="page-ellipsis">...</span>`;
+          }
+          return `
+            <button class="page-btn page-num ${page === currentPage ? 'active' : ''}" data-page="${page}">
+              ${page}
+            </button>
+          `;
+        }).join('')}
+        
+        <button class="page-btn next-page" ${currentPage === totalPages ? 'disabled' : ''} aria-label="Trang sau">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+      
+      <div class="pagination-input-row">
+        <div class="page-go-to">
+          <input type="number" class="page-input" placeholder="Trang..." min="1" max="${totalPages}" value="${currentPage}">
+          <button class="page-submit-btn" aria-label="Đi tới trang"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+        <div class="page-indicator">
+          ${currentPage} / ${totalPages}
+        </div>
+      </div>
+    </div>
+  `;
+
+  // Bind events
+  const prevBtn = container.querySelector(".prev-page");
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        filterAndRenderMovies();
+        scrollToMoviesHeader();
+      }
+    });
+  }
+
+  const nextBtn = container.querySelector(".next-page");
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        filterAndRenderMovies();
+        scrollToMoviesHeader();
+      }
+    });
+  }
+
+  container.querySelectorAll(".page-num").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const page = parseInt(btn.getAttribute("data-page"));
+      if (page !== currentPage) {
+        currentPage = page;
+        filterAndRenderMovies();
+        scrollToMoviesHeader();
+      }
+    });
+  });
+
+  const pageInput = container.querySelector(".page-input");
+  const submitBtn = container.querySelector(".page-submit-btn");
+
+  const handleGoToPage = () => {
+    const val = parseInt(pageInput.value);
+    if (val >= 1 && val <= totalPages && val !== currentPage) {
+      currentPage = val;
+      filterAndRenderMovies();
+      scrollToMoviesHeader();
+    } else {
+      pageInput.value = currentPage; // Reset if invalid
+    }
+  };
+
+  if (submitBtn && pageInput) {
+    submitBtn.addEventListener("click", handleGoToPage);
+    pageInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        handleGoToPage();
+      }
+    });
+  }
+}
+
+function scrollToMoviesHeader() {
+  const target = document.getElementById("moviesSection");
+  if (target) {
+    const offset = 80;
+    const bodyRect = document.body.getBoundingClientRect().top;
+    const elementRect = target.getBoundingClientRect().top;
+    const elementPosition = elementRect - bodyRect;
+    const offsetPosition = elementPosition - offset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth"
+    });
+  }
+}
+
+function getPageRange(current, total) {
+  const range = [];
+  const delta = 2; // Show 2 pages before and after active page
+
+  for (let i = 1; i <= total; i++) {
+    if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+      range.push(i);
+    } else if (range[range.length - 1] !== '...') {
+      range.push('...');
+    }
+  }
+  return range;
 }
 
 // ========== FILTER & RENDER MOVIES ==========
@@ -370,6 +556,7 @@ function filterAndRenderMovies() {
   if (!HomeDOM.moviesGrid) return;
   if (currentView === "saved") {
     renderLibraryView();
+    if (HomeDOM.paginationContainer) HomeDOM.paginationContainer.innerHTML = "";
   } else {
     renderNormalMovies();
   }
@@ -447,6 +634,7 @@ function setupHomeListeners() {
       currentView = view;
       currentGenre = "Tất cả";
       searchQuery = "";
+      currentPage = 1;
       HomeDOM.searchInputs.forEach(input => input.value = "");
       updateNavStates();
       renderGenres();
@@ -459,6 +647,7 @@ function setupHomeListeners() {
   HomeDOM.mobileNavItems.forEach(item => {
     item.addEventListener("click", () => {
       const tab = item.getAttribute("data-tab");
+      currentPage = 1;
       if (tab === "home") {
         currentView = "home";
         currentGenre = "Tất cả";
@@ -484,8 +673,28 @@ function setupHomeListeners() {
     if (currentView === "saved") filterAndRenderMovies();
   });
 
-  // Resize cho genres scroll
-  window.addEventListener('resize', () => checkAndEnableGenresScroll());
+  // Resize cho genres scroll và cập nhật số hàng phim hiển thị
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    checkAndEnableGenresScroll();
+    
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      if (currentView === "home") {
+        const oldCols = lastColumns;
+        const oldMoviesPerPage = oldCols * 4;
+        const firstMovieIndex = (currentPage - 1) * oldMoviesPerPage;
+        
+        const newCols = getGridColumns();
+        const newMoviesPerPage = newCols * 4;
+        
+        currentPage = Math.floor(firstMovieIndex / newMoviesPerPage) + 1;
+        lastColumns = newCols;
+        
+        filterAndRenderMovies();
+      }
+    }, 100);
+  });
 }
 
 // ========== INITIALIZE ==========
@@ -497,6 +706,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderFeaturedMovies();   // Carousel nhiều phim nổi bật
   renderGenres();
+  
+  // Lấy số cột ban đầu
+  lastColumns = getGridColumns();
+  
   filterAndRenderMovies();
   updateNavStates();
   setupHomeListeners();
