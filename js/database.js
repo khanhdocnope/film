@@ -254,6 +254,56 @@ const MOVIE_DATABASE = [
         "episodeId": 20,
         "title": "Tập 20",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-20.mp4"
+      },
+      {
+        "episodeId": 21,
+        "title": "Tập 21",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_21.mp4"
+      },
+      {
+        "episodeId": 22,
+        "title": "Tập 22",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_22.mp4"
+      },
+      {
+        "episodeId": 23,
+        "title": "Tập 23",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_23.mp4"
+      },
+      {
+        "episodeId": 24,
+        "title": "Tập 24",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_24.mp4"
+      },
+      {
+        "episodeId": 25,
+        "title": "Tập 25",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_25.mp4"
+      },
+      {
+        "episodeId": 26,
+        "title": "Tập 26",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_26.mp4"
+      },
+      {
+        "episodeId": 27,
+        "title": "Tập 27",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_27.mp4"
+      },
+      {
+        "episodeId": 28,
+        "title": "Tập 28",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_28.mp4"
+      },
+      {
+        "episodeId": 29,
+        "title": "Tập 29",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_29.mp4"
+      },
+      {
+        "episodeId": 30,
+        "title": "Tập 30",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_30.mp4"
       }
     ]
   },
