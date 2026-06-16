@@ -106,6 +106,36 @@ const MOVIE_DATABASE = [
         "episodeId": 18,
         "title": "Tập 18",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-18.mp4"
+      },
+      {
+        "episodeId": 19,
+        "title": "Tập 19",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-19.mp4"
+      },
+      {
+        "episodeId": 20,
+        "title": "Tập 20",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-20.mp4"
+      },
+      {
+        "episodeId": 21,
+        "title": "Tập 21",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-21.mp4"
+      },
+      {
+        "episodeId": 22,
+        "title": "Tập 22",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-22.mp4"
+      },
+      {
+        "episodeId": 23,
+        "title": "Tập 23",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-23.mp4"
+      },
+      {
+        "episodeId": 24,
+        "title": "Tập 24",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-24.mp4"
       }
     ]
   },
