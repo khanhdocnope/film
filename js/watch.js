@@ -454,7 +454,6 @@ function renderEpisodes() {
       const end = Math.min(start + groupSize - 1, total);
       ranges.push({ start, end });
     }
-    ranges.reverse(); // Descending order (highest on left)
   }
 
   // 2. Determine initial range tab based on currentEpisodeIndex
@@ -473,7 +472,7 @@ function renderEpisodes() {
     if (total > 50 && !episodeQuery) {
       rangesContainer.innerHTML = ranges.map((r, idx) => {
         const isActive = idx === currentRangeIndex;
-        const label = r.start === r.end ? `${r.start}` : `${r.end}-${r.start}`;
+        const label = r.start === r.end ? `${r.start}` : `${r.start}-${r.end}`;
         return `
           <button class="range-tab ${isActive ? 'active' : ''}" data-range-idx="${idx}">
             ${label}
@@ -524,10 +523,7 @@ function renderEpisodes() {
       });
     }
 
-    // Sort order: for grid mode, reverse it (highest first) as requested by image: "50", "49", ... "1"
-    if (!useListMode) {
-      filteredEpisodes.reverse();
-    }
+    // Sắp xếp lưới theo thứ tự tăng dần (tập 1, 2, ... 50)
 
     if (filteredEpisodes.length === 0) {
       WatchDOM.episodesList.innerHTML = `<p style="color: var(--text-secondary); text-align: center; width: 100%; padding: 20px 0;">Không tìm thấy tập phù hợp...</p>`;
