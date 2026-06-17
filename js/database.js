@@ -147,7 +147,7 @@ const MOVIE_DATABASE = [
     "banner": "https://i.ibb.co/gMR0Jqjx/images.jpg",
     "rating": 8.7,
     "year": "năm 2023",
-    "duration": "128 tập",
+    "duration": "180 tập",
     "genres": [
       "Viễn Tưởng",
       "Kỳ Ảo"
@@ -779,6 +779,106 @@ const MOVIE_DATABASE = [
         "episodeId": 125,
         "title": "Tập 125",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_125.mp4"
+      },
+      {
+        "episodeId": 126,
+        "title": "Tập 126",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_108.mp4"
+      },
+      {
+        "episodeId": 127,
+        "title": "Tập 127",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_109.mp4"
+      },
+      {
+        "episodeId": 128,
+        "title": "Tập 128",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_110.mp4"
+      },
+      {
+        "episodeId": 129,
+        "title": "Tập 129",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_111.mp4"
+      },
+      {
+        "episodeId": 130,
+        "title": "Tập 130",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_112.mp4"
+      },
+      {
+        "episodeId": 131,
+        "title": "Tập 131",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_113.mp4"
+      },
+      {
+        "episodeId": 132,
+        "title": "Tập 132",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_114.mp4"
+      },
+      {
+        "episodeId": 133,
+        "title": "Tập 133",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_115.mp4"
+      },
+      {
+        "episodeId": 134,
+        "title": "Tập 134",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_116.mp4"
+      },
+      {
+        "episodeId": 135,
+        "title": "Tập 135",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_117.mp4"
+      },
+      {
+        "episodeId": 136,
+        "title": "Tập 136",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_118.mp4"
+      },
+      {
+        "episodeId": 137,
+        "title": "Tập 137",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_119.mp4"
+      },
+      {
+        "episodeId": 138,
+        "title": "Tập 138",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_120.mp4"
+      },
+      {
+        "episodeId": 139,
+        "title": "Tập 139",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_121.mp4"
+      },
+      {
+        "episodeId": 140,
+        "title": "Tập 140",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_122.mp4"
+      },
+      {
+        "episodeId": 141,
+        "title": "Tập 141",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_141.mp4"
+      },
+      {
+        "episodeId": 142,
+        "title": "Tập 142",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_142.mp4"
+      },
+      {
+        "episodeId": 143,
+        "title": "Tập 143",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_143.mp4"
+      },
+      {
+        "episodeId": 144,
+        "title": "Tập 144",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_144.mp4"
+      },
+      {
+        "episodeId": 145,
+        "title": "Tập 145",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_145.mp4"
       }
     ]
   },
