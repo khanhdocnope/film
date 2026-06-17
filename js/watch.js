@@ -484,7 +484,7 @@ function renderEpisodes() {
       rangesContainer.querySelectorAll(".range-tab").forEach(tab => {
         tab.addEventListener("click", () => {
           currentRangeIndex = parseInt(tab.getAttribute("data-range-idx"));
-          renderEpisodesOnly();
+          renderEpisodes();
         });
       });
       rangesContainer.style.display = "flex";
