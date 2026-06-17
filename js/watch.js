@@ -78,20 +78,9 @@ function loadMovieDetails() {
   }
 
   renderEpisodes();
+  changeEpisode(currentEpisodeIndex, true);
   renderRelatedMovies();
   adjustPlaylistPosition();
-}
-// Trước khi truyền link vào Player, hãy giải mã nó
-function getDecryptedUrl(encryptedUrl) {
-  const SECRET_KEY = 'MySuperSecretKey123!'; // Phải trùng với key lúc mã hóa
-  try {
-    const bytes = CryptoJS.AES.decrypt(encryptedUrl, SECRET_KEY);
-    const originalUrl = bytes.toString(CryptoJS.enc.Utf8);
-    return originalUrl; // Trả về link Google Drive gốc cho Player
-  } catch (e) {
-    console.error("Giải mã thất bại:", e);
-    return null;
-  }
 }
 // ========== XỬ LÝ VIDEO / IFRAME (ĐÃ CẢI TẠO HỖ TRỢ GOOGLE DRIVE) ==========
 
