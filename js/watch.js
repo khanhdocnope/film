@@ -7,6 +7,10 @@ let currentVideoBlobUrl = null;
 let autoplayTimer = null;
 let autoplayOverlay = null;
 
+// Episode pagination & search variables
+let currentRangeIndex = 0;
+let episodeQuery = "";
+
 const WatchDOM = {
   videoPlayer: document.getElementById("videoPlayer"),
   movieTitle: document.getElementById("movieTitle"),
@@ -63,6 +67,16 @@ function loadMovieDetails() {
   if (watchBackBtn) watchBackBtn.href = `detail?id=${currentMovie.id}`;
 
   updateBookmarkButton();
+  
+  // Reset pagination/search state
+  window.hasInitializedRange = false;
+  currentRangeIndex = 0;
+  episodeQuery = "";
+  const searchInput = document.getElementById("episodeSearchInput");
+  if (searchInput) {
+    searchInput.value = "";
+  }
+
   renderEpisodes();
   renderRelatedMovies();
   adjustPlaylistPosition();
@@ -422,27 +436,137 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
 
 function renderEpisodes() {
   if (!WatchDOM.episodesList) return;
+  
   const episodes = currentMovie.episodes || [];
   if (episodes.length === 0) {
     WatchDOM.episodesList.innerHTML = `<p style="color: var(--text-secondary);">Thông tin tập phim đang được cập nhật...</p>`;
+    const rangesContainer = document.getElementById("episodeRangesContainer");
+    if (rangesContainer) rangesContainer.innerHTML = "";
     return;
   }
-  WatchDOM.episodesList.innerHTML = episodes.map((ep, index) => {
-    const isActive = index === currentEpisodeIndex;
-    return `
-      <button class="episode-btn ${isActive ? 'active' : ''}" data-index="${index}">
-        <span>${ep.title}</span>
-        <i class="fa-solid ${isActive ? 'fa-circle-play' : 'fa-play'} episode-play-icon"></i>
-      </button>
-    `;
-  }).join("");
-  WatchDOM.episodesList.querySelectorAll(".episode-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const idx = parseInt(btn.getAttribute("data-index"));
-      changeEpisode(idx);
+
+  // 1. Calculate Ranges if total episodes > 50
+  const groupSize = 50;
+  const total = episodes.length;
+  const ranges = [];
+  if (total > 50) {
+    for (let start = 1; start <= total; start += groupSize) {
+      const end = Math.min(start + groupSize - 1, total);
+      ranges.push({ start, end });
+    }
+    ranges.reverse(); // Descending order (highest on left)
+  }
+
+  // 2. Determine initial range tab based on currentEpisodeIndex
+  if (total > 50 && !window.hasInitializedRange) {
+    const epNum = currentEpisodeIndex + 1;
+    const initialRangeIdx = ranges.findIndex(r => epNum >= r.start && epNum <= r.end);
+    if (initialRangeIdx !== -1) {
+      currentRangeIndex = initialRangeIdx;
+    }
+    window.hasInitializedRange = true;
+  }
+
+  // 3. Render Range Tabs if > 50 episodes
+  const rangesContainer = document.getElementById("episodeRangesContainer");
+  if (rangesContainer) {
+    if (total > 50 && !episodeQuery) {
+      rangesContainer.innerHTML = ranges.map((r, idx) => {
+        const isActive = idx === currentRangeIndex;
+        const label = r.start === r.end ? `${r.start}` : `${r.end}-${r.start}`;
+        return `
+          <button class="range-tab ${isActive ? 'active' : ''}" data-range-idx="${idx}">
+            ${label}
+          </button>
+        `;
+      }).join("");
+
+      rangesContainer.querySelectorAll(".range-tab").forEach(tab => {
+        tab.addEventListener("click", () => {
+          currentRangeIndex = parseInt(tab.getAttribute("data-range-idx"));
+          renderEpisodesOnly();
+        });
+      });
+      rangesContainer.style.display = "flex";
+    } else {
+      rangesContainer.innerHTML = "";
+      rangesContainer.style.display = "none";
+    }
+  }
+
+  // Helper to filter and render the grid/list
+  function renderEpisodesOnly() {
+    // Determine list-mode vs grid-mode
+    const hasLongTitles = episodes.some(ep => !ep.title.startsWith("Tập ") && ep.title.length > 8);
+    const useListMode = hasLongTitles || episodes.length <= 1;
+
+    // Apply classes
+    if (useListMode) {
+      WatchDOM.episodesList.className = "episodes-list episodes-grid list-mode no-scrollbar";
+    } else {
+      WatchDOM.episodesList.className = "episodes-list episodes-grid no-scrollbar";
+    }
+
+    let filteredEpisodes = episodes.map((ep, idx) => ({ ep, idx }));
+
+    if (episodeQuery) {
+      const q = episodeQuery.toLowerCase();
+      filteredEpisodes = filteredEpisodes.filter(item => 
+        item.ep.title.toLowerCase().includes(q) || 
+        item.idx.toString() === q || 
+        (item.idx + 1).toString() === q
+      );
+    } else if (total > 50) {
+      const range = ranges[currentRangeIndex];
+      filteredEpisodes = filteredEpisodes.filter(item => {
+        const epNum = item.idx + 1;
+        return epNum >= range.start && epNum <= range.end;
+      });
+    }
+
+    // Sort order: for grid mode, reverse it (highest first) as requested by image: "50", "49", ... "1"
+    if (!useListMode) {
+      filteredEpisodes.reverse();
+    }
+
+    if (filteredEpisodes.length === 0) {
+      WatchDOM.episodesList.innerHTML = `<p style="color: var(--text-secondary); text-align: center; width: 100%; padding: 20px 0;">Không tìm thấy tập phù hợp...</p>`;
+      return;
+    }
+
+    WatchDOM.episodesList.innerHTML = filteredEpisodes.map(item => {
+      const isActive = item.idx === currentEpisodeIndex;
+      if (useListMode) {
+        return `
+          <button class="episode-btn ${isActive ? 'active' : ''}" data-index="${item.idx}">
+            <span>${item.ep.title}</span>
+            <i class="fa-solid ${isActive ? 'fa-circle-play' : 'fa-play'} episode-play-icon"></i>
+          </button>
+        `;
+      } else {
+        let label = item.ep.title;
+        if (label.startsWith("Tập ")) {
+          label = label.replace("Tập ", "").trim();
+        }
+        return `
+          <button class="ep-grid-btn ${isActive ? 'active' : ''}" data-index="${item.idx}" title="${item.ep.title}">
+            ${label}
+          </button>
+        `;
+      }
+    }).join("");
+
+    // Bind listeners
+    const selector = useListMode ? ".episode-btn" : ".ep-grid-btn";
+    WatchDOM.episodesList.querySelectorAll(selector).forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-index"));
+        changeEpisode(idx);
+      });
     });
-  });
-  changeEpisode(currentEpisodeIndex, true);
+  }
+
+  renderEpisodesOnly();
 }
 
 async function changeEpisode(index, isRestore = false) {
@@ -469,16 +593,26 @@ async function changeEpisode(index, isRestore = false) {
   currentEpisodeIndex = index;
   const episodes = currentMovie.episodes || [];
   if (!episodes[index]) return;
-  const buttons = WatchDOM.episodesList.querySelectorAll(".episode-btn");
-  buttons.forEach((btn, idx) => {
+
+  const buttons = WatchDOM.episodesList.querySelectorAll(".episode-btn, .ep-grid-btn");
+  buttons.forEach((btn) => {
+    const idx = parseInt(btn.getAttribute("data-index"));
+    const isGrid = btn.classList.contains("ep-grid-btn");
     if (idx === index) {
       btn.classList.add("active");
-      btn.querySelector("i").className = "fa-solid fa-circle-play episode-play-icon";
+      if (!isGrid) {
+        const icon = btn.querySelector("i");
+        if (icon) icon.className = "fa-solid fa-circle-play episode-play-icon";
+      }
     } else {
       btn.classList.remove("active");
-      btn.querySelector("i").className = "fa-solid fa-play episode-play-icon";
+      if (!isGrid) {
+        const icon = btn.querySelector("i");
+        if (icon) icon.className = "fa-solid fa-play episode-play-icon";
+      }
     }
   });
+
   const episode = episodes[index];
 
   // Lấy tiến trình xem đã lưu của tập mới
@@ -571,6 +705,15 @@ function setupNavigation() {
   if (WatchDOM.bookmarkBtn) {
     WatchDOM.bookmarkBtn.addEventListener("click", () => {
       toggleBookmark(currentMovie.id, () => updateBookmarkButton());
+    });
+  }
+
+  // Lắng nghe sự kiện tìm kiếm tập phim
+  const searchInput = document.getElementById("episodeSearchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      episodeQuery = e.target.value;
+      renderEpisodes();
     });
   }
 }

@@ -140,7 +140,15 @@
     <!-- Right Column - Sidebar Playlists -->
     <aside class="watch-sidebar-col" id="watchSidebarCol">
       <div class="playlist-card" id="playlistCard">
-        <h3 class="playlist-title"><i class="fa-solid fa-list-ol"></i> Danh Sách Tập</h3>
+        <div class="playlist-header">
+          <h3 class="playlist-title"><i class="fa-solid fa-list-ol"></i> Danh Sách Tập</h3>
+          <div class="episode-search-wrapper">
+            <input type="text" class="episode-search-input" id="episodeSearchInput" placeholder="Tìm tập...">
+          </div>
+        </div>
+        
+        <div class="episode-ranges" id="episodeRangesContainer"></div>
+
         <div class="episodes-list no-scrollbar" id="episodesList">
           <!-- Episodes List dynamic buttons -->
         </div>
