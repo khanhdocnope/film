@@ -91,6 +91,18 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+body.has-bg {
+  background-image: linear-gradient(rgba(248, 246, 255, 0.85), rgba(248, 246, 255, 0.85)), url('../image/background.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+body.has-bg.dark-mode {
+  background-image: linear-gradient(rgba(7, 5, 15, 0.88), rgba(7, 5, 15, 0.88)), url('../image/background.jpeg');
+}
+
 a {
   text-decoration: none;
   color: inherit;

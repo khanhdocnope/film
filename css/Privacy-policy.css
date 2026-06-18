@@ -58,6 +58,18 @@ body {
     scroll-behavior: smooth;
 }
 
+body.has-bg {
+    background-image: linear-gradient(rgba(245, 243, 255, 0.85), rgba(245, 243, 255, 0.85)), url('../image/background.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+body.has-bg.dark-mode {
+    background-image: linear-gradient(rgba(13, 11, 20, 0.88), rgba(13, 11, 20, 0.88)), url('../image/background.jpeg');
+}
+
 a {
     text-decoration: none;
     color: inherit;
