@@ -1,5 +1,90 @@
 const MOVIE_DATABASE = [
   {
+    "id": "kaoru-hana-wa-rin-to-saku",
+    "title": "Hoa thơm kiêu hãnh",
+    "originalTitle": "Kaoru Hana wa Rin to Saku",
+    "poster": "https://i.ibb.co/HTVry5kf/02606181229.jpg",
+    "banner": "https://i.ibb.co/nMgdbLBL/gomen.jpg",
+    "rating": 8.8,
+    "year": "năm 2025",
+    "duration": "13",
+    "genres": [
+      "Anime",
+      "Lãng Mạn",
+      "Hài Kịch",
+      "Đời Thường"
+    ],
+    "description": "Kaoru Hana wa Rin to Saku là câu chuyện tình yêu và tình bạn tuổi học trò đầy ngọt ngào, vượt qua định kiến xã hội giữa hai thế giới hoàn toàn đối lập: Chidori – ngôi trường cấp ba dành cho những nam sinh cá biệt, thô lỗ và Kikyo – trường nữ sinh danh giá chuyên đào tạo các tiểu thư đài các. Tác phẩm xoay quanh mối nhân duyên tình cờ giữa Tsumugi Rintarou, một chàng trai có ngoại hình dữ dằn nhưng sở hữu trái tim ấm áp, giỏi làm bánh, và Wakuri Kaoruko, một cô gái trong sáng, tốt bụng thuộc trường Kikyo. Bằng sự chân thành, thấu hiểu và sẻ chia, họ đã cùng nhóm bạn thân phá vỡ bức tường ngăn cách lâu đời giữa hai ngôi trường, vẽ nên một bức tranh thanh xuân chữa lành, đầy nhân văn và không kém phần hài hước.",
+    "isFeatured": true,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_81.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_82.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_83.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_84.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_85.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_86.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_87.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_88.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_89.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_90.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_91.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_92.mp4"
+      },
+      {
+        "episodeId": 13,
+        "title": "Tập 13",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/kaoru-hana-wa-rin-to-saku/resolve/main/kaoru-hana-wa-rin-to-saku-tap_93.mp4"
+      }
+    ]
+  },
+  {
     "id": "muc-than-ky",
     "title": "mục thần ký",
     "originalTitle": "牧神记",
