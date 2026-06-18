@@ -43,7 +43,8 @@ function renderFeaturedMovies() {
     <div class="carousel-container">
       <div class="carousel-slides" id="carouselSlides">
         ${featuredMovies.map((movie, idx) => `
-          <div class="carousel-slide" data-index="${idx}" style="background-image: url('${movie.banner}');">
+          <div class="carousel-slide ${idx === 0 ? 'active' : ''}" data-index="${idx}">
+            <div class="carousel-slide-bg" style="background-image: url('${movie.banner}');"></div>
             <div class="hero-overlay">
               <div class="hero-content">
                 <div class="hero-badge">
@@ -97,6 +98,12 @@ function renderFeaturedMovies() {
     slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
     dots.forEach((dot, i) => {
       dot.classList.toggle('active', i === currentSlide);
+    });
+    
+    // Cập nhật class active cho slides để trigger animation
+    const slides = slidesContainer.querySelectorAll('.carousel-slide');
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentSlide);
     });
   }
 
@@ -185,7 +192,7 @@ function renderGenres() {
 }
 
 // ========== HELPER: TẠO HTML CHO CARD PHIM ==========
-function createMovieCardHTML(movie, type = "normal") {
+function createMovieCardHTML(movie, type = "normal", index = 0) {
   const mainGenre = movie.genres[0] || "";
   const progress = getMovieProgress(movie.id);
   let progressBadgeHTML = "";
@@ -227,7 +234,7 @@ function createMovieCardHTML(movie, type = "normal") {
   }
 
   return `
-    <a href="detail?id=${movie.id}" class="movie-card" style="position: relative;">
+    <a href="detail?id=${movie.id}" class="movie-card" style="animation-delay: ${index * 0.05}s;">
       <div class="card-poster-wrapper">
         <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
         <div class="card-badges">
@@ -286,11 +293,11 @@ function renderLibraryView() {
   }
 
   const watchingGridHTML = watchingMovies.length > 0
-    ? `<div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px; width: 100%;">${watchingMovies.map(m => createMovieCardHTML(m, "watching")).join("")}</div>`
+    ? `<div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px; width: 100%;">${watchingMovies.map((m, index) => createMovieCardHTML(m, "watching", index)).join("")}</div>`
     : `<p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 10px; margin-bottom: 20px;"><i class="fa-solid fa-circle-info"></i> Bạn chưa có phim nào đang xem dở.</p>`;
 
   const savedGridHTML = savedMovies.length > 0
-    ? `<div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px; width: 100%;">${savedMovies.map(m => createMovieCardHTML(m, "saved")).join("")}</div>`
+    ? `<div class="movies-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 24px; width: 100%;">${savedMovies.map((m, index) => createMovieCardHTML(m, "saved", index)).join("")}</div>`
     : `<p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 10px; margin-bottom: 20px;"><i class="fa-solid fa-circle-info"></i> Thư viện phim đang trống.</p>`;
 
   HomeDOM.moviesGrid.innerHTML = `
@@ -409,7 +416,7 @@ function renderNormalMovies() {
   const endIndex = startIndex + moviesPerPage;
   const paginatedMovies = movies.slice(startIndex, endIndex);
 
-  HomeDOM.moviesGrid.innerHTML = paginatedMovies.map(movie => createMovieCardHTML(movie, "normal")).join("");
+  HomeDOM.moviesGrid.innerHTML = paginatedMovies.map((movie, index) => createMovieCardHTML(movie, "normal", index)).join("");
   
   renderPagination(totalMovies, moviesPerPage);
 }

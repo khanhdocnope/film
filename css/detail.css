@@ -184,20 +184,40 @@ body.dark-mode .detail-backdrop-wrapper::before {
   width: 64px;
   height: 64px;
   border-radius: var(--radius-full);
-  border: 4px solid #d4fc34; /* Neon green circle border */
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
   font-size: 1.25rem;
   color: white;
-  background: rgba(15, 23, 42, 0.4);
-  box-shadow: 0 0 15px rgba(212, 252, 52, 0.3);
+  background: conic-gradient(var(--accent) var(--rating-progress, 0%), rgba(255, 255, 255, 0.15) 0);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.25);
+  padding: 4px;
+}
+
+.rating-circle::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  background: #171329;
+  border-radius: var(--radius-full);
+  z-index: 1;
+}
+
+body:not(.dark-mode) .rating-circle::before {
+  background: #f0ecfc;
+}
+
+.rating-circle-inner-text {
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary);
 }
 
 .rating-circle-text {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   font-weight: 500;
   max-width: 180px;
   line-height: 1.3;

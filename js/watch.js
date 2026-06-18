@@ -54,6 +54,10 @@ function loadMovieDetails() {
   }
 
   document.title = `Xem phim ${currentMovie.title} - FilmXem`;
+  const backdropWrapper = document.getElementById("watchBackdropWrapper");
+  if (backdropWrapper) {
+    backdropWrapper.style.backgroundImage = `url('${currentMovie.banner}')`;
+  }
   WatchDOM.movieTitle.textContent = currentMovie.title;
   WatchDOM.movieOriginalTitle.textContent = currentMovie.originalTitle;
   WatchDOM.movieDesc.textContent = currentMovie.description;
@@ -519,11 +523,13 @@ function renderEpisodes() {
       return;
     }
 
-    WatchDOM.episodesList.innerHTML = filteredEpisodes.map(item => {
+    WatchDOM.episodesList.innerHTML = filteredEpisodes.map((item, index) => {
       const isActive = item.idx === currentEpisodeIndex;
+      const delay = index * 0.02;
+      const animStyle = `style="animation-delay: ${delay}s;"`;
       if (useListMode) {
         return `
-          <button class="episode-btn ${isActive ? 'active' : ''}" data-index="${item.idx}">
+          <button class="episode-btn ${isActive ? 'active' : ''}" data-index="${item.idx}" ${animStyle}>
             <span>${item.ep.title}</span>
             <i class="fa-solid ${isActive ? 'fa-circle-play' : 'fa-play'} episode-play-icon"></i>
           </button>
@@ -534,7 +540,7 @@ function renderEpisodes() {
           label = label.replace("Tập ", "").trim();
         }
         return `
-          <button class="ep-grid-btn ${isActive ? 'active' : ''}" data-index="${item.idx}" title="${item.ep.title}">
+          <button class="ep-grid-btn ${isActive ? 'active' : ''}" data-index="${item.idx}" title="${item.ep.title}" ${animStyle}>
             ${label}
           </button>
         `;
@@ -626,7 +632,7 @@ function renderRelatedMovies() {
     const others = MOVIE_DATABASE.filter(m => m.id !== currentMovie.id && !related.includes(m));
     related = [...related, ...others].slice(0, 4);
   } else related = related.slice(0, 4);
-  WatchDOM.relatedGrid.innerHTML = related.map(movie => {
+  WatchDOM.relatedGrid.innerHTML = related.map((movie, index) => {
     // Kiểm tra tiến trình xem
     const progress = getMovieProgress(movie.id);
     let progressBadgeHTML = "";
@@ -651,7 +657,7 @@ function renderRelatedMovies() {
     }
 
     return `
-      <a href="detail?id=${movie.id}" class="movie-card">
+      <a href="detail?id=${movie.id}" class="movie-card" style="animation-delay: ${index * 0.05}s;">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           <div class="card-badges">

@@ -93,7 +93,8 @@ function loadMovieCard() {
 
   // Generate stats
   const stats = generateMockStats(currentMovie);
-  DetailDOM.ratingPercent.textContent = `${stats.matchPercent}%`;
+  DetailDOM.ratingPercent.style.setProperty('--rating-progress', `${stats.matchPercent}%`);
+  DetailDOM.ratingPercent.innerHTML = `<span class="rating-circle-inner-text">${stats.matchPercent}%</span>`;
   DetailDOM.ratingText.textContent = `(Đánh giá ${currentMovie.rating.toFixed(1)}/10 từ ${stats.members} thành viên)`;
   DetailDOM.starsBox.innerHTML = renderRatingStars(currentMovie.rating);
 
@@ -171,7 +172,7 @@ function renderRelatedSuggestions() {
     related = related.slice(0, 4);
   }
 
-  DetailDOM.relatedGrid.innerHTML = related.map(movie => {
+  DetailDOM.relatedGrid.innerHTML = related.map((movie, index) => {
     const mainGenre = movie.genres[0] || "";
 
     // Kiểm tra tiến trình xem
@@ -198,7 +199,7 @@ function renderRelatedSuggestions() {
     }
 
     return `
-      <a href="detail?id=${movie.id}" class="movie-card">
+      <a href="detail?id=${movie.id}" class="movie-card" style="animation-delay: ${index * 0.08}s">
         <div class="card-poster-wrapper">
           <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
           <div class="card-badges">

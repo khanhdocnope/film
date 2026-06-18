@@ -4,65 +4,87 @@
 # Usage:
 #   .\toggle-urls.ps1 local        -> Add .html  (for Live Server)
 #   .\toggle-urls.ps1 production   -> Remove .html (for Apache + .htaccess)
+#   .\toggle-urls.ps1              -> Auto-toggle between modes based on current files
 # =====================================================
 
 param(
-    [Parameter(Mandatory=$true)]
-    [ValidateSet("local", "production")]
-    [string]$Mode
+    [Parameter(Mandatory=$false)]
+    [ValidateSet("local", "production", "toggle")]
+    [string]$Mode = "toggle"
 )
 
 $projectRoot = $PSScriptRoot
 
-$jsFiles = @(
-    "$projectRoot\js\home.js",
-    "$projectRoot\js\detail.js",
-    "$projectRoot\js\watch.js",
-    "$projectRoot\js\core.js",
-    "$projectRoot\js\Privacy-policy.js",
-    "$projectRoot\detail.html",
-    "$projectRoot\index.html",
-    "$projectRoot\Terms-of-use.html",
-    "$projectRoot\watch.html",
-    "$projectRoot\404.html",
-    "$projectRoot\js\Terms-of-use.js",
-    "$projectRoot\js\search.js",
-    "$projectRoot\search.html"
-)
+# Dynamic file discovery (finds all .html and .js files recursively)
+$targetFiles = Get-ChildItem -Path $projectRoot -Recurse -Include *.html, *.js | Where-Object {
+    $_.FullName -notlike "*\node_modules\*" -and $_.FullName -notlike "*\.git\*" -and $_.FullName -notlike "*\.github\*"
+}
 
 # Each pair: [CleanURL, HtmlURL]
-# Hỗ trợ cả nháy đơn và nháy kép
 $pairs = @(
-    @{ Clean = '"detail?id=';  Html = '"detail.html?id='  }
-    @{ Clean = "'detail?id=";  Html = "'detail.html?id="  }
     @{ Clean = '"watch?id=';   Html = '"watch.html?id='   }
     @{ Clean = "'watch?id=";   Html = "'watch.html?id="   }
+    @{ Clean = '`watch?id=';   Html = '`watch.html?id='   }
+    @{ Clean = '"detail?id=';  Html = '"detail.html?id='  }
+    @{ Clean = "'detail?id=";  Html = "'detail.html?id="  }
+    @{ Clean = '`detail?id=';  Html = '`detail.html?id='  }
     @{ Clean = '"search?q=';   Html = '"search.html?q='   }
     @{ Clean = "'search?q=";   Html = "'search.html?q="   }
+    @{ Clean = '`search?q=';   Html = '`search.html?q='   }
     @{ Clean = '"./?focus=genres"';    Html = '"index.html?focus=genres"'  }
     @{ Clean = "'./?focus=genres'";    Html = "'index.html?focus=genres'"  }
+    @{ Clean = '`./?focus=genres`';    Html = '`index.html?focus=genres`'  }
     @{ Clean = '"./?view=saved"';     Html = '"index.html?view=saved"'   }
     @{ Clean = "'./?view=saved'";     Html = "'index.html?view=saved'"   }
+    @{ Clean = '`./?view=saved`';     Html = '`index.html?view=saved`'   }
+    @{ Clean = '"Privacy-policy"';    Html = '"Privacy-policy.html"'     }
+    @{ Clean = "'Privacy-policy'";    Html = "'Privacy-policy.html'"     }
     @{ Clean = '"./Privacy-policy"';  Html = '"Privacy-policy.html"'     }
     @{ Clean = "'./Privacy-policy'";  Html = "'Privacy-policy.html'"     }
+    @{ Clean = '"Terms-of-use"';      Html = '"Terms-of-use.html"'       }
+    @{ Clean = "'Terms-of-use'";      Html = "'Terms-of-use.html'"       }
     @{ Clean = '"./Terms-of-use"';    Html = '"Terms-of-use.html"'       }
     @{ Clean = "'./Terms-of-use'";    Html = "'Terms-of-use.html'"       }
     @{ Clean = '"./"';                Html = '"index.html"'              }
     @{ Clean = "'./'";                Html = "'index.html'"              }
 )
+
+# If mode is "toggle", auto-detect by counting clean vs html instances
+if ($Mode -eq "toggle") {
+    $cleanCount = 0
+    $htmlCount = 0
+    
+    foreach ($file in $targetFiles) {
+        $content = Get-Content $file.FullName -Raw -Encoding UTF8
+        foreach ($pair in $pairs) {
+            if ($content.Contains($pair.Clean)) { $cleanCount++ }
+            if ($content.Contains($pair.Html)) { $htmlCount++ }
+        }
+    }
+    
+    # If we have more clean URLs, toggle to local (html), else to production (clean)
+    if ($cleanCount -gt $htmlCount) {
+        $Mode = "local"
+    } else {
+        $Mode = "production"
+    }
+    
+    Write-Host "Auto-detected mode based on files: " -NoNewline
+    if ($Mode -eq "local") {
+        Write-Host "LOCAL (Adding .html extensions)" -ForegroundColor Green
+    } else {
+        Write-Host "PRODUCTION (Cleaning .html extensions)" -ForegroundColor Magenta
+    }
+}
+
 $totalChanges = 0
 
 Write-Host ""
 Write-Host "=== FilmXem URL Toggle: $($Mode.ToUpper()) mode ===" -ForegroundColor White
 Write-Host ""
 
-foreach ($file in $jsFiles) {
-    if (-not (Test-Path $file)) {
-        Write-Host "  [SKIP] Not found: $file" -ForegroundColor Yellow
-        continue
-    }
-
-    $content = Get-Content $file -Raw -Encoding UTF8
+foreach ($file in $targetFiles) {
+    $content = Get-Content $file.FullName -Raw -Encoding UTF8
     $original = $content
     $fileChanges = 0
 
@@ -82,13 +104,14 @@ foreach ($file in $jsFiles) {
         }
     }
 
-    $fileName = Split-Path $file -Leaf
+    $fileName = $file.Name
+    $relPath = $file.FullName.Replace($projectRoot, "").TrimStart("\")
     if ($content -ne $original) {
-        [System.IO.File]::WriteAllText($file, $content, [System.Text.UTF8Encoding]::new($false))
+        [System.IO.File]::WriteAllText($file.FullName, $content, [System.Text.UTF8Encoding]::new($false))
         $totalChanges += $fileChanges
-        Write-Host "  [OK]  $fileName  ($fileChanges replacements)" -ForegroundColor Green
+        Write-Host "  [OK]  $relPath  ($fileChanges replacements)" -ForegroundColor Green
     } else {
-        Write-Host "  [--]  $fileName  (no changes)" -ForegroundColor DarkGray
+        Write-Host "  [--]  $relPath  (no changes)" -ForegroundColor DarkGray
     }
 }
 

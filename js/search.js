@@ -9,7 +9,7 @@ const SearchDOM = {
 };
 
 // ========== HELPER: TẠO HTML CHO CARD PHIM ==========
-function createMovieCardHTML(movie) {
+function createMovieCardHTML(movie, index = 0) {
   const mainGenre = movie.genres[0] || "";
   const progress = getMovieProgress(movie.id);
   let progressBadgeHTML = "";
@@ -35,7 +35,7 @@ function createMovieCardHTML(movie) {
   }
 
   return `
-    <a href="detail?id=${movie.id}" class="movie-card" style="position: relative;">
+    <a href="detail?id=${movie.id}" class="movie-card" style="animation-delay: ${index * 0.05}s;">
       <div class="card-poster-wrapper">
         <img class="card-poster" src="${movie.poster}" alt="${movie.title}" loading="lazy">
         <div class="card-badges">
@@ -100,7 +100,7 @@ function performSearch() {
     return;
   }
 
-  SearchDOM.moviesGrid.innerHTML = results.map(movie => createMovieCardHTML(movie)).join("");
+  SearchDOM.moviesGrid.innerHTML = results.map((movie, index) => createMovieCardHTML(movie, index)).join("");
 }
 
 // ========== INITIALIZE ==========

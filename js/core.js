@@ -161,8 +161,57 @@ function showToast(message) {
   }, 2500);
 }
 
+// Page Transition Loader
+function initPageTransition() {
+  const loader = document.createElement("div");
+  loader.className = "page-loader";
+  loader.innerHTML = `
+    <div class="loader-spinner"></div>
+    <div class="loader-logo">FilmXem</div>
+  `;
+  document.body.appendChild(loader);
+
+  // Fade out loader on load
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      loader.classList.add("fade-out");
+    }, 250);
+  });
+
+  // Fallback: fade out after 2s anyway if load event is missed
+  setTimeout(() => {
+    loader.classList.add("fade-out");
+  }, 2000);
+
+  // Intercept link clicks for transition out
+  document.addEventListener("click", (e) => {
+    const anchor = e.target.closest("a");
+    if (!anchor) return;
+
+    const href = anchor.getAttribute("href");
+    if (!href || href.startsWith("#") || href.startsWith("javascript:") || anchor.getAttribute("target") === "_blank" || e.metaKey || e.ctrlKey) {
+      return;
+    }
+
+    // Skip custom actions / tabs
+    if (anchor.classList.contains("btn-quick-action") || anchor.closest(".js-hero-bookmark") || anchor.classList.contains("btn-autoplay")) {
+      return;
+    }
+
+    const isLocal = href.indexOf(":") === -1 || href.startsWith(window.location.origin);
+    if (isLocal) {
+      e.preventDefault();
+      loader.classList.remove("fade-out");
+      setTimeout(() => {
+        window.location.href = href;
+      }, 400);
+    }
+  });
+}
+
 // Initialize on load
 document.addEventListener("DOMContentLoaded", () => {
+  initPageTransition();
   initTheme();
 
   const themeToggleBtn = document.getElementById("themeToggleBtn");
