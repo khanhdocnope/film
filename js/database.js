@@ -1,5 +1,166 @@
 const MOVIE_DATABASE = [
   {
+    "id": "sousou-no-frieren",
+    "title": "Frieren: Pháp sư tiễn táng",
+    "originalTitle": "Sousou no Frieren",
+    "poster": "https://i.ibb.co/MkwVW354/l-m-p-h-n-2-K-202606181257.jpg",
+    "banner": "https://i.ibb.co/wrC58PhY/l-m-p-h-n-202606181257.jpg",
+    "rating": 8.9,
+    "year": "năm 2024",
+    "duration": "28 tập",
+    "genres": [
+      "Anime",
+      "Kỳ Ảo",
+      "Hành Động",
+      "Đời Thường",
+      "Phiêu Lưu"
+    ],
+    "description": "Sousou no Frieren là câu chuyện cảm động kể về Frieren – một nữ pháp sư yêu tinh bất tử, người từng cùng nhóm anh hùng đánh bại Quỷ vương. Sau khi người bạn dũng sĩ qua đời vì tuổi già, cô chợt nhận ra cuộc đời con người quá ngắn ngủi và hối hận vì đã sống thờ ơ. Frieren quyết định bắt đầu một hành trình mới xuyên qua các vùng đất cũ để tìm hiểu về trái tim con người, học cách trân trọng từng khoảnh khắc và kết nối với những người bạn đồng hành mới.",
+    "isFeatured": false,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_11.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_12.mp4"
+      },
+      {
+        "episodeId": 13,
+        "title": "Tập 13",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_13.mp4"
+      },
+      {
+        "episodeId": 14,
+        "title": "Tập 14",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_14.mp4"
+      },
+      {
+        "episodeId": 15,
+        "title": "Tập 15",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_15.mp4"
+      },
+      {
+        "episodeId": 16,
+        "title": "Tập 16",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_16.mp4"
+      },
+      {
+        "episodeId": 17,
+        "title": "Tập 17",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_17.mp4"
+      },
+      {
+        "episodeId": 18,
+        "title": "Tập 18",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_18.mp4"
+      },
+      {
+        "episodeId": 19,
+        "title": "Tập 19",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_19.mp4"
+      },
+      {
+        "episodeId": 20,
+        "title": "Tập 20",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_20.mp4"
+      },
+      {
+        "episodeId": 21,
+        "title": "Tập 21",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_21.mp4"
+      },
+      {
+        "episodeId": 22,
+        "title": "Tập 22",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_22.mp4"
+      },
+      {
+        "episodeId": 23,
+        "title": "Tập 23",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_23.mp4"
+      },
+      {
+        "episodeId": 24,
+        "title": "Tập 24",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_24.mp4"
+      },
+      {
+        "episodeId": 25,
+        "title": "Tập 25",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_25.mp4"
+      },
+      {
+        "episodeId": 26,
+        "title": "Tập 26",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_26.mp4"
+      },
+      {
+        "episodeId": 27,
+        "title": "Tập 27",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_27.mp4"
+      },
+      {
+        "episodeId": 28,
+        "title": "Tập 28",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/sousou-no-frieren/resolve/main/sousou-no-frieren-tap_28.mp4"
+      }
+    ]
+  },
+  {
     "id": "kaoru-hana-wa-rin-to-saku",
     "title": "Hoa thơm kiêu hãnh",
     "originalTitle": "Kaoru Hana wa Rin to Saku",
@@ -7,7 +168,7 @@ const MOVIE_DATABASE = [
     "banner": "https://i.ibb.co/nMgdbLBL/gomen.jpg",
     "rating": 8.8,
     "year": "năm 2025",
-    "duration": "13",
+    "duration": "13 tập",
     "genres": [
       "Anime",
       "Lãng Mạn",
