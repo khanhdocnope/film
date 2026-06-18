@@ -15,6 +15,7 @@ def save_data(movies):
     with open(DATA_FILE, "w", encoding="utf-8") as f:
         json.dump(movies, f, indent=2, ensure_ascii=False)
     print(" Đã lưu vào movies.json")
+    export_to_js(movies)
 
 def export_to_js(movies):
     # Tạo thư mục nếu chưa tồn tại
@@ -107,6 +108,9 @@ def add_episode(movies):
     }
     episodes.append(new_ep)
     movie['episodes'] = episodes
+    # Di chuyển phim lên đầu danh sách để hiển thị phim mới cập nhật lên đầu trang chủ
+    movies.pop(idx)
+    movies.insert(0, movie)
     save_data(movies)
     print(f" Đã thêm tập '{title}' cho phim '{movie['title']}'")
 
@@ -171,6 +175,9 @@ def add_episodes_bulk(movies):
         current_num += 1
 
     movie['episodes'] = episodes
+    # Di chuyển phim lên đầu danh sách để hiển thị phim mới cập nhật lên đầu trang chủ
+    movies.pop(idx)
+    movies.insert(0, movie)
     save_data(movies)
     print(f"  Thêm thành công {len(links)} tập phim vào '{movie['title']}'!")
 
