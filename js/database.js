@@ -1,5 +1,80 @@
 const MOVIE_DATABASE = [
   {
+    "id": "class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta",
+    "title": "Tôi Kết Bạn Với Cô Gái Xinh Thứ Hai Trong Lớp",
+    "originalTitle": "Class de 2-banme ni Kawaii Onnanoko to Tomodachi ni Natta",
+    "poster": "https://i.ibb.co/JjLgSHzs/l-m-p-h-n-202606181324.jpg",
+    "banner": "https://i.ibb.co/XrjLGmdF/l-m-p-h-n-202606181323.jpg",
+    "rating": 7.93,
+    "year": "năm 2026",
+    "duration": "12 tập",
+    "genres": [
+      "Anime",
+      "Học Đường",
+      "Lãng Mạn",
+      "Đời Thường"
+    ],
+    "description": "câu chuyện tình cảm học đường nhẹ nhàng kể về Maehara Maki, một nam sinh khép kín, vô tình kết bạn thân với Asanagi Umi – cô gái xinh đẹp thứ hai trong lớp có sở thích mê chơi game. Sau giờ học, phòng riêng của Maki trở thành \"căn cứ bí mật\" để hai người cùng ăn vặt, xem phim và chơi điện tử, từ đó khoảng cách giữa họ dần được thu hẹp và phát triển thành một tình yêu ngọt ngào, sâu sắc.",
+    "isFeatured": true,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_11.mp4"
+      }
+    ]
+  },
+  {
     "id": "sousou-no-frieren",
     "title": "Frieren: Pháp sư tiễn táng",
     "originalTitle": "Sousou no Frieren",
