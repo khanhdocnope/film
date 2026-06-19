@@ -56,7 +56,9 @@ function loadMovieDetails() {
   document.title = `Xem phim ${currentMovie.title} - FilmXem`;
   const backdropWrapper = document.getElementById("watchBackdropWrapper");
   if (backdropWrapper) {
-    backdropWrapper.style.backgroundImage = `url('${currentMovie.banner}')`;
+    backdropWrapper.style.setProperty("--movie-banner", `url('${currentMovie.banner}')`);
+    backdropWrapper.style.setProperty("--movie-poster", `url('${currentMovie.poster}')`);
+    backdropWrapper.style.backgroundImage = `var(--movie-banner)`;
   }
   WatchDOM.movieTitle.textContent = currentMovie.title;
   WatchDOM.movieOriginalTitle.textContent = currentMovie.originalTitle;
@@ -296,6 +298,82 @@ function triggerAutoplayCountdown(nextEpIndex) {
   }, 1000);
 }
 
+// Định dạng thời gian (giây -> mm:ss hoặc hh:mm:ss)
+function formatTime(seconds) {
+  if (isNaN(seconds) || seconds === null) return '00:00';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = Math.floor(seconds % 60);
+  
+  if (h > 0) {
+    return `${h}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+  return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+}
+
+// Hiển thị thông báo Tiếp tục xem
+function showResumeNotification(video, time) {
+  const wrapper = document.querySelector('.watch-player-wrapper');
+  if (!wrapper) return;
+
+  // Xóa thông báo cũ nếu có
+  const oldNotif = wrapper.querySelector('.resume-notification');
+  if (oldNotif) oldNotif.remove();
+
+  const notif = document.createElement('div');
+  notif.className = 'resume-notification';
+  notif.style.opacity = '0';
+  notif.style.transform = 'translateY(20px)';
+
+  notif.innerHTML = `
+    <span class="resume-text">
+      <i class="fa-solid fa-clock-rotate-left"></i> 
+      Tiếp tục xem từ <strong>${formatTime(time)}</strong>
+    </span>
+    <button class="btn-restart-video">Xem lại từ đầu</button>
+    <i class="fa-solid fa-xmark btn-close-resume"></i>
+  `;
+
+  wrapper.appendChild(notif);
+
+  // Kích hoạt animation hiện lên
+  setTimeout(() => {
+    notif.style.opacity = '1';
+    notif.style.transform = 'translateY(0)';
+  }, 50);
+
+  // Sự kiện nút đóng
+  const closeBtn = notif.querySelector('.btn-close-resume');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      notif.style.opacity = '0';
+      notif.style.transform = 'translateY(20px)';
+      setTimeout(() => notif.remove(), 400);
+    });
+  }
+
+  // Sự kiện nút xem lại từ đầu
+  const restartBtn = notif.querySelector('.btn-restart-video');
+  if (restartBtn) {
+    restartBtn.addEventListener('click', () => {
+      video.currentTime = 0;
+      video.play();
+      notif.style.opacity = '0';
+      notif.style.transform = 'translateY(20px)';
+      setTimeout(() => notif.remove(), 400);
+    });
+  }
+
+  // Tự động đóng sau 8 giây
+  setTimeout(() => {
+    if (notif.parentNode) {
+      notif.style.opacity = '0';
+      notif.style.transform = 'translateY(20px)';
+      setTimeout(() => notif.remove(), 400);
+    }
+  }, 8000);
+}
+
 // Hàm chính render player
 async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
   const activeEpIndex = currentEpisodeIndex; // capture current episode index to prevent race conditions during transitions
@@ -345,9 +423,10 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     const progress = getMovieProgress(currentMovie.id);
     if (progress && progress.episodes && progress.episodes[activeEpIndex]) {
       const epProgress = progress.episodes[activeEpIndex];
-      if (epProgress.time > 0) {
+      if (epProgress.time > 5) {
         video.addEventListener('loadedmetadata', () => {
           video.currentTime = epProgress.time;
+          showResumeNotification(video, epProgress.time);
         }, { once: true });
       }
     }

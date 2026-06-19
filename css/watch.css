@@ -2,11 +2,36 @@
    WATCHPAGE SPECIFIC STYLES
    ========================================== */
 
+/* Main Container */
+.watch-container {
+  max-width: 1280px;
+  margin: calc(var(--header-height) + 24px) auto 60px;
+  padding: 0 4%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+}
+
+@media (min-width: 992px) {
+  .watch-container {
+    grid-template-columns: 2.8fr 1.2fr;
+    /* 70% left, 30% right */
+  }
+}
+
+/* Left Column - Video & Info */
+.watch-main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 /* Backdrop Wrapper for Atmospheric Background */
 .watch-backdrop-wrapper {
   position: relative;
   width: 100%;
   min-height: 100vh;
+  background-image: var(--movie-banner);
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -18,6 +43,8 @@
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 50% 30%, rgba(7, 5, 15, 0.45) 0%, #07050f 92%);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   z-index: 0;
 }
 
@@ -25,29 +52,11 @@ body:not(.dark-mode) .watch-backdrop-wrapper::before {
   background: radial-gradient(circle at 50% 30%, rgba(248, 246, 255, 0.6) 0%, #F8F6FF 92%);
 }
 
-/* Main Container */
-.watch-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: calc(var(--header-height) + 24px) 4% 60px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-  position: relative;
-  z-index: 1;
-}
-
-@media (min-width: 992px) {
-  .watch-container {
-    grid-template-columns: 2.8fr 1.2fr; /* 70% left, 30% right */
+@media (max-width: 768px) {
+  .watch-backdrop-wrapper {
+    background-image: var(--movie-poster);
+    background-position: center center;
   }
-}
-
-/* Left Column - Video & Info */
-.watch-main-col {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
 }
 
 .watch-player-wrapper {
@@ -57,14 +66,8 @@ body:not(.dark-mode) .watch-backdrop-wrapper::before {
   background-color: #000;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg), 0 20px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: var(--shadow-lg);
   border: 1.5px solid var(--border-color);
-  transition: var(--transition-smooth);
-}
-
-.watch-player-wrapper:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.25), 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .watch-video {
@@ -281,7 +284,7 @@ body.dark-mode .playlist-card {
   .watch-container {
     gap: 24px;
   }
-  
+
   .playlist-card {
     position: relative;
     top: 0;
@@ -332,6 +335,7 @@ body.dark-mode .playlist-card {
     gap: 14px;
   }
 }
+
 /* ==========================================
    MOBILE: ĐƯA PLAYLIST LÊN TRÊN PLAYER
    ========================================== */
@@ -352,12 +356,14 @@ body.dark-mode .playlist-card {
     order: 0;
   }
 }
+
 @media (max-width: 991px) {
   .playlist-card.moved-to-main {
     width: 100%;
     margin-top: 24px;
   }
 }
+
 /* Đảm bảo iframe chiếm toàn bộ khung player */
 .watch-iframe {
   position: absolute;
@@ -367,6 +373,7 @@ body.dark-mode .playlist-card {
   height: 100%;
   border: none;
 }
+
 .watch-player-wrapper {
   position: relative;
   width: 100%;
@@ -374,6 +381,7 @@ body.dark-mode .playlist-card {
   background-color: #000;
   overflow: hidden;
 }
+
 #playerContainer {
   width: 100%;
   height: 100%;
@@ -397,6 +405,7 @@ body.dark-mode .playlist-card {
     opacity: 0;
     transform: translateY(20px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -418,8 +427,15 @@ body.dark-mode .playlist-card {
 }
 
 @keyframes watchCardPulse {
-  0%, 100% { border-color: rgba(255, 255, 255, 0.1); }
-  50% { border-color: var(--accent); }
+
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  50% {
+    border-color: var(--accent);
+  }
 }
 
 .autoplay-info {
@@ -509,6 +525,14 @@ body.dark-mode .playlist-card {
   padding-bottom: 14px;
 }
 
+@media (min-width: 576px) {
+  .playlist-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .playlist-header .playlist-title {
   border-bottom: none;
   padding-bottom: 0;
@@ -519,7 +543,11 @@ body.dark-mode .playlist-card {
   width: 100%;
 }
 
-/* Keep search wrapper full-width */
+@media (min-width: 576px) {
+  .episode-search-wrapper {
+    max-width: 160px;
+  }
+}
 
 .episode-search-input {
   width: 100%;
@@ -632,4 +660,153 @@ body.dark-mode .ep-grid-btn {
   border-color: transparent !important;
   color: white !important;
   box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
+}
+
+/* ==========================================
+   PERFORMANCE OPTIMIZATION (LITE MODE)
+   ========================================== */
+/* 1. Disable backdrop-image rendering to save GPU layout/paint time */
+.performance-lite .watch-backdrop-wrapper {
+  background-image: none !important;
+}
+.performance-lite .watch-backdrop-wrapper::before {
+  display: none !important;
+}
+
+/* 2. Disable layout-triggering blur filters (backdrop-filter is extremely heavy on mobile CPUs/GPUs) */
+.performance-lite .watch-details-card,
+.performance-lite .playlist-card,
+.performance-lite .autoplay-card,
+.performance-lite .mobile-nav-bar {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Fallback to simple solid background colors */
+.performance-lite .watch-details-card,
+.performance-lite .playlist-card {
+  background: var(--bg-secondary) !important;
+}
+
+.performance-lite.dark-mode .watch-details-card,
+.performance-lite.dark-mode .playlist-card,
+body.dark-mode .performance-lite .watch-details-card,
+body.dark-mode .performance-lite .playlist-card {
+  background: #0f0d1b !important;
+}
+
+/* 3. Disable layout-shifting/animating translate values for cards, buttons and lists to avoid heavy re-paints */
+.performance-lite .episode-btn, 
+.performance-lite .ep-grid-btn,
+.performance-lite .movie-card {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+.performance-lite .episode-btn:hover,
+.performance-lite .ep-grid-btn:hover,
+.performance-lite .movie-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ==========================================
+   RESUME WATCHING OVERLAY NOTIFICATION
+   ========================================== */
+.resume-notification {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 100;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  pointer-events: auto;
+}
+
+.resume-notification .resume-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.resume-notification .resume-text i {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.resume-notification .btn-restart-video {
+  background: var(--accent-gradient);
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.2);
+  white-space: nowrap;
+}
+
+.resume-notification .btn-restart-video:hover {
+  transform: scale(1.05);
+}
+
+.resume-notification .btn-close-resume {
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 1rem;
+  margin-left: 4px;
+  transition: opacity 0.2s;
+}
+
+.resume-notification .btn-close-resume:hover {
+  opacity: 1;
+}
+
+/* Mobile responsive optimization for resume notification */
+@media (max-width: 768px) {
+  .resume-notification {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    gap: 8px;
+    justify-content: space-between;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  }
+  
+  .resume-notification .resume-text {
+    gap: 6px;
+  }
+  
+  .resume-notification .resume-text i {
+    font-size: 0.85rem;
+  }
+
+  .resume-notification .btn-restart-video {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+  }
+  
+  .resume-notification .btn-close-resume {
+    font-size: 0.85rem;
+  }
 }

@@ -1,3 +1,14 @@
+// Run immediately as script loads to prevent layout/animation flash
+(function() {
+  let mode = localStorage.getItem("filmXem_perfMode");
+  if (!mode) {
+    mode = window.innerWidth <= 768 ? "lite-mode" : "high-effects";
+  }
+  if (mode === "lite-mode") {
+    document.documentElement.classList.add("performance-lite");
+  }
+})();
+
 // ==========================================
 // CORE SHARED UTILITIES
 // ==========================================
@@ -117,6 +128,68 @@ function updateThemeColorMeta(isDark) {
   }
 }
 
+// Performance mode toggle (High Effects vs Lite Mode)
+function initPerformanceMode() {
+  let mode = localStorage.getItem("filmXem_perfMode");
+  if (!mode) {
+    mode = window.innerWidth <= 768 ? "lite-mode" : "high-effects";
+  }
+  applyPerformanceMode(mode);
+  injectPerformanceToggleButton();
+}
+
+function applyPerformanceMode(mode) {
+  if (mode === "lite-mode") {
+    document.documentElement.classList.add("performance-lite");
+    document.body.classList.add("performance-lite");
+  } else {
+    document.documentElement.classList.remove("performance-lite");
+    document.body.classList.remove("performance-lite");
+  }
+  localStorage.setItem("filmXem_perfMode", mode);
+  updatePerformanceToggleIcon(mode === "lite-mode");
+}
+
+function togglePerformanceMode() {
+  const isLite = document.body.classList.contains("performance-lite");
+  const newMode = isLite ? "high-effects" : "lite-mode";
+  applyPerformanceMode(newMode);
+  showToast(newMode === "lite-mode" ? "Đã bật chế độ Tối ưu Hiệu năng" : "Đã bật chế độ Đầy đủ Hiệu ứng");
+}
+
+function updatePerformanceToggleIcon(isLite) {
+  const toggleBtn = document.getElementById("performanceToggleBtn");
+  if (toggleBtn) {
+    toggleBtn.innerHTML = isLite
+      ? '<i class="fa-solid fa-bolt" style="color: var(--accent);"></i>'
+      : '<i class="fa-solid fa-wand-magic-sparkles"></i>';
+    toggleBtn.title = isLite
+      ? "Chế độ Hiệu năng (Bật để dùng đầy đủ hiệu ứng)"
+      : "Chế độ Đầy đủ hiệu ứng (Bật để tối ưu hiệu năng)";
+  }
+}
+
+function injectPerformanceToggleButton() {
+  const headerActions = document.getElementById("headerActions") || document.querySelector(".header-actions");
+  if (headerActions && !document.getElementById("performanceToggleBtn")) {
+    const btn = document.createElement("button");
+    btn.className = "theme-toggle-btn";
+    btn.id = "performanceToggleBtn";
+    btn.ariaLabel = "Bật/Tắt hiệu ứng chuyển động";
+    
+    const themeBtn = document.getElementById("themeToggleBtn");
+    if (themeBtn) {
+      headerActions.insertBefore(btn, themeBtn);
+    } else {
+      headerActions.appendChild(btn);
+    }
+
+    btn.addEventListener("click", togglePerformanceMode);
+    const isLite = document.body.classList.contains("performance-lite");
+    updatePerformanceToggleIcon(isLite);
+  }
+}
+
 // Toast Notification
 function showToast(message) {
   let toast = document.getElementById("toast");
@@ -161,58 +234,10 @@ function showToast(message) {
   }, 2500);
 }
 
-// Page Transition Loader
-function initPageTransition() {
-  const loader = document.createElement("div");
-  loader.className = "page-loader";
-  loader.innerHTML = `
-    <div class="loader-spinner"></div>
-    <div class="loader-logo">FilmXem</div>
-  `;
-  document.body.appendChild(loader);
-
-  // Fade out loader on load
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      loader.classList.add("fade-out");
-    }, 250);
-  });
-
-  // Fallback: fade out after 2s anyway if load event is missed
-  setTimeout(() => {
-    loader.classList.add("fade-out");
-  }, 2000);
-
-  // Intercept link clicks for transition out
-  document.addEventListener("click", (e) => {
-    const anchor = e.target.closest("a");
-    if (!anchor) return;
-
-    const href = anchor.getAttribute("href");
-    if (!href || href.startsWith("#") || href.startsWith("javascript:") || anchor.getAttribute("target") === "_blank" || e.metaKey || e.ctrlKey) {
-      return;
-    }
-
-    // Skip custom actions / tabs
-    if (anchor.classList.contains("btn-quick-action") || anchor.closest(".js-hero-bookmark") || anchor.classList.contains("btn-autoplay")) {
-      return;
-    }
-
-    const isLocal = href.indexOf(":") === -1 || href.startsWith(window.location.origin);
-    if (isLocal) {
-      e.preventDefault();
-      loader.classList.remove("fade-out");
-      setTimeout(() => {
-        window.location.href = href;
-      }, 400);
-    }
-  });
-}
-
 // Initialize on load
 document.addEventListener("DOMContentLoaded", () => {
-  initPageTransition();
   initTheme();
+  initPerformanceMode();
 
   const themeToggleBtn = document.getElementById("themeToggleBtn");
   if (themeToggleBtn) {

@@ -11,7 +11,8 @@
   padding: 40px 4% 80px;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Parallax on desktop */
+  background-attachment: fixed;
+  /* Parallax on desktop */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,14 +23,16 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(15, 23, 42, 0.75); /* Dark cinematic tint */
+  background: rgba(15, 23, 42, 0.75);
+  /* Dark cinematic tint */
   backdrop-filter: blur(30px) saturate(120%);
   -webkit-backdrop-filter: blur(30px) saturate(120%);
   z-index: -1;
 }
 
 body.dark-mode .detail-backdrop-wrapper::before {
-  background: rgba(9, 13, 22, 0.85); /* Darker tint for dark mode */
+  background: rgba(9, 13, 22, 0.85);
+  /* Darker tint for dark mode */
 }
 
 /* Movie Card Container */
@@ -52,7 +55,8 @@ body.dark-mode .detail-backdrop-wrapper::before {
 
 @media (min-width: 769px) {
   .movie-card-detail {
-    grid-template-columns: 280px 1fr; /* Left poster, right info */
+    grid-template-columns: 280px 1fr;
+    /* Left poster, right info */
   }
 }
 
@@ -139,7 +143,8 @@ body.dark-mode .detail-backdrop-wrapper::before {
   font-size: 2.8rem;
   font-weight: 700;
   line-height: 1.15;
-  color: #d4fc34; /* Green-yellow neon color matching user screenshot */
+  color: #d4fc34;
+  /* Green-yellow neon color matching user screenshot */
   text-shadow: 0 2px 10px rgba(212, 252, 52, 0.2);
 }
 
@@ -159,7 +164,8 @@ body.dark-mode .detail-backdrop-wrapper::before {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-right: 3px solid var(--accent); /* Accent side border matching user screenshot */
+  border-right: 3px solid var(--accent);
+  /* Accent side border matching user screenshot */
   padding-right: 15px;
 }
 
@@ -228,7 +234,8 @@ body:not(.dark-mode) .rating-circle::before {
   display: flex;
   align-items: center;
   gap: 4px;
-  color: #fbbf24; /* Amber orange */
+  color: #fbbf24;
+  /* Amber orange */
   font-size: 1.1rem;
 }
 
@@ -292,7 +299,8 @@ body:not(.dark-mode) .rating-circle::before {
   .detail-backdrop-wrapper {
     padding: 20px 10px 60px;
     align-items: flex-start;
-    background-attachment: scroll; /* Fix iOS fixed bg bug */
+    background-attachment: scroll;
+    /* Fix iOS fixed bg bug */
   }
 
   .movie-card-detail {
@@ -364,11 +372,35 @@ body:not(.dark-mode) .rating-circle::before {
 
   .detail-bottom-section {
     padding: 0 10px;
-    margin-bottom: 90px; /* Space for mobile nav bar */
+    margin-bottom: 90px;
+    /* Space for mobile nav bar */
   }
 
   .detail-bottom-section .related-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
+}
+
+/* ==========================================
+   PERFORMANCE OPTIMIZATION (LITE MODE)
+   ========================================== */
+.performance-lite .detail-backdrop-wrapper::before {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #090d16 !important;
+}
+
+.performance-lite .movie-card-detail {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: #171b26 !important;
+  animation: none !important;
+}
+
+.performance-lite .movie-card {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
