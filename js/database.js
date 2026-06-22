@@ -20,57 +20,57 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Tập 1",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_1.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_1.mp4"
       },
       {
         "episodeId": 2,
         "title": "Tập 2",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_2.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_2.mp4"
       },
       {
         "episodeId": 3,
         "title": "Tập 3",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_3.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_3.mp4"
       },
       {
         "episodeId": 4,
         "title": "Tập 4",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_4.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_4.mp4"
       },
       {
         "episodeId": 5,
         "title": "Tập 5",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_5.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_5.mp4"
       },
       {
         "episodeId": 6,
         "title": "Tập 6",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_6.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_6.mp4"
       },
       {
         "episodeId": 7,
         "title": "Tập 7",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_7.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_7.mp4"
       },
       {
         "episodeId": 8,
         "title": "Tập 8",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_8.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_8.mp4"
       },
       {
         "episodeId": 9,
         "title": "Tập 9",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_9.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_9.mp4"
       },
       {
         "episodeId": 10,
         "title": "Tập 10",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_10.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_10.mp4"
       },
       {
         "episodeId": 11,
         "title": "Tập 11",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_11.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-1/resolve/main/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta-tap_11.mp4"
       }
     ]
   },

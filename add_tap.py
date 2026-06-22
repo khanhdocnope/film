@@ -181,6 +181,127 @@ def add_episodes_bulk(movies):
     save_data(movies)
     print(f"  Thêm thành công {len(links)} tập phim vào '{movie['title']}'!")
 
+def delete_episode(movies):
+    if not movies:
+        print(" ❌ Chưa có phim nào.")
+        return
+    list_movies(movies)
+    try:
+        idx = int(input("\nChọn số thứ tự phim: ")) - 1
+        if idx < 0 or idx >= len(movies):
+            print(" ❌ Số thứ tự không hợp lệ")
+            return
+        movie = movies[idx]
+    except ValueError:
+        print(" ❌ Vui lòng nhập số")
+        return
+
+    episodes = movie.get('episodes', [])
+    if not episodes:
+        print(f" ❌ Phim '{movie['title']}' chưa có tập nào để xóa.")
+        return
+
+    print(f"\n Danh sách tập của phim: {movie['title']}:")
+    for i, ep in enumerate(episodes, 1):
+        print(f"{i}. {ep['title']} (ID: {ep['episodeId']})")
+    
+    try:
+        ep_idx = int(input("\nChọn số thứ tự tập muốn xóa (nhập 0 để hủy): ")) - 1
+        if ep_idx == -1:
+            print(" Hủy bỏ.")
+            return
+        if ep_idx < 0 or ep_idx >= len(episodes):
+            print(" ❌ Số thứ tự tập không hợp lệ")
+            return
+        
+        deleted_ep = episodes.pop(ep_idx)
+        movie['episodes'] = episodes
+        save_data(movies)
+        print(f" Đã xóa tập '{deleted_ep['title']}' của phim '{movie['title']}'!")
+    except ValueError:
+        print(" ❌ Vui lòng nhập số")
+        return
+
+def delete_episodes_bulk(movies):
+    if not movies:
+        print(" ❌ Chưa có phim nào.")
+        return
+    list_movies(movies)
+    try:
+        idx = int(input("\nChọn số thứ tự phim: ")) - 1
+        if idx < 0 or idx >= len(movies):
+            print(" ❌ Số thứ tự không hợp lệ")
+            return
+        movie = movies[idx]
+    except ValueError:
+        print(" ❌ Vui lòng nhập số")
+        return
+
+    episodes = movie.get('episodes', [])
+    if not episodes:
+        print(f" ❌ Phim '{movie['title']}' chưa có tập nào để xóa.")
+        return
+
+    print(f"\n Danh sách tập của phim: {movie['title']}:")
+    for i, ep in enumerate(episodes, 1):
+        print(f"{i}. {ep['title']} (ID: {ep['episodeId']})")
+    
+    input_str = input("\nNhập các số thứ tự tập muốn xóa (VD: 1, 2, 5 hoặc khoảng 10-15, nhập 0 để hủy): ").strip()
+    if input_str == "0" or not input_str:
+        print(" Hủy bỏ.")
+        return
+        
+    # Parse indices to delete
+    indices_to_delete = []
+    parts = input_str.split(',')
+    for part in parts:
+        part = part.strip()
+        if '-' in part:
+            try:
+                start, end = part.split('-')
+                start_val = int(start.strip())
+                end_val = int(end.strip())
+                if start_val > end_val:
+                    start_val, end_val = end_val, start_val
+                for i in range(start_val, end_val + 1):
+                    if 1 <= i <= len(episodes):
+                        indices_to_delete.append(i - 1)
+            except ValueError:
+                pass
+        else:
+            try:
+                val = int(part)
+                if 1 <= val <= len(episodes):
+                    indices_to_delete.append(val - 1)
+            except ValueError:
+                pass
+                
+    # Remove duplicates and sort descending
+    indices_to_delete = sorted(list(set(indices_to_delete)), reverse=True)
+    
+    if not indices_to_delete:
+        print(" ❌ Không tìm thấy tập phim nào tương ứng để xóa.")
+        return
+        
+    print(f"\n Bạn đã chọn xóa {len(indices_to_delete)} tập:")
+    for idx_del in reversed(indices_to_delete): # Show in normal order to the user
+        print(f"  - {episodes[idx_del]['title']}")
+        
+    confirm = input("Bạn có chắc chắn muốn xóa những tập này? (y/n): ").strip().lower()
+    if confirm != 'y':
+        print(" Đã hủy xóa.")
+        return
+        
+    # Perform deletion
+    deleted_titles = []
+    for idx_del in indices_to_delete:
+        deleted_ep = episodes.pop(idx_del)
+        deleted_titles.append(deleted_ep['title'])
+        
+    movie['episodes'] = episodes
+    save_data(movies)
+    print(f" Đã xóa thành công {len(deleted_titles)} tập phim!")
+
 def main():
     movies = load_data()
     while True:
@@ -190,7 +311,9 @@ def main():
         print("2. Thêm phim mới")
         print("3. Thêm một tập thủ công")
         print("4. Thêm tập hàng loạt từ file 'link.txt'")
-        print("5. Xuất ra database.js (cập nhật file JS)")
+        print("5. Xóa một tập")
+        print("6. Xóa tập hàng loạt")
+        print("7. Xuất ra database.js (cập nhật file JS)")
         print("0. Thoát")
         choice = input("Chọn: ").strip()
         if choice == "0":
@@ -205,6 +328,10 @@ def main():
         elif choice == "4":
             add_episodes_bulk(movies)
         elif choice == "5":
+            delete_episode(movies)
+        elif choice == "6":
+            delete_episodes_bulk(movies)
+        elif choice == "7":
             export_to_js(movies)  
         else:
             print(" Lựa chọn không hợp lệ")
