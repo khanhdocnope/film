@@ -1,5 +1,753 @@
 const MOVIE_DATABASE = [
   {
+    "id": "tien-nghich",
+    "title": "tiên ngịch",
+    "originalTitle": "仙逆",
+    "poster": "https://i.ibb.co/Df1wsKt3/n-ng-c-p-2-K-202606152233.jpg",
+    "banner": "https://i.ibb.co/gMR0Jqjx/images.jpg",
+    "rating": 8.7,
+    "year": "năm 2023",
+    "duration": "180 tập",
+    "genres": [
+      "Viễn Tưởng",
+      "Kỳ Ảo"
+    ],
+    "description": "Truyện theo chân Vương Lâm, một thiếu niên tư chất bình thường vô tình bước vào con đường tu đạo. Dù không có thiên phú xuất chúng, nhờ vào sự kiên trì, tâm trí sắt đá, tư duy logic và kỹ năng sinh tồn, cậu từng bước phá vỡ các xiềng xích của vận mệnh. Điểm nhấn của tác phẩm là triết lý \"thuận vi phàm, nghịch vi tiên\", miêu tả một thế giới tu tiên thực dụng và tàn khốc.",
+    "isFeatured": false,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-11.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-12.mp4"
+      },
+      {
+        "episodeId": 13,
+        "title": "Tập 13",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-13.mp4"
+      },
+      {
+        "episodeId": 14,
+        "title": "Tập 14",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-14.mp4"
+      },
+      {
+        "episodeId": 15,
+        "title": "Tập 15",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-15.mp4"
+      },
+      {
+        "episodeId": 16,
+        "title": "Tập 16",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-16.mp4"
+      },
+      {
+        "episodeId": 17,
+        "title": "Tập 17",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-17.mp4"
+      },
+      {
+        "episodeId": 18,
+        "title": "Tập 18",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-18.mp4"
+      },
+      {
+        "episodeId": 19,
+        "title": "Tập 19",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-19.mp4"
+      },
+      {
+        "episodeId": 20,
+        "title": "Tập 20",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-20.mp4"
+      },
+      {
+        "episodeId": 21,
+        "title": "Tập 21",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_21.mp4"
+      },
+      {
+        "episodeId": 22,
+        "title": "Tập 22",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_22.mp4"
+      },
+      {
+        "episodeId": 23,
+        "title": "Tập 23",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_23.mp4"
+      },
+      {
+        "episodeId": 24,
+        "title": "Tập 24",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_24.mp4"
+      },
+      {
+        "episodeId": 25,
+        "title": "Tập 25",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_25.mp4"
+      },
+      {
+        "episodeId": 26,
+        "title": "Tập 26",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_26.mp4"
+      },
+      {
+        "episodeId": 27,
+        "title": "Tập 27",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_27.mp4"
+      },
+      {
+        "episodeId": 28,
+        "title": "Tập 28",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_28.mp4"
+      },
+      {
+        "episodeId": 29,
+        "title": "Tập 29",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_29.mp4"
+      },
+      {
+        "episodeId": 30,
+        "title": "Tập 30",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_30.mp4"
+      },
+      {
+        "episodeId": 31,
+        "title": "Tập 31",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_31.mp4"
+      },
+      {
+        "episodeId": 32,
+        "title": "Tập 32",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_32.mp4"
+      },
+      {
+        "episodeId": 33,
+        "title": "Tập 33",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_33.mp4"
+      },
+      {
+        "episodeId": 34,
+        "title": "Tập 34",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_34.mp4"
+      },
+      {
+        "episodeId": 35,
+        "title": "Tập 35",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_35.mp4"
+      },
+      {
+        "episodeId": 36,
+        "title": "Tập 36",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_36.mp4"
+      },
+      {
+        "episodeId": 37,
+        "title": "Tập 37",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_37.mp4"
+      },
+      {
+        "episodeId": 38,
+        "title": "Tập 38",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_38.mp4"
+      },
+      {
+        "episodeId": 39,
+        "title": "Tập 39",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_39.mp4"
+      },
+      {
+        "episodeId": 40,
+        "title": "Tập 40",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_40.mp4"
+      },
+      {
+        "episodeId": 41,
+        "title": "Tập 41",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_41.mp4"
+      },
+      {
+        "episodeId": 42,
+        "title": "Tập 42",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_42.mp4"
+      },
+      {
+        "episodeId": 43,
+        "title": "Tập 43",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_43.mp4"
+      },
+      {
+        "episodeId": 44,
+        "title": "Tập 44",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_44.mp4"
+      },
+      {
+        "episodeId": 45,
+        "title": "Tập 45",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_45.mp4"
+      },
+      {
+        "episodeId": 46,
+        "title": "Tập 46",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_46.mp4"
+      },
+      {
+        "episodeId": 47,
+        "title": "Tập 47",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_47.mp4"
+      },
+      {
+        "episodeId": 48,
+        "title": "Tập 48",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_48.mp4"
+      },
+      {
+        "episodeId": 49,
+        "title": "Tập 49",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_49.mp4"
+      },
+      {
+        "episodeId": 50,
+        "title": "Tập 50",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_50.mp4"
+      },
+      {
+        "episodeId": 51,
+        "title": "Tập 51",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_51.mp4"
+      },
+      {
+        "episodeId": 52,
+        "title": "Tập 52",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_52.mp4"
+      },
+      {
+        "episodeId": 53,
+        "title": "Tập 53",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_53.mp4"
+      },
+      {
+        "episodeId": 54,
+        "title": "Tập 54",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_54.mp4"
+      },
+      {
+        "episodeId": 55,
+        "title": "Tập 55",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_55.mp4"
+      },
+      {
+        "episodeId": 56,
+        "title": "Tập 56",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_56.mp4"
+      },
+      {
+        "episodeId": 57,
+        "title": "Tập 57",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_57.mp4"
+      },
+      {
+        "episodeId": 58,
+        "title": "Tập 58",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_58.mp4"
+      },
+      {
+        "episodeId": 59,
+        "title": "Tập 59",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_59.mp4"
+      },
+      {
+        "episodeId": 60,
+        "title": "Tập 60",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_60.mp4"
+      },
+      {
+        "episodeId": 61,
+        "title": "Tập 61",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_41.mp4"
+      },
+      {
+        "episodeId": 62,
+        "title": "Tập 62",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_42.mp4"
+      },
+      {
+        "episodeId": 63,
+        "title": "Tập 63",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_43.mp4"
+      },
+      {
+        "episodeId": 64,
+        "title": "Tập 64",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_44.mp4"
+      },
+      {
+        "episodeId": 65,
+        "title": "Tập 65",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_45.mp4"
+      },
+      {
+        "episodeId": 66,
+        "title": "Tập 66",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_46.mp4"
+      },
+      {
+        "episodeId": 67,
+        "title": "Tập 67",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_47.mp4"
+      },
+      {
+        "episodeId": 68,
+        "title": "Tập 68",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_48.mp4"
+      },
+      {
+        "episodeId": 69,
+        "title": "Tập 69",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_49.mp4"
+      },
+      {
+        "episodeId": 70,
+        "title": "Tập 70",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_50.mp4"
+      },
+      {
+        "episodeId": 71,
+        "title": "Tập 71",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_51.mp4"
+      },
+      {
+        "episodeId": 72,
+        "title": "Tập 72",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_52.mp4"
+      },
+      {
+        "episodeId": 73,
+        "title": "Tập 73",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_53.mp4"
+      },
+      {
+        "episodeId": 74,
+        "title": "Tập 74",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_54.mp4"
+      },
+      {
+        "episodeId": 75,
+        "title": "Tập 75",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_55.mp4"
+      },
+      {
+        "episodeId": 76,
+        "title": "Tập 76",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_76.mp4"
+      },
+      {
+        "episodeId": 77,
+        "title": "Tập 77",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_77.mp4"
+      },
+      {
+        "episodeId": 78,
+        "title": "Tập 78",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_78.mp4"
+      },
+      {
+        "episodeId": 79,
+        "title": "Tập 79",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_79.mp4"
+      },
+      {
+        "episodeId": 80,
+        "title": "Tập 80",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_80.mp4"
+      },
+      {
+        "episodeId": 81,
+        "title": "Tập 81",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_81.mp4"
+      },
+      {
+        "episodeId": 82,
+        "title": "Tập 82",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_82.mp4"
+      },
+      {
+        "episodeId": 83,
+        "title": "Tập 83",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_83.mp4"
+      },
+      {
+        "episodeId": 84,
+        "title": "Tập 84",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_84.mp4"
+      },
+      {
+        "episodeId": 85,
+        "title": "Tập 85",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_85.mp4"
+      },
+      {
+        "episodeId": 86,
+        "title": "Tập 86",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_86.mp4"
+      },
+      {
+        "episodeId": 87,
+        "title": "Tập 87",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_87.mp4"
+      },
+      {
+        "episodeId": 88,
+        "title": "Tập 88",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_88.mp4"
+      },
+      {
+        "episodeId": 89,
+        "title": "Tập 89",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_89.mp4"
+      },
+      {
+        "episodeId": 90,
+        "title": "Tập 90",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_90.mp4"
+      },
+      {
+        "episodeId": 91,
+        "title": "Tập 91",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_91.mp4"
+      },
+      {
+        "episodeId": 92,
+        "title": "Tập 92",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_92.mp4"
+      },
+      {
+        "episodeId": 93,
+        "title": "Tập 93",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_93.mp4"
+      },
+      {
+        "episodeId": 94,
+        "title": "Tập 94",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_94.mp4"
+      },
+      {
+        "episodeId": 95,
+        "title": "Tập 95",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_95.mp4"
+      },
+      {
+        "episodeId": 96,
+        "title": "Tập 96",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_96.mp4"
+      },
+      {
+        "episodeId": 97,
+        "title": "Tập 97",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_97.mp4"
+      },
+      {
+        "episodeId": 98,
+        "title": "Tập 98",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_98.mp4"
+      },
+      {
+        "episodeId": 99,
+        "title": "Tập 99",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_99.mp4"
+      },
+      {
+        "episodeId": 100,
+        "title": "Tập 100",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_100.mp4"
+      },
+      {
+        "episodeId": 101,
+        "title": "Tập 101",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_101.mp4"
+      },
+      {
+        "episodeId": 102,
+        "title": "Tập 102",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_102.mp4"
+      },
+      {
+        "episodeId": 103,
+        "title": "Tập 103",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_103.mp4"
+      },
+      {
+        "episodeId": 104,
+        "title": "Tập 104",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_104.mp4"
+      },
+      {
+        "episodeId": 105,
+        "title": "Tập 105",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_105.mp4"
+      },
+      {
+        "episodeId": 106,
+        "title": "Tập 106",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_106.mp4"
+      },
+      {
+        "episodeId": 107,
+        "title": "Tập 107",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_107.mp4"
+      },
+      {
+        "episodeId": 108,
+        "title": "Tập 108",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_108.mp4"
+      },
+      {
+        "episodeId": 109,
+        "title": "Tập 109",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_109.mp4"
+      },
+      {
+        "episodeId": 110,
+        "title": "Tập 110",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_110.mp4"
+      },
+      {
+        "episodeId": 111,
+        "title": "Tập 111",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_111.mp4"
+      },
+      {
+        "episodeId": 112,
+        "title": "Tập 112",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_112.mp4"
+      },
+      {
+        "episodeId": 113,
+        "title": "Tập 113",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_113.mp4"
+      },
+      {
+        "episodeId": 114,
+        "title": "Tập 114",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_114.mp4"
+      },
+      {
+        "episodeId": 115,
+        "title": "Tập 115",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_115.mp4"
+      },
+      {
+        "episodeId": 116,
+        "title": "Tập 116",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_116.mp4"
+      },
+      {
+        "episodeId": 117,
+        "title": "Tập 117",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_117.mp4"
+      },
+      {
+        "episodeId": 118,
+        "title": "Tập 118",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_118.mp4"
+      },
+      {
+        "episodeId": 119,
+        "title": "Tập 119",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_119.mp4"
+      },
+      {
+        "episodeId": 120,
+        "title": "Tập 120",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_120.mp4"
+      },
+      {
+        "episodeId": 121,
+        "title": "Tập 121",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_121.mp4"
+      },
+      {
+        "episodeId": 122,
+        "title": "Tập 122",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_122.mp4"
+      },
+      {
+        "episodeId": 123,
+        "title": "Tập 123",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_123.mp4"
+      },
+      {
+        "episodeId": 124,
+        "title": "Tập 124",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_124.mp4"
+      },
+      {
+        "episodeId": 125,
+        "title": "Tập 125",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_125.mp4"
+      },
+      {
+        "episodeId": 126,
+        "title": "Tập 126",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_108.mp4"
+      },
+      {
+        "episodeId": 127,
+        "title": "Tập 127",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_109.mp4"
+      },
+      {
+        "episodeId": 128,
+        "title": "Tập 128",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_110.mp4"
+      },
+      {
+        "episodeId": 129,
+        "title": "Tập 129",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_111.mp4"
+      },
+      {
+        "episodeId": 130,
+        "title": "Tập 130",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_112.mp4"
+      },
+      {
+        "episodeId": 131,
+        "title": "Tập 131",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_113.mp4"
+      },
+      {
+        "episodeId": 132,
+        "title": "Tập 132",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_114.mp4"
+      },
+      {
+        "episodeId": 133,
+        "title": "Tập 133",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_115.mp4"
+      },
+      {
+        "episodeId": 134,
+        "title": "Tập 134",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_116.mp4"
+      },
+      {
+        "episodeId": 135,
+        "title": "Tập 135",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_117.mp4"
+      },
+      {
+        "episodeId": 136,
+        "title": "Tập 136",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_118.mp4"
+      },
+      {
+        "episodeId": 137,
+        "title": "Tập 137",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_119.mp4"
+      },
+      {
+        "episodeId": 138,
+        "title": "Tập 138",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_120.mp4"
+      },
+      {
+        "episodeId": 139,
+        "title": "Tập 139",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_121.mp4"
+      },
+      {
+        "episodeId": 140,
+        "title": "Tập 140",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_122.mp4"
+      },
+      {
+        "episodeId": 141,
+        "title": "Tập 141",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_141.mp4"
+      },
+      {
+        "episodeId": 142,
+        "title": "Tập 142",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_142.mp4"
+      },
+      {
+        "episodeId": 143,
+        "title": "Tập 143",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_143.mp4"
+      },
+      {
+        "episodeId": 144,
+        "title": "Tập 144",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_144.mp4"
+      },
+      {
+        "episodeId": 145,
+        "title": "Tập 145",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_145.mp4"
+      },
+      {
+        "episodeId": 146,
+        "title": "Tập 146",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-8-tap_146.mp4"
+      }
+    ]
+  },
+  {
     "id": "class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta",
     "title": "Tôi Kết Bạn Với Cô Gái Xinh Thứ Hai Trong Lớp",
     "originalTitle": "Class de 2-banme ni Kawaii Onnanoko to Tomodachi ni Natta",
@@ -905,749 +1653,6 @@ const MOVIE_DATABASE = [
         "episodeId": 24,
         "title": "Tập 24",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/vua-dau-bep-sona/resolve/main/vua-dau-bep-sona-24.mp4"
-      }
-    ]
-  },
-  {
-    "id": "tien-nghich",
-    "title": "tiên ngịch",
-    "originalTitle": "仙逆",
-    "poster": "https://i.ibb.co/Df1wsKt3/n-ng-c-p-2-K-202606152233.jpg",
-    "banner": "https://i.ibb.co/gMR0Jqjx/images.jpg",
-    "rating": 8.7,
-    "year": "năm 2023",
-    "duration": "180 tập",
-    "genres": [
-      "Viễn Tưởng",
-      "Kỳ Ảo"
-    ],
-    "description": "Truyện theo chân Vương Lâm, một thiếu niên tư chất bình thường vô tình bước vào con đường tu đạo. Dù không có thiên phú xuất chúng, nhờ vào sự kiên trì, tâm trí sắt đá, tư duy logic và kỹ năng sinh tồn, cậu từng bước phá vỡ các xiềng xích của vận mệnh. Điểm nhấn của tác phẩm là triết lý \"thuận vi phàm, nghịch vi tiên\", miêu tả một thế giới tu tiên thực dụng và tàn khốc.",
-    "isFeatured": false,
-    "episodes": [
-      {
-        "episodeId": 1,
-        "title": "Tập 1",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-1.mp4"
-      },
-      {
-        "episodeId": 2,
-        "title": "Tập 2",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-2.mp4"
-      },
-      {
-        "episodeId": 3,
-        "title": "Tập 3",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-3.mp4"
-      },
-      {
-        "episodeId": 4,
-        "title": "Tập 4",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-4.mp4"
-      },
-      {
-        "episodeId": 5,
-        "title": "Tập 5",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-5.mp4"
-      },
-      {
-        "episodeId": 6,
-        "title": "Tập 6",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-6.mp4"
-      },
-      {
-        "episodeId": 7,
-        "title": "Tập 7",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-7.mp4"
-      },
-      {
-        "episodeId": 8,
-        "title": "Tập 8",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-8.mp4"
-      },
-      {
-        "episodeId": 9,
-        "title": "Tập 9",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-9.mp4"
-      },
-      {
-        "episodeId": 10,
-        "title": "Tập 10",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-10.mp4"
-      },
-      {
-        "episodeId": 11,
-        "title": "Tập 11",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-11.mp4"
-      },
-      {
-        "episodeId": 12,
-        "title": "Tập 12",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-12.mp4"
-      },
-      {
-        "episodeId": 13,
-        "title": "Tập 13",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-13.mp4"
-      },
-      {
-        "episodeId": 14,
-        "title": "Tập 14",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-14.mp4"
-      },
-      {
-        "episodeId": 15,
-        "title": "Tập 15",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-15.mp4"
-      },
-      {
-        "episodeId": 16,
-        "title": "Tập 16",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-16.mp4"
-      },
-      {
-        "episodeId": 17,
-        "title": "Tập 17",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-17.mp4"
-      },
-      {
-        "episodeId": 18,
-        "title": "Tập 18",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-18.mp4"
-      },
-      {
-        "episodeId": 19,
-        "title": "Tập 19",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-19.mp4"
-      },
-      {
-        "episodeId": 20,
-        "title": "Tập 20",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich/resolve/main/tien-nghich-tap-20.mp4"
-      },
-      {
-        "episodeId": 21,
-        "title": "Tập 21",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_21.mp4"
-      },
-      {
-        "episodeId": 22,
-        "title": "Tập 22",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_22.mp4"
-      },
-      {
-        "episodeId": 23,
-        "title": "Tập 23",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_23.mp4"
-      },
-      {
-        "episodeId": 24,
-        "title": "Tập 24",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_24.mp4"
-      },
-      {
-        "episodeId": 25,
-        "title": "Tập 25",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_25.mp4"
-      },
-      {
-        "episodeId": 26,
-        "title": "Tập 26",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_26.mp4"
-      },
-      {
-        "episodeId": 27,
-        "title": "Tập 27",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_27.mp4"
-      },
-      {
-        "episodeId": 28,
-        "title": "Tập 28",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_28.mp4"
-      },
-      {
-        "episodeId": 29,
-        "title": "Tập 29",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_29.mp4"
-      },
-      {
-        "episodeId": 30,
-        "title": "Tập 30",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_30.mp4"
-      },
-      {
-        "episodeId": 31,
-        "title": "Tập 31",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_31.mp4"
-      },
-      {
-        "episodeId": 32,
-        "title": "Tập 32",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_32.mp4"
-      },
-      {
-        "episodeId": 33,
-        "title": "Tập 33",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_33.mp4"
-      },
-      {
-        "episodeId": 34,
-        "title": "Tập 34",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_34.mp4"
-      },
-      {
-        "episodeId": 35,
-        "title": "Tập 35",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_35.mp4"
-      },
-      {
-        "episodeId": 36,
-        "title": "Tập 36",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_36.mp4"
-      },
-      {
-        "episodeId": 37,
-        "title": "Tập 37",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_37.mp4"
-      },
-      {
-        "episodeId": 38,
-        "title": "Tập 38",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_38.mp4"
-      },
-      {
-        "episodeId": 39,
-        "title": "Tập 39",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_39.mp4"
-      },
-      {
-        "episodeId": 40,
-        "title": "Tập 40",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-1/resolve/main/tien-nghich-1-tap_40.mp4"
-      },
-      {
-        "episodeId": 41,
-        "title": "Tập 41",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_41.mp4"
-      },
-      {
-        "episodeId": 42,
-        "title": "Tập 42",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_42.mp4"
-      },
-      {
-        "episodeId": 43,
-        "title": "Tập 43",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_43.mp4"
-      },
-      {
-        "episodeId": 44,
-        "title": "Tập 44",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_44.mp4"
-      },
-      {
-        "episodeId": 45,
-        "title": "Tập 45",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_45.mp4"
-      },
-      {
-        "episodeId": 46,
-        "title": "Tập 46",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_46.mp4"
-      },
-      {
-        "episodeId": 47,
-        "title": "Tập 47",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_47.mp4"
-      },
-      {
-        "episodeId": 48,
-        "title": "Tập 48",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_48.mp4"
-      },
-      {
-        "episodeId": 49,
-        "title": "Tập 49",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_49.mp4"
-      },
-      {
-        "episodeId": 50,
-        "title": "Tập 50",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_50.mp4"
-      },
-      {
-        "episodeId": 51,
-        "title": "Tập 51",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_51.mp4"
-      },
-      {
-        "episodeId": 52,
-        "title": "Tập 52",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_52.mp4"
-      },
-      {
-        "episodeId": 53,
-        "title": "Tập 53",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_53.mp4"
-      },
-      {
-        "episodeId": 54,
-        "title": "Tập 54",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_54.mp4"
-      },
-      {
-        "episodeId": 55,
-        "title": "Tập 55",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_55.mp4"
-      },
-      {
-        "episodeId": 56,
-        "title": "Tập 56",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_56.mp4"
-      },
-      {
-        "episodeId": 57,
-        "title": "Tập 57",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_57.mp4"
-      },
-      {
-        "episodeId": 58,
-        "title": "Tập 58",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_58.mp4"
-      },
-      {
-        "episodeId": 59,
-        "title": "Tập 59",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_59.mp4"
-      },
-      {
-        "episodeId": 60,
-        "title": "Tập 60",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-2/resolve/main/tien-nghich-1-tap_60.mp4"
-      },
-      {
-        "episodeId": 61,
-        "title": "Tập 61",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_41.mp4"
-      },
-      {
-        "episodeId": 62,
-        "title": "Tập 62",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_42.mp4"
-      },
-      {
-        "episodeId": 63,
-        "title": "Tập 63",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_43.mp4"
-      },
-      {
-        "episodeId": 64,
-        "title": "Tập 64",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_44.mp4"
-      },
-      {
-        "episodeId": 65,
-        "title": "Tập 65",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_45.mp4"
-      },
-      {
-        "episodeId": 66,
-        "title": "Tập 66",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_46.mp4"
-      },
-      {
-        "episodeId": 67,
-        "title": "Tập 67",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_47.mp4"
-      },
-      {
-        "episodeId": 68,
-        "title": "Tập 68",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_48.mp4"
-      },
-      {
-        "episodeId": 69,
-        "title": "Tập 69",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_49.mp4"
-      },
-      {
-        "episodeId": 70,
-        "title": "Tập 70",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_50.mp4"
-      },
-      {
-        "episodeId": 71,
-        "title": "Tập 71",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_51.mp4"
-      },
-      {
-        "episodeId": 72,
-        "title": "Tập 72",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_52.mp4"
-      },
-      {
-        "episodeId": 73,
-        "title": "Tập 73",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_53.mp4"
-      },
-      {
-        "episodeId": 74,
-        "title": "Tập 74",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_54.mp4"
-      },
-      {
-        "episodeId": 75,
-        "title": "Tập 75",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-3/resolve/main/tien-nghich-3-1-tap_55.mp4"
-      },
-      {
-        "episodeId": 76,
-        "title": "Tập 76",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_76.mp4"
-      },
-      {
-        "episodeId": 77,
-        "title": "Tập 77",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_77.mp4"
-      },
-      {
-        "episodeId": 78,
-        "title": "Tập 78",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_78.mp4"
-      },
-      {
-        "episodeId": 79,
-        "title": "Tập 79",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_79.mp4"
-      },
-      {
-        "episodeId": 80,
-        "title": "Tập 80",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_80.mp4"
-      },
-      {
-        "episodeId": 81,
-        "title": "Tập 81",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_81.mp4"
-      },
-      {
-        "episodeId": 82,
-        "title": "Tập 82",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_82.mp4"
-      },
-      {
-        "episodeId": 83,
-        "title": "Tập 83",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_83.mp4"
-      },
-      {
-        "episodeId": 84,
-        "title": "Tập 84",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_84.mp4"
-      },
-      {
-        "episodeId": 85,
-        "title": "Tập 85",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_85.mp4"
-      },
-      {
-        "episodeId": 86,
-        "title": "Tập 86",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_86.mp4"
-      },
-      {
-        "episodeId": 87,
-        "title": "Tập 87",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_87.mp4"
-      },
-      {
-        "episodeId": 88,
-        "title": "Tập 88",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_88.mp4"
-      },
-      {
-        "episodeId": 89,
-        "title": "Tập 89",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_89.mp4"
-      },
-      {
-        "episodeId": 90,
-        "title": "Tập 90",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-4/resolve/main/tien-nghich-4-tap_90.mp4"
-      },
-      {
-        "episodeId": 91,
-        "title": "Tập 91",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_91.mp4"
-      },
-      {
-        "episodeId": 92,
-        "title": "Tập 92",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_92.mp4"
-      },
-      {
-        "episodeId": 93,
-        "title": "Tập 93",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_93.mp4"
-      },
-      {
-        "episodeId": 94,
-        "title": "Tập 94",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_94.mp4"
-      },
-      {
-        "episodeId": 95,
-        "title": "Tập 95",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_95.mp4"
-      },
-      {
-        "episodeId": 96,
-        "title": "Tập 96",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_96.mp4"
-      },
-      {
-        "episodeId": 97,
-        "title": "Tập 97",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_97.mp4"
-      },
-      {
-        "episodeId": 98,
-        "title": "Tập 98",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_98.mp4"
-      },
-      {
-        "episodeId": 99,
-        "title": "Tập 99",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_99.mp4"
-      },
-      {
-        "episodeId": 100,
-        "title": "Tập 100",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_100.mp4"
-      },
-      {
-        "episodeId": 101,
-        "title": "Tập 101",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_101.mp4"
-      },
-      {
-        "episodeId": 102,
-        "title": "Tập 102",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_102.mp4"
-      },
-      {
-        "episodeId": 103,
-        "title": "Tập 103",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_103.mp4"
-      },
-      {
-        "episodeId": 104,
-        "title": "Tập 104",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-5/resolve/main/tien-nghich-5-tap_104.mp4"
-      },
-      {
-        "episodeId": 105,
-        "title": "Tập 105",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_105.mp4"
-      },
-      {
-        "episodeId": 106,
-        "title": "Tập 106",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_106.mp4"
-      },
-      {
-        "episodeId": 107,
-        "title": "Tập 107",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_107.mp4"
-      },
-      {
-        "episodeId": 108,
-        "title": "Tập 108",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_108.mp4"
-      },
-      {
-        "episodeId": 109,
-        "title": "Tập 109",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_109.mp4"
-      },
-      {
-        "episodeId": 110,
-        "title": "Tập 110",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_110.mp4"
-      },
-      {
-        "episodeId": 111,
-        "title": "Tập 111",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_111.mp4"
-      },
-      {
-        "episodeId": 112,
-        "title": "Tập 112",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_112.mp4"
-      },
-      {
-        "episodeId": 113,
-        "title": "Tập 113",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_113.mp4"
-      },
-      {
-        "episodeId": 114,
-        "title": "Tập 114",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_114.mp4"
-      },
-      {
-        "episodeId": 115,
-        "title": "Tập 115",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_115.mp4"
-      },
-      {
-        "episodeId": 116,
-        "title": "Tập 116",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_116.mp4"
-      },
-      {
-        "episodeId": 117,
-        "title": "Tập 117",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_117.mp4"
-      },
-      {
-        "episodeId": 118,
-        "title": "Tập 118",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_118.mp4"
-      },
-      {
-        "episodeId": 119,
-        "title": "Tập 119",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_119.mp4"
-      },
-      {
-        "episodeId": 120,
-        "title": "Tập 120",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_120.mp4"
-      },
-      {
-        "episodeId": 121,
-        "title": "Tập 121",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_121.mp4"
-      },
-      {
-        "episodeId": 122,
-        "title": "Tập 122",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_122.mp4"
-      },
-      {
-        "episodeId": 123,
-        "title": "Tập 123",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_123.mp4"
-      },
-      {
-        "episodeId": 124,
-        "title": "Tập 124",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_124.mp4"
-      },
-      {
-        "episodeId": 125,
-        "title": "Tập 125",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-6/resolve/main/tien-nghich-6-tap_125.mp4"
-      },
-      {
-        "episodeId": 126,
-        "title": "Tập 126",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_108.mp4"
-      },
-      {
-        "episodeId": 127,
-        "title": "Tập 127",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_109.mp4"
-      },
-      {
-        "episodeId": 128,
-        "title": "Tập 128",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_110.mp4"
-      },
-      {
-        "episodeId": 129,
-        "title": "Tập 129",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_111.mp4"
-      },
-      {
-        "episodeId": 130,
-        "title": "Tập 130",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_112.mp4"
-      },
-      {
-        "episodeId": 131,
-        "title": "Tập 131",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_113.mp4"
-      },
-      {
-        "episodeId": 132,
-        "title": "Tập 132",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_114.mp4"
-      },
-      {
-        "episodeId": 133,
-        "title": "Tập 133",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_115.mp4"
-      },
-      {
-        "episodeId": 134,
-        "title": "Tập 134",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_116.mp4"
-      },
-      {
-        "episodeId": 135,
-        "title": "Tập 135",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_117.mp4"
-      },
-      {
-        "episodeId": 136,
-        "title": "Tập 136",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_118.mp4"
-      },
-      {
-        "episodeId": 137,
-        "title": "Tập 137",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_119.mp4"
-      },
-      {
-        "episodeId": 138,
-        "title": "Tập 138",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_120.mp4"
-      },
-      {
-        "episodeId": 139,
-        "title": "Tập 139",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_121.mp4"
-      },
-      {
-        "episodeId": 140,
-        "title": "Tập 140",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-7/resolve/main/tien-nghich-7-tap_122.mp4"
-      },
-      {
-        "episodeId": 141,
-        "title": "Tập 141",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_141.mp4"
-      },
-      {
-        "episodeId": 142,
-        "title": "Tập 142",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_142.mp4"
-      },
-      {
-        "episodeId": 143,
-        "title": "Tập 143",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_143.mp4"
-      },
-      {
-        "episodeId": 144,
-        "title": "Tập 144",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_144.mp4"
-      },
-      {
-        "episodeId": 145,
-        "title": "Tập 145",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/tien-nghich-8/resolve/main/tien-nghich-7-tap_145.mp4"
       }
     ]
   },
