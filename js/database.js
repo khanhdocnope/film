@@ -1,5 +1,60 @@
 const MOVIE_DATABASE = [
   {
+    "id": "su-huynh-a-su-huynh",
+    "title": "Sư huynh à sư huynh",
+    "originalTitle": "师兄啊师兄",
+    "poster": "",
+    "banner": "",
+    "rating": 8.6,
+    "year": "năm 2023",
+    "duration": "169 tập",
+    "genres": [
+      "Kịch Tính",
+      "Kỳ ảo (Fantasy)",
+      "Phiêu Lưu",
+      "Viễn Tưởng"
+    ],
+    "description": "kể về Lý Trường Thọ — một thanh niên hiện đại xuyên không về thời thượng cổ trước nạn Phong Thần. Để sinh tồn trong thế giới tu tiên đầy rẫy nguy hiểm, anh chọn lối sống \"tuyệt đối cẩu\": giấu kín tu vi, hành sự thận trọng, không dính nhân quả và luôn chuẩn bị hàng trăm kế hoạch rút lui. Tuy nhiên, mọi chuyện đảo lộn khi sư phụ nhận thêm một sư muội ngây thơ, kéo anh vào vô vàn rắc rối dở khóc dở cười.",
+    "isFeatured": false,
+    "episodes": [
+      {
+        "episodeId": 1,
+        "title": "Tập 14",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_14.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 15",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_15.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 16",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_16.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 17",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_17.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 18",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_18.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 19",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_19.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 20",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_20.mp4"
+      }
+    ]
+  },
+  {
     "id": "tien-nghich",
     "title": "tiên ngịch",
     "originalTitle": "仙逆",

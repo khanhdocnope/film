@@ -1,4 +1,4 @@
-const CACHE_NAME = 'filmxem-cache-v1.12';
+const CACHE_NAME = 'filmxem-cache-v1.13';
 const ASSETS_TO_CACHE = [
   './',
   'detail.html',

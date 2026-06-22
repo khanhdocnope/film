@@ -15,11 +15,22 @@ function createMovieCardHTML(movie, index = 0) {
   let progressBadgeHTML = "";
   let progressBarHTML = "";
 
+  const totalEpisodes = movie.episodes && movie.episodes.length > 0 ? movie.episodes.length : 0;
+  let latestEpisodeBadgeHTML = "";
+  if (totalEpisodes > 0) {
+    latestEpisodeBadgeHTML = `
+      <span class="card-badge badge-latest-episode" style="top: 26px !important; left: 0 !important; background: linear-gradient(135deg, #10b981, #059669); color: white; font-weight: 800; border: 1px solid rgba(255,255,255,0.1);">
+        Tập ${totalEpisodes}
+      </span>
+    `;
+  }
+
   if (progress) {
     const lastEpIdx = progress.lastWatchedEpisodeIndex !== undefined ? progress.lastWatchedEpisodeIndex : 0;
     const epText = `Tập ${lastEpIdx + 1}`;
+    const topOffset = totalEpisodes > 0 ? "52px" : "26px";
     progressBadgeHTML = `
-      <span class="card-badge badge-progress" style="background: var(--accent); color: white; font-weight: 700;">
+      <span class="card-badge badge-progress" style="top: ${topOffset} !important; left: 0 !important; background: var(--accent); color: white; font-weight: 700;">
         <i class="fa-solid fa-clock"></i> ${epText}
       </span>
     `;
@@ -42,6 +53,7 @@ function createMovieCardHTML(movie, index = 0) {
           <span class="card-badge badge-quality">HD</span>
           <span class="card-badge badge-rating"><i class="fa-solid fa-star"></i> ${movie.rating.toFixed(1)}</span>
           <span class="card-badge badge-year">${movie.year}</span>
+          ${latestEpisodeBadgeHTML}
           ${progressBadgeHTML}
         </div>
         ${progressBarHTML}
