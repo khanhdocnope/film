@@ -129,6 +129,44 @@
         </p>
       </section>
 
+      <!-- Comments Section -->
+      <section class="comments-section" id="commentsSection">
+        <h2 class="section-title"><i class="fa-solid fa-comments"></i> Bình Luận</h2>
+        
+        <!-- Form to write comment -->
+        <div class="comment-form-card">
+          <div class="comment-form-inputs">
+            <input type="text" id="commentUserName" placeholder="Tên của bạn..." required>
+            <div class="rating-stars">
+              <span class="rating-label">Đánh giá:</span>
+              <div class="stars-select" id="commentStarsSelect">
+                <i class="fa-regular fa-star star-btn" data-value="1"></i>
+                <i class="fa-regular fa-star star-btn" data-value="2"></i>
+                <i class="fa-regular fa-star star-btn" data-value="3"></i>
+                <i class="fa-regular fa-star star-btn" data-value="4"></i>
+                <i class="fa-regular fa-star star-btn" data-value="5"></i>
+              </div>
+            </div>
+          </div>
+          <textarea id="commentContent" rows="3" placeholder="Nhập bình luận của bạn tại đây..." required></textarea>
+          <div class="comment-form-actions">
+            <button type="button" class="btn btn-primary" id="btnSubmitComment">
+              <i class="fa-solid fa-paper-plane"></i> Gửi bình luận
+            </button>
+          </div>
+        </div>
+
+        <!-- Comments List -->
+        <div class="comments-list-wrapper" id="commentsListWrapper">
+          <div class="comments-loading" id="commentsLoading">
+            <i class="fa-solid fa-circle-notch fa-spin"></i> Đang tải bình luận...
+          </div>
+          <div class="comments-container" id="commentsContainer" style="display: none;">
+            <!-- Comments will be rendered dynamically here -->
+          </div>
+        </div>
+      </section>
+
       <!-- Recommendations Section -->
       <section class="recommendations-section" id="recommendationsSection">
         <h2 class="section-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Có Thể Bạn Cũng Thích</h2>
@@ -200,6 +238,7 @@
   <!-- Load Scripts -->
   <script src="js/database.js"></script>
   <script src="js/core.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/watch.js"></script>
 </body>
 

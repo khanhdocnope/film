@@ -7,6 +7,300 @@ let currentVideoBlobUrl = null;
 let autoplayTimer = null;
 let autoplayOverlay = null;
 
+// ==========================================
+// SUPABASE COMMENTS INTEGRATION
+// ==========================================
+let supabaseClient = null;
+let selectedCommentRating = 5;
+const DEFAULT_SUPABASE_URL = "https://jqqelzvqglkkdlacuqoi.supabase.co";
+const DEFAULT_SUPABASE_KEY = "sb_publishable_TzOx6aeleq5oYaikge0VYg_1ilJdHJO";
+
+async function getSupabaseConfig() {
+  try {
+    const res = await fetch('.env');
+    if (!res.ok) throw new Error("Không thể tải file .env");
+    const text = await res.text();
+    const env = {};
+    text.split('\n').forEach(line => {
+      const parts = line.split('=');
+      if (parts.length >= 2) {
+        const key = parts[0].trim();
+        const value = parts.slice(1).join('=').trim();
+        env[key] = value;
+      }
+    });
+    return {
+      url: env.SUPABASE_URL || DEFAULT_SUPABASE_URL,
+      key: env.API_Key_comment || DEFAULT_SUPABASE_KEY
+    };
+  } catch (e) {
+    console.warn("Không tìm thấy file .env hoặc lỗi đọc file, dùng cấu trúc mặc định:", e);
+    return {
+      url: DEFAULT_SUPABASE_URL,
+      key: DEFAULT_SUPABASE_KEY
+    };
+  }
+}
+
+async function initSupabase() {
+  const config = await getSupabaseConfig();
+  if (config.url && config.key && typeof window.supabase !== 'undefined') {
+    try {
+      supabaseClient = window.supabase.createClient(config.url, config.key);
+      console.log("Supabase Client initialized successfully.");
+      return true;
+    } catch (err) {
+      console.error("Lỗi khởi tạo Supabase Client:", err);
+    }
+  } else {
+    console.warn("Supabase library chưa được nạp hoặc cấu hình trống.");
+  }
+  return false;
+}
+
+// Định dạng thời gian hiển thị bình luận
+function formatCommentDate(dateString) {
+  try {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMs < 60000) return "Vừa xong";
+    if (diffMins < 60) return `${diffMins} phút trước`;
+    if (diffHours < 24) return `${diffHours} giờ trước`;
+    if (diffDays < 7) return `${diffDays} ngày trước`;
+
+    // Định dạng ngày tháng năm thông thường
+    const d = date.getDate().toString().padStart(2, '0');
+    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+    const y = date.getFullYear();
+    const hr = date.getHours().toString().padStart(2, '0');
+    const min = date.getMinutes().toString().padStart(2, '0');
+    return `${d}/${m}/${y} lúc ${hr}:${min}`;
+  } catch (e) {
+    return dateString;
+  }
+}
+
+// Xử lý nạp và hiển thị danh sách bình luận
+async function loadAndRenderComments() {
+  const container = document.getElementById("commentsContainer");
+  const loading = document.getElementById("commentsLoading");
+  if (!container || !loading) return;
+
+  loading.style.display = "block";
+  container.style.display = "none";
+  container.innerHTML = "";
+
+  if (!supabaseClient) {
+    const success = await initSupabase();
+    if (!success) {
+      loading.innerHTML = `<i class="fa-solid fa-circle-xmark" style="color: #ef4444;"></i> Không thể kết nối với hệ thống bình luận.`;
+      return;
+    }
+  }
+
+  if (!currentMovie) return;
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('comments')
+      .select('*')
+      .eq('movie_id', currentMovie.id)
+      .eq('episode_index', currentEpisodeIndex)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    loading.style.display = "none";
+    container.style.display = "flex";
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `
+        <div class="comment-empty">
+          <i class="fa-regular fa-comment-dots" style="font-size: 2rem; color: var(--text-muted); margin-bottom: 8px; display: block;"></i>
+          Chưa có bình luận nào cho tập này. Hãy là người đầu tiên chia sẻ cảm nghĩ nhé!
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = data.map((comment, index) => {
+      // Lấy ký tự đầu tiên của tên làm avatar
+      const firstLetter = (comment.user_name || "U").substring(0, 1).toUpperCase();
+      
+      // Vẽ các sao đánh giá
+      let starsHTML = "";
+      const rating = comment.rating || 5;
+      for (let i = 1; i <= 5; i++) {
+        if (i <= rating) {
+          starsHTML += `<i class="fa-solid fa-star"></i>`;
+        } else {
+          starsHTML += `<i class="fa-regular fa-star"></i>`;
+        }
+      }
+
+      const delay = index * 0.03;
+      return `
+        <div class="comment-item" style="animation-delay: ${delay}s;">
+          <div class="comment-avatar">${firstLetter}</div>
+          <div class="comment-content-wrapper">
+            <div class="comment-item-header">
+              <span class="comment-user-name">${escapeHtml(comment.user_name)}</span>
+              <div class="comment-meta-info">
+                <div class="comment-stars">${starsHTML}</div>
+                <span class="comment-date">${formatCommentDate(comment.created_at)}</span>
+              </div>
+            </div>
+            <p class="comment-text">${escapeHtml(comment.content)}</p>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+  } catch (err) {
+    console.error("Lỗi khi tải bình luận:", err);
+    loading.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: #f97316;"></i> Lỗi khi tải bình luận. Vui lòng tải lại trang.`;
+  }
+}
+
+// Cài đặt chọn sao đánh giá
+function setupCommentStars() {
+  const starsContainer = document.getElementById("commentStarsSelect");
+  if (!starsContainer) return;
+
+  const stars = starsContainer.querySelectorAll(".star-btn");
+
+  function highlightStars(val) {
+    stars.forEach(star => {
+      const starVal = parseInt(star.getAttribute("data-value"));
+      if (starVal <= val) {
+        star.className = "fa-solid fa-star star-btn selected";
+      } else {
+        star.className = "fa-regular fa-star star-btn";
+      }
+    });
+  }
+
+  // Mặc định chọn 5 sao
+  highlightStars(selectedCommentRating);
+
+  stars.forEach(star => {
+    star.addEventListener("click", () => {
+      selectedCommentRating = parseInt(star.getAttribute("data-value"));
+      highlightStars(selectedCommentRating);
+    });
+
+    star.addEventListener("mouseenter", () => {
+      const hoverVal = parseInt(star.getAttribute("data-value"));
+      stars.forEach(s => {
+        const sVal = parseInt(s.getAttribute("data-value"));
+        if (sVal <= hoverVal) {
+          s.classList.add("hovered");
+        } else {
+          s.classList.remove("hovered");
+        }
+      });
+    });
+
+    star.addEventListener("mouseleave", () => {
+      stars.forEach(s => s.classList.remove("hovered"));
+    });
+  });
+}
+
+// Cài đặt nút gửi bình luận
+function setupCommentSubmit() {
+  const btnSubmit = document.getElementById("btnSubmitComment");
+  const inputName = document.getElementById("commentUserName");
+  const textareaContent = document.getElementById("commentContent");
+
+  if (!btnSubmit || !inputName || !textareaContent) return;
+
+  // Tải tên đã lưu từ lần bình luận trước
+  const savedName = localStorage.getItem("filmXem_commenter_name");
+  if (savedName) {
+    inputName.value = savedName;
+  }
+
+  btnSubmit.addEventListener("click", async () => {
+    const userName = inputName.value.trim();
+    const content = textareaContent.value.trim();
+
+    if (!userName) {
+      if (typeof showToast === 'function') showToast("Vui lòng nhập tên của bạn!");
+      inputName.focus();
+      return;
+    }
+
+    if (!content) {
+      if (typeof showToast === 'function') showToast("Vui lòng nhập nội dung bình luận!");
+      textareaContent.focus();
+      return;
+    }
+
+    if (!supabaseClient) {
+      if (typeof showToast === 'function') showToast("Đang kết nối lại cơ sở dữ liệu...");
+      const success = await initSupabase();
+      if (!success) {
+        if (typeof showToast === 'function') showToast("Không thể kết nối cơ sở dữ liệu!");
+        return;
+      }
+    }
+
+    // Đổi trạng thái nút gửi
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gửi...`;
+
+    try {
+      const { error } = await supabaseClient
+        .from('comments')
+        .insert([
+          {
+            movie_id: currentMovie.id,
+            episode_index: currentEpisodeIndex,
+            user_name: userName,
+            rating: selectedCommentRating,
+            content: content
+          }
+        ]);
+
+      if (error) throw error;
+
+      // Lưu tên người bình luận vào localStorage cho lần sau
+      localStorage.setItem("filmXem_commenter_name", userName);
+
+      // Reset nội dung bình luận
+      textareaContent.value = "";
+      
+      // Reset về 5 sao mặc định
+      selectedCommentRating = 5;
+      const starsContainer = document.getElementById("commentStarsSelect");
+      if (starsContainer) {
+        starsContainer.querySelectorAll(".star-btn").forEach(star => {
+          star.className = "fa-solid fa-star star-btn selected";
+        });
+      }
+
+      if (typeof showToast === 'function') showToast("Đăng bình luận thành công!");
+      
+      // Load lại danh sách bình luận
+      await loadAndRenderComments();
+
+    } catch (err) {
+      console.error("Lỗi khi gửi bình luận:", err);
+      if (typeof showToast === 'function') showToast("Gửi bình luận thất bại. Vui lòng thử lại!");
+    } finally {
+      btnSubmit.disabled = false;
+      btnSubmit.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Gửi bình luận`;
+    }
+  });
+}
+
+
 // Episode pagination & search variables
 let currentRangeIndex = 0;
 let episodeQuery = "";
@@ -693,6 +987,9 @@ async function changeEpisode(index, isRestore = false) {
     saveMovieProgress(currentMovie.id, currentEpisodeIndex, 0, 0);
   }
   await renderPlayerForUrl(episode.videoUrl, episode.title);
+  
+  // Load comments for current movie and episode index
+  loadAndRenderComments();
 }
 
 function updateBookmarkButton() {
@@ -826,7 +1123,10 @@ window.addEventListener('beforeunload', () => {
 });
 window.addEventListener('resize', () => setTimeout(adjustPlaylistPosition, 100));
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await initSupabase();
   loadMovieDetails();
   setupNavigation();
+  setupCommentStars();
+  setupCommentSubmit();
 });
