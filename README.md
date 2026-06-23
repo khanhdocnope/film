@@ -7,18 +7,35 @@ Dự án FilmXem hiện tại đã được nâng cấp lên cấu trúc thư m�
 ├── index.html            # Trang chủ (Hiển thị danh sách, tìm kiếm, lưu trữ)
 ├── watch.html            # Trang xem phim riêng biệt (Đầu phát, danh sách tập, gợi ý)
 ├── detail.html           # Trang xem Movie Card (Thông tin chi tiết bộ phim)
+├── search.html           # Trang tìm kiếm phim riêng biệt
+├── Privacy-policy.html   # Trang chính sách bảo mật
+├── Terms-of-use.html     # Trang điều khoản sử dụng
+├── 404.html              # Trang báo lỗi 404 tùy chỉnh
+├── manifest.json         # Cấu hình PWA (Progressive Web App)
+├── sw.js                 # Service Worker quản lý cache và hỗ trợ offline PWA
+├── add_tap.py            # Script Python quản lý thêm/xóa phim và tập phim tự động
+├── toggle-urls.ps1       # Script PowerShell chuyển đổi link giữa Local và Production
+├── movies.json           # Cơ sở dữ liệu phim dạng JSON (sử dụng bởi script Python)
+├── link.txt              # File tạm chứa danh sách link khi thêm tập hàng loạt
 ├── css/
 │   ├── main.css          # Định nghĩa giao diện chung, sáng/tối, header, footer, bottom nav
 │   ├── home.css          # Giao diện riêng của trang chủ (banner, bộ lọc trượt, grid)
 │   ├── watch.css         # Giao diện riêng của trang xem phim (bố cục 2 cột, player, sidebar)
-│   └── detail.css        # Giao diện riêng của trang Movie Card 
+│   ├── detail.css        # Giao diện riêng của trang Movie Card
+│   ├── error.css         # Giao diện riêng của trang lỗi 404
+│   ├── Privacy-policy.css# Giao diện riêng của trang chính sách bảo mật
+│   └── Terms-of-use.css  # Giao diện riêng của trang điều khoản sử dụng
 ├── js/
 │   ├── database.js       # Cơ sở dữ liệu tĩnh tập trung (Nơi thêm/sửa phim & tập phim)
 │   ├── core.js           # Xử lý các tác vụ chung (Giao diện sáng/tối, tìm kiếm, Toast)
 │   ├── home.js           # Điều khiển hiển thị trang chủ
 │   ├── watch.js          # Điều khiển hiển thị trang xem phim (Đọc ?id=... từ link)
-│   └── detail.js         # Điều khiển hiển thị trang Movie Card 
-├── movies.json           # Khởi tạo nội dung ban đầu,quản lí  
+│   ├── detail.js         # Điều khiển hiển thị trang Movie Card
+│   ├── search.js         # Điều khiển hiển thị trang tìm kiếm phim
+│   ├── Privacy-policy.js # Script xử lý trang chính sách bảo mật
+│   └── Terms-of-use.js   # Script xử lý trang điều khoản sử dụng
+├── image/
+│   └── background.jpeg   # Ảnh nền toàn trang của website
 └── README.md             # Hướng dẫn sử dụng này
 ```
 
