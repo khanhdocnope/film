@@ -8,12 +8,104 @@ let autoplayTimer = null;
 let autoplayOverlay = null;
 
 // ==========================================
-// SUPABASE COMMENTS INTEGRATION
+// SUPABASE COMMENTS & VIEWS INTEGRATION
 // ==========================================
 let supabaseClient = null;
 let selectedCommentRating = 5;
+let hasTrackedViewForCurrentEpisode = false;
+
+// Tải lượt xem và hiển thị lên giao diện
+async function fetchAndDisplayViews() {
+  const viewsText = document.getElementById("viewCountText");
+  if (!viewsText) return;
+
+  if (!supabaseClient) {
+    const success = await initSupabase();
+    if (!success) return;
+  }
+
+  if (!currentMovie) return;
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('episode_views')
+      .select('views')
+      .eq('movie_id', currentMovie.id)
+      .eq('episode_index', currentEpisodeIndex)
+      .single();
+
+    if (error && error.code !== 'PGRST116') { // PGRST116 là mã khi không tìm thấy dòng dữ liệu
+      throw error;
+    }
+
+    const views = data ? data.views : 0;
+    viewsText.textContent = views.toLocaleString();
+  } catch (err) {
+    console.error("Lỗi khi tải lượt xem:", err);
+  }
+}
+
+// Ghi nhận lượt xem mới khi bắt đầu xem video
+async function trackEpisodeView() {
+  if (hasTrackedViewForCurrentEpisode) return;
+  hasTrackedViewForCurrentEpisode = true;
+
+  if (!supabaseClient) {
+    const success = await initSupabase();
+    if (!success) return;
+  }
+
+  if (!currentMovie) return;
+
+  try {
+    // Gọi Postgres RPC function để tự động tăng lượt xem một cách bảo mật
+    const { error } = await supabaseClient.rpc('increment_episode_view', {
+      p_movie_id: currentMovie.id,
+      p_episode_index: currentEpisodeIndex
+    });
+
+    if (error) throw error;
+
+    // Cập nhật lại số lượt xem hiển thị trên màn hình
+    fetchAndDisplayViews();
+  } catch (err) {
+    console.warn("RPC increment failed, falling back to client-side upsert:", err);
+    fallbackTrackView();
+  }
+}
+
+// Cơ chế dự phòng khi không cài đặt RPC trên database
+async function fallbackTrackView() {
+  try {
+    let currentViews = 0;
+    const { data } = await supabaseClient
+      .from('episode_views')
+      .select('views')
+      .eq('movie_id', currentMovie.id)
+      .eq('episode_index', currentEpisodeIndex)
+      .single();
+
+    if (data) {
+      currentViews = data.views;
+    }
+
+    const { error } = await supabaseClient
+      .from('episode_views')
+      .upsert({
+        movie_id: currentMovie.id,
+        episode_index: currentEpisodeIndex,
+        views: currentViews + 1
+      }, { onConflict: 'movie_id,episode_index' });
+
+    if (!error) {
+      fetchAndDisplayViews();
+    }
+  } catch (e) {
+    console.error("Fallback track view failed:", e);
+  }
+}
 const DEFAULT_SUPABASE_URL = "https://jqqelzvqglkkdlacuqoi.supabase.co";
-const DEFAULT_SUPABASE_KEY = "sb_publishable_TzOx6aeleq5oYaikge0VYg_1ilJdHJO";
+const DEFAULT_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpxcWVsenZxZ2xra2RsYWN1cW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMDYyODQsImV4cCI6MjA5Nzc4MjI4NH0.z1oPhUi6BPrUQRdbbEH3VWzENzTg3sfzbVP9ycQv_NE";
 
 async function getSupabaseConfig() {
   try {
@@ -698,6 +790,8 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     container.appendChild(iframe);
     // Lưu tiến trình xem cho iframe
     saveMovieProgress(currentMovie.id, activeEpIndex, 0, 0);
+    // Tăng lượt xem cho iframe ngay khi tải
+    trackEpisodeView();
   } else {
     const video = document.createElement('video');
     video.id = 'videoPlayer';
@@ -712,6 +806,11 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     }
     video.src = playableUrl;
     container.appendChild(video);
+
+    // Tăng lượt xem khi người dùng bắt đầu nhấn phát video (chỉ chạy 1 lần)
+    video.addEventListener('play', () => {
+      trackEpisodeView();
+    }, { once: true });
 
     // Khôi phục tiến trình xem nếu có cho tập phim hiện tại
     const progress = getMovieProgress(currentMovie.id);
@@ -955,6 +1054,7 @@ async function changeEpisode(index, isRestore = false) {
   }
 
   currentEpisodeIndex = index;
+  hasTrackedViewForCurrentEpisode = false; // Reset view tracking flag for new episode
   const episodes = currentMovie.episodes || [];
   if (!episodes[index]) return;
 
@@ -988,8 +1088,9 @@ async function changeEpisode(index, isRestore = false) {
   }
   await renderPlayerForUrl(episode.videoUrl, episode.title);
   
-  // Load comments for current movie and episode index
+  // Load comments and views for current movie and episode index
   loadAndRenderComments();
+  fetchAndDisplayViews();
 }
 
 function updateBookmarkButton() {
