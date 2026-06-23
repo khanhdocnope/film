@@ -19,36 +19,101 @@ const MOVIE_DATABASE = [
     "episodes": [
       {
         "episodeId": 1,
+        "title": "Tập 1",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_1.mp4"
+      },
+      {
+        "episodeId": 2,
+        "title": "Tập 2",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_2.mp4"
+      },
+      {
+        "episodeId": 3,
+        "title": "Tập 3",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_3.mp4"
+      },
+      {
+        "episodeId": 4,
+        "title": "Tập 4",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_4.mp4"
+      },
+      {
+        "episodeId": 5,
+        "title": "Tập 5",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_5.mp4"
+      },
+      {
+        "episodeId": 6,
+        "title": "Tập 6",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_6.mp4"
+      },
+      {
+        "episodeId": 7,
+        "title": "Tập 7",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_7.mp4"
+      },
+      {
+        "episodeId": 8,
+        "title": "Tập 8",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_8.mp4"
+      },
+      {
+        "episodeId": 9,
+        "title": "Tập 9",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_9.mp4"
+      },
+      {
+        "episodeId": 10,
+        "title": "Tập 10",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_10.mp4"
+      },
+      {
+        "episodeId": 11,
+        "title": "Tập 11",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_11.mp4"
+      },
+      {
+        "episodeId": 12,
+        "title": "Tập 12",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_12.mp4"
+      },
+      {
+        "episodeId": 13,
+        "title": "Tập 13",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_13.mp4"
+      },
+      {
+        "episodeId": 14,
         "title": "Tập 14",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_14.mp4"
       },
       {
-        "episodeId": 2,
+        "episodeId": 15,
         "title": "Tập 15",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_15.mp4"
       },
       {
-        "episodeId": 3,
+        "episodeId": 16,
         "title": "Tập 16",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_16.mp4"
       },
       {
-        "episodeId": 4,
+        "episodeId": 17,
         "title": "Tập 17",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_17.mp4"
       },
       {
-        "episodeId": 5,
+        "episodeId": 18,
         "title": "Tập 18",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_18.mp4"
       },
       {
-        "episodeId": 6,
+        "episodeId": 19,
         "title": "Tập 19",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_19.mp4"
       },
       {
-        "episodeId": 7,
+        "episodeId": 20,
         "title": "Tập 20",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_20.mp4"
       }
