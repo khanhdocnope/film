@@ -1069,3 +1069,153 @@ body.dark-mode .performance-lite .comments-section {
   transform: none !important;
   transition: none !important;
 }
+
+/* ==========================================
+   KEYBOARD SHORTCUTS HELP BUTTON & MODAL
+   ========================================== */
+.watch-player-wrapper {
+  position: relative;
+}
+
+.shortcuts-help-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(7, 5, 15, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: var(--transition-smooth);
+}
+
+.shortcuts-help-btn:hover {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35);
+}
+
+/* Modal styling */
+.shortcuts-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.shortcuts-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.shortcuts-modal-content {
+  width: 90%;
+  max-width: 420px;
+  background: rgba(21, 16, 40, 0.95);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: translateY(30px) scale(0.95);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body:not(.dark-mode) .shortcuts-modal-content {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.shortcuts-modal.active .shortcuts-modal-content {
+  transform: translateY(0) scale(1);
+}
+
+.shortcuts-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.shortcuts-modal-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.close-shortcuts-btn {
+  font-size: 1.8rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  line-height: 1;
+  background: none;
+  border: none;
+  padding: 0;
+  transition: var(--transition-smooth);
+}
+
+.close-shortcuts-btn:hover {
+  color: var(--accent);
+}
+
+.shortcuts-modal-body {
+  padding: 20px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.shortcut-key {
+  display: inline-block;
+  min-width: 32px;
+  text-align: center;
+  padding: 5px 10px;
+  background: var(--bg-primary);
+  border: 1.5px solid var(--border-color);
+  border-radius: 6px;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.shortcut-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .shortcuts-help-btn {
+    display: none !important;
+  }
+}

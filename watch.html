@@ -93,6 +93,10 @@
             Trình duyệt của bạn không hỗ trợ định dạng video này.
           </video>
         </div>
+        <!-- Help Shortcuts Button -->
+        <button class="shortcuts-help-btn" id="btnShortcutsHelp" title="Phím tắt điều khiển">
+          <i class="fa-solid fa-question"></i>
+        </button>
       </div>
 
       <!-- Details Card -->
@@ -235,6 +239,42 @@
       <span>Đã lưu</span>
     </button>
   </nav>
+
+  <!-- Keyboard Shortcuts Modal -->
+  <div class="shortcuts-modal" id="shortcutsModal">
+    <div class="shortcuts-modal-content">
+      <div class="shortcuts-modal-header">
+        <h3><i class="fa-solid fa-keyboard"></i> Phím tắt điều khiển</h3>
+        <button class="close-shortcuts-btn" id="btnCloseShortcutsModal">&times;</button>
+      </div>
+      <div class="shortcuts-modal-body">
+        <div class="shortcut-item">
+          <span class="shortcut-key" style="min-width: 60px;">Space</span>
+          <span class="shortcut-desc">Phát / Tạm dừng video</span>
+        </div>
+        <div class="shortcut-item">
+          <span class="shortcut-key">←</span> / <span class="shortcut-key">→</span>
+          <span class="shortcut-desc">Tua lùi / Tua tiến 10 giây</span>
+        </div>
+        <div class="shortcut-item">
+          <span class="shortcut-key">↑</span> / <span class="shortcut-key">↓</span>
+          <span class="shortcut-desc">Tăng / Giảm 10% âm lượng</span>
+        </div>
+        <div class="shortcut-item">
+          <span class="shortcut-key" style="min-width: 32px;">F</span>
+          <span class="shortcut-desc">Bật / Tắt chế độ Toàn màn hình</span>
+        </div>
+        <div class="shortcut-item">
+          <span class="shortcut-key" style="min-width: 32px;">M</span>
+          <span class="shortcut-desc">Tắt / Bật tiếng nhanh</span>
+        </div>
+        <div class="shortcut-item">
+          <span class="shortcut-key" style="min-width: 32px;">N</span>
+          <span class="shortcut-desc">Chuyển sang tập tiếp theo</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Load Scripts -->
   <script src="js/database.js"></script>

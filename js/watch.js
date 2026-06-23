@@ -1224,10 +1224,158 @@ window.addEventListener('beforeunload', () => {
 });
 window.addEventListener('resize', () => setTimeout(adjustPlaylistPosition, 100));
 
+// Cài đặt phím tắt điều khiển và Modal trợ giúp
+function setupKeyboardShortcuts() {
+  const modal = document.getElementById("shortcutsModal");
+  const btnHelp = document.getElementById("btnShortcutsHelp");
+  const btnClose = document.getElementById("btnCloseShortcutsModal");
+
+  // Xử lý đóng/mở Modal trợ giúp
+  if (btnHelp && modal) {
+    btnHelp.addEventListener("click", () => {
+      modal.classList.add("active");
+    });
+  }
+
+  if (btnClose && modal) {
+    btnClose.addEventListener("click", () => {
+      modal.classList.remove("active");
+    });
+    
+    // Click ngoài modal để đóng
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("active");
+      }
+    });
+  }
+
+  // Đóng modal bằng phím Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+      modal.classList.remove("active");
+    }
+  });
+
+  // Xử lý các phím tắt chính
+  document.addEventListener("keydown", (e) => {
+    // Không nhận phím tắt khi đang nhập liệu trong ô input/textarea
+    const activeEl = document.activeElement;
+    if (
+      activeEl &&
+      (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.isContentEditable)
+    ) {
+      return;
+    }
+
+    const video = document.getElementById("videoPlayer");
+    const hasVideo = !!video;
+
+    // Phím M: Tắt / Bật tiếng
+    if (e.key.toLowerCase() === "m") {
+      e.preventDefault();
+      if (hasVideo) {
+        video.muted = !video.muted;
+        if (typeof showToast === 'function') {
+          showToast(video.muted ? "🔇 Đã tắt tiếng" : "🔊 Đã bật tiếng");
+        }
+      } else {
+        if (typeof showToast === 'function') showToast("Phím tắt này chỉ dùng cho trình phát HTML5");
+      }
+    }
+
+    // Phím F: Toàn màn hình
+    if (e.key.toLowerCase() === "f") {
+      e.preventDefault();
+      if (hasVideo) {
+        if (!document.fullscreenElement) {
+          video.requestFullscreen().catch(err => {
+            console.error("Lỗi bật toàn màn hình:", err);
+          });
+        } else {
+          document.exitFullscreen();
+        }
+      } else {
+        if (typeof showToast === 'function') showToast("Phím tắt này chỉ dùng cho trình phát HTML5");
+      }
+    }
+
+    // Phím N: Tập tiếp theo
+    if (e.key.toLowerCase() === "n") {
+      e.preventDefault();
+      if (currentMovie && currentMovie.episodes) {
+        const nextIndex = currentEpisodeIndex + 1;
+        if (nextIndex < currentMovie.episodes.length) {
+          changeEpisode(nextIndex);
+          if (typeof showToast === 'function') {
+            showToast(`⏭️ Đang chuyển sang ${currentMovie.episodes[nextIndex].title}`);
+          }
+        } else {
+          if (typeof showToast === 'function') showToast("Đã là tập cuối cùng rồi!");
+        }
+      }
+    }
+
+    // Phím cách (Space): Phát / Tạm dừng
+    if (e.key === " " || e.code === "Space") {
+      e.preventDefault();
+      if (hasVideo) {
+        if (video.paused) {
+          video.play();
+          if (typeof showToast === 'function') showToast("▶️ Tiếp tục phát");
+        } else {
+          video.pause();
+          if (typeof showToast === 'function') showToast("⏸️ Đã tạm dừng");
+        }
+      }
+    }
+
+    // Mũi tên Trái: Tua lùi 10s
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      if (hasVideo) {
+        video.currentTime = Math.max(0, video.currentTime - 10);
+        if (typeof showToast === 'function') showToast("⏪ Tua lùi 10 giây");
+      }
+    }
+
+    // Mũi tên Phải: Tua tiến 10s
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      if (hasVideo) {
+        video.currentTime = Math.min(video.duration || 0, video.currentTime + 10);
+        if (typeof showToast === 'function') showToast("⏩ Tua tiến 10 giây");
+      }
+    }
+
+    // Mũi tên Lên: Tăng âm lượng 10%
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (hasVideo) {
+        video.volume = Math.min(1, video.volume + 0.1);
+        video.muted = false; // Tự động unmute khi tăng âm lượng
+        const volPercent = Math.round(video.volume * 100);
+        if (typeof showToast === 'function') showToast(`🔊 Âm lượng: ${volPercent}%`);
+      }
+    }
+
+    // Mũi tên Xuống: Giảm âm lượng 10%
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (hasVideo) {
+        video.volume = Math.max(0, video.volume - 0.1);
+        const volPercent = Math.round(video.volume * 100);
+        if (typeof showToast === 'function') showToast(`🔉 Âm lượng: ${volPercent}%`);
+      }
+    }
+  });
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   await initSupabase();
   loadMovieDetails();
   setupNavigation();
   setupCommentStars();
   setupCommentSubmit();
+  setupKeyboardShortcuts();
 });
