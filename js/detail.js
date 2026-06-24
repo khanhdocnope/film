@@ -29,7 +29,85 @@ function getQueryParam(name) {
   return urlParams.get(name);
 }
 
-// 2. Compute stable mock stats based on movie ID for continuity
+// 2. Supabase Integration for Views
+let supabaseClient = null;
+const DEFAULT_SUPABASE_URL = "https://jqqelzvqglkkdlacuqoi.supabase.co";
+const DEFAULT_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpxcWVsenZxZ2xra2RsYWN1cW9pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMDYyODQsImV4cCI6MjA5Nzc4MjI4NH0.z1oPhUi6BPrUQRdbbEH3VWzENzTg3sfzbVP9ycQv_NE";
+
+async function getSupabaseConfig() {
+  try {
+    const res = await fetch('.env');
+    if (!res.ok) throw new Error("Không thể tải file .env");
+    const text = await res.text();
+    const env = {};
+    text.split('\n').forEach(line => {
+      const parts = line.split('=');
+      if (parts.length >= 2) {
+        const key = parts[0].trim();
+        const value = parts.slice(1).join('=').trim();
+        env[key] = value;
+      }
+    });
+    return {
+      url: env.SUPABASE_URL || DEFAULT_SUPABASE_URL,
+      key: env.API_Key_comment || DEFAULT_SUPABASE_KEY
+    };
+  } catch (e) {
+    console.warn("Không tìm thấy file .env hoặc lỗi đọc file, dùng cấu trúc mặc định:", e);
+    return {
+      url: DEFAULT_SUPABASE_URL,
+      key: DEFAULT_SUPABASE_KEY
+    };
+  }
+}
+
+async function initSupabase() {
+  if (supabaseClient) return true;
+  try {
+    if (typeof supabase === 'undefined') {
+      console.warn("Supabase SDK chưa được tải.");
+      return false;
+    }
+    const config = await getSupabaseConfig();
+    supabaseClient = supabase.createClient(config.url, config.key);
+    return true;
+  } catch (err) {
+    console.error("Lỗi khi kết nối với Supabase:", err);
+    return false;
+  }
+}
+
+async function loadRealViews(movieId) {
+  if (!supabaseClient) {
+    const success = await initSupabase();
+    if (!success) return;
+  }
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('episode_views')
+      .select('views')
+      .eq('movie_id', movieId);
+
+    if (error) throw error;
+
+    let totalRealViews = 0;
+    if (data && data.length > 0) {
+      totalRealViews = data.reduce((sum, item) => sum + parseInt(item.views || 0), 0);
+    }
+
+    if (DetailDOM.metaViews) {
+      DetailDOM.metaViews.textContent = `${totalRealViews.toLocaleString()} Lượt Xem`;
+    }
+  } catch (e) {
+    console.warn("Không thể tải lượt xem thực tế từ Supabase:", e);
+    if (DetailDOM.metaViews) {
+      DetailDOM.metaViews.textContent = `0 Lượt Xem`;
+    }
+  }
+}
+
+// 3. Compute stable mock stats based on movie ID for continuity
 function generateMockStats(movie) {
   // Stable random-looking number based on character codes
   let hash = 0;
@@ -38,12 +116,16 @@ function generateMockStats(movie) {
   }
 
   const members = Math.abs((hash % 1000) + 500); // 500 to 1500 voters
-  const views = Math.abs((hash % 800000) + 400000) + (movie.year * 200); // 400k to 1.2M views
+  
+  // Extract number from year string (e.g. "năm 2024" -> 2024) to avoid NaN multiplication
+  const yearNum = parseInt(movie.year.toString().replace(/\D/g, '')) || 2026;
+  const views = Math.abs((hash % 800000) + 400000) + (yearNum * 200); // 400k to 1.2M views
   const matchPercent = Math.round(movie.rating * 10); // rating 9.1 -> 91%
 
   return {
     members,
     views: views.toLocaleString(),
+    baseViewsRaw: views,
     matchPercent
   };
 }
@@ -100,7 +182,10 @@ function loadMovieCard() {
 
   DetailDOM.metaDuration.textContent = currentMovie.duration;
   DetailDOM.metaYear.textContent = currentMovie.year;
-  DetailDOM.metaViews.textContent = `${stats.views} Lượt Xem`;
+  DetailDOM.metaViews.textContent = `0 Lượt Xem`;
+
+  // Tải lượt xem thực tế từ database (bằng tổng lượt xem các tập của phim)
+  loadRealViews(currentMovie.id);
 
   // Bookmark button setup
   updateBookmarkButton();
