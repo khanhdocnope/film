@@ -127,6 +127,10 @@
           <button class="modal-bookmark-btn" id="watchBookmarkBtn" style="margin-top: 0;">
             <i class="fa-regular fa-bookmark"></i> Lưu Vào Thư Viện
           </button>
+          <button class="watch-report-btn" id="btnReportError"
+            style="padding: 10px 18px; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1.5px solid rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.1); color: #ef4444; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; transition: all 0.3s ease; margin-top: 0;">
+            <i class="fa-solid fa-triangle-exclamation"></i> Báo Lỗi
+          </button>
         </div>
 
         <p class="watch-description" id="movieDesc">
@@ -272,6 +276,39 @@
           <span class="shortcut-key" style="min-width: 32px;">N</span>
           <span class="shortcut-desc">Chuyển sang tập tiếp theo</span>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Error Modal -->
+  <div class="report-modal" id="reportModal">
+    <div class="report-modal-content">
+      <div class="report-modal-header">
+        <h3><i class="fa-solid fa-triangle-exclamation"></i> Báo cáo lỗi tập phim</h3>
+        <button class="close-report-btn" id="btnCloseReportModal">&times;</button>
+      </div>
+      <div class="report-modal-body">
+        <form id="reportErrorForm">
+          <div class="form-group">
+            <label>Loại lỗi gặp phải:</label>
+            <div class="report-options-grid" id="reportOptionsGrid">
+              <div class="report-option-card" data-value="Video không phát được / Màn hình đen">Video không phát được / Màn hình đen</div>
+              <div class="report-option-card" data-value="Video giật lag / Load quá chậm">Video giật lag / Load quá chậm</div>
+              <div class="report-option-card" data-value="Lỗi âm thanh (mất tiếng, lệch tiếng)">Lỗi âm thanh (mất tiếng, lệch tiếng)</div>
+              <div class="report-option-card" data-value="Lỗi Vietsub (không có sub, dịch sai)">Lỗi Vietsub (không có sub, dịch sai)</div>
+              <div class="report-option-card" data-value="Sai tập phim / Lặp tập">Sai tập phim / Lặp tập</div>
+              <div class="report-option-card" data-value="Lỗi khác">Lỗi khác</div>
+            </div>
+            <input type="hidden" id="reportErrorType" required>
+          </div>
+          <div class="form-group">
+            <label for="reportDescription">Chi tiết lỗi (không bắt buộc):</label>
+            <textarea id="reportDescription" class="form-textarea" placeholder="Mô tả cụ thể lỗi bạn gặp phải để Admin fix nhanh nhất..." rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-report-submit">
+            <i class="fa-solid fa-paper-plane"></i> Gửi qua Gmail
+          </button>
+        </form>
       </div>
     </div>
   </div>

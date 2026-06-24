@@ -1371,6 +1371,135 @@ function setupKeyboardShortcuts() {
   });
 }
 
+// Cài đặt chức năng Báo Lỗi qua Gmail
+function setupErrorReporting() {
+  const modal = document.getElementById("reportModal");
+  const btnOpen = document.getElementById("btnReportError");
+  const btnClose = document.getElementById("btnCloseReportModal");
+  const form = document.getElementById("reportErrorForm");
+  const optionCards = document.querySelectorAll(".report-option-card");
+  const hiddenInput = document.getElementById("reportErrorType");
+
+  function resetFormAndCards() {
+    if (form) form.reset();
+    if (hiddenInput) hiddenInput.value = "";
+    if (optionCards) {
+      optionCards.forEach(c => c.classList.remove("active"));
+    }
+  }
+
+  if (optionCards && hiddenInput) {
+    optionCards.forEach(card => {
+      card.addEventListener("click", () => {
+        optionCards.forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        hiddenInput.value = card.getAttribute("data-value");
+      });
+    });
+  }
+
+  if (btnOpen && modal) {
+    btnOpen.addEventListener("click", () => {
+      modal.classList.add("active");
+    });
+  }
+
+  if (btnClose && modal) {
+    btnClose.addEventListener("click", () => {
+      modal.classList.remove("active");
+      resetFormAndCards();
+    });
+
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.remove("active");
+        resetFormAndCards();
+      }
+    });
+  }
+
+  // Đóng modal bằng phím Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && modal.classList.contains("active")) {
+      modal.classList.remove("active");
+      resetFormAndCards();
+    }
+  });
+
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const descTextarea = document.getElementById("reportDescription");
+      
+      if (!hiddenInput || !currentMovie) return;
+
+      const errorText = hiddenInput.value;
+      if (!errorText) {
+        // Rung nhẹ khi chưa chọn
+        const grid = document.getElementById("reportOptionsGrid");
+        if (grid) {
+          grid.classList.add("shake-animation");
+          setTimeout(() => grid.classList.remove("shake-animation"), 300);
+        }
+        if (typeof showToast === 'function') {
+          showToast("Vui lòng chọn loại lỗi!");
+        }
+        return;
+      }
+
+      const description = descTextarea ? descTextarea.value.trim() : "";
+      
+      const epTitle = currentMovie.episodes[currentEpisodeIndex] 
+        ? currentMovie.episodes[currentEpisodeIndex].title 
+        : `Tập ${currentEpisodeIndex + 1}`;
+
+      // Xây dựng nội dung Email gửi đến khanh4346k9@gmail.com
+      const adminEmail = "khanh4346k9@gmail.com";
+      const subject = `[Bao loi FilmXem] ${currentMovie.title} - ${epTitle}`;
+      
+      let body = `Chao Admin,\n\nToi muon bao loi ve tap phim tren he thong FilmXem:\n`;
+      body += `--------------------------------------\n`;
+      body += `Ten phim: ${currentMovie.title}\n`;
+      body += `Tap phim: ${epTitle}\n`;
+      body += `Loai loi: ${errorText}\n`;
+      if (description) {
+        body += `Mo ta chi tiet: ${description}\n`;
+      }
+      body += `Link xem phim: ${window.location.href}\n`;
+      body += `Thoi gian bao cao: ${new Date().toLocaleString()}\n`;
+      body += `--------------------------------------\n\n`;
+      body += `Rat mong Admin kiem tra va khac phuc loi nay! Cam on Admin.`;
+
+      // Mã hóa URL
+      const encodedSubject = encodeURIComponent(subject);
+      const encodedBody = encodeURIComponent(body);
+
+      // Phát hiện thiết bị di động
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      
+      let mailUrl = "";
+      if (isMobile) {
+        // Mở app mail mặc định trên Mobile
+        mailUrl = `mailto:${adminEmail}?subject=${encodedSubject}&body=${encodedBody}`;
+      } else {
+        // Mở trang soạn thư của Gmail Web trên Desktop
+        mailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${adminEmail}&su=${encodedSubject}&body=${encodedBody}`;
+      }
+
+      window.open(mailUrl, "_blank");
+
+      // Reset & Đóng
+      modal.classList.remove("active");
+      resetFormAndCards();
+
+      if (typeof showToast === 'function') {
+        showToast("Đã mở trình soạn thư Gmail!");
+      }
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   await initSupabase();
   loadMovieDetails();
@@ -1378,4 +1507,5 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupCommentStars();
   setupCommentSubmit();
   setupKeyboardShortcuts();
+  setupErrorReporting();
 });
