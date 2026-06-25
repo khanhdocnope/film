@@ -392,6 +392,80 @@ def add_server_to_episode(movies):
     save_data(movies)
     print(f" Cập nhật server thành công cho '{episode['title']}' của phim '{movie['title']}'!")
 
+def add_servers_to_episodes_bulk(movies):
+    if not movies:
+        print(" Chưa có phim nào.")
+        return
+    list_movies(movies)
+    try:
+        idx = int(input("\nChọn số thứ tự phim: ")) - 1
+        if idx < 0 or idx >= len(movies):
+            print(" Số thứ tự không hợp lệ")
+            return
+        movie = movies[idx]
+    except ValueError:
+        print(" Vui lòng nhập số")
+        return
+
+    episodes = movie.get('episodes', [])
+    if not episodes:
+        print(" Phim này chưa có tập nào. Hãy thêm tập trước.")
+        return
+
+    range_input = input("Nhập khoảng tập phim muốn cập nhật (VD: 1-10): ").strip()
+    if "-" not in range_input:
+        print(" Định dạng không hợp lệ, phải là dạng 'start-end' (VD: 1-10)")
+        return
+    
+    try:
+        start_ep, end_ep = map(int, range_input.split("-"))
+        if start_ep < 1 or end_ep < start_ep or end_ep > len(episodes):
+            print(f" Khoảng tập không hợp lệ (Phim có tổng cộng {len(episodes)} tập)")
+            return
+    except ValueError:
+        print(" Vui lòng nhập số hợp lệ")
+        return
+
+    print("\nChọn Server muốn cập nhật link hàng loạt:")
+    print("1. Server 1 (Link gốc)")
+    print("2. Server 2 (Backup 1)")
+    print("3. Server 3 (Backup 2)")
+    server_choice = input("Chọn (1-3): ").strip()
+    if server_choice not in ["1", "2", "3"]:
+        print(" Lựa chọn không hợp lệ")
+        return
+
+    server_field = "videoUrl"
+    if server_choice == "2":
+        server_field = "videoUrlBackup"
+    elif server_choice == "3":
+        server_field = "videoUrlBackup2"
+
+    file_path = "link.txt"
+    if not os.path.exists(file_path):
+        print(f" Không tìm thấy file '{file_path}'. Vui lòng tạo file này ở cùng thư mục script.")
+        return
+
+    with open(file_path, "r", encoding="utf-8") as f:
+        links = [line.strip() for line in f if line.strip()]
+
+    num_needed = end_ep - start_ep + 1
+    if len(links) < num_needed:
+        print(f" File '{file_path}' chỉ có {len(links)} link, nhưng cần {num_needed} link cho các tập {start_ep}-{end_ep}.")
+        print(" Vui lòng bổ sung thêm link vào file.")
+        return
+
+    print(f"\n Đang tiến hành cập nhật Server {server_choice} cho các tập {start_ep}-{end_ep}...")
+    for i in range(num_needed):
+        ep_idx = (start_ep - 1) + i
+        link = links[i]
+        episodes[ep_idx][server_field] = link
+        print(f"  - {episodes[ep_idx]['title']}: Server {server_choice} -> {link}")
+
+    movie['episodes'] = episodes
+    save_data(movies)
+    print(f"\n Cập nhật hàng loạt thành công cho {num_needed} tập phim!")
+
 def main():
     movies = load_data()
     while True:
@@ -404,7 +478,8 @@ def main():
         print("5. Xóa một tập")
         print("6. Xóa tập hàng loạt")
         print("7. Thêm/Sửa server cho tập phim")
-        print("8. Xuất ra database.js (cập nhật file JS)")
+        print("8. Thêm/Sửa server hàng loạt cho tập phim từ 'link.txt'")
+        print("9. Xuất ra database.js (cập nhật file JS)")
         print("0. Thoát")
         choice = input("Chọn: ").strip()
         if choice == "0":
@@ -425,6 +500,8 @@ def main():
         elif choice == "7":
             add_server_to_episode(movies)
         elif choice == "8":
+            add_servers_to_episodes_bulk(movies)
+        elif choice == "9":
             export_to_js(movies)  
         else:
             print(" Lựa chọn không hợp lệ")
