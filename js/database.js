@@ -478,177 +478,212 @@ const MOVIE_DATABASE = [
       {
         "episodeId": 1,
         "title": "Tập 1",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_1.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_1.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_1.mp4"
       },
       {
         "episodeId": 2,
         "title": "Tập 2",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_2.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_2.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_2.mp4"
       },
       {
         "episodeId": 3,
         "title": "Tập 3",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_3.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_3.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_3.mp4"
       },
       {
         "episodeId": 4,
         "title": "Tập 4",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_4.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_4.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_4.mp4"
       },
       {
         "episodeId": 5,
         "title": "Tập 5",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_5.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_5.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_5.mp4"
       },
       {
         "episodeId": 6,
         "title": "Tập 6",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_6.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_6.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_6.mp4"
       },
       {
         "episodeId": 7,
         "title": "Tập 7",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_7.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_7.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_7.mp4"
       },
       {
         "episodeId": 8,
         "title": "Tập 8",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_8.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_8.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_8.mp4"
       },
       {
         "episodeId": 9,
         "title": "Tập 9",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_9.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_9.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_9.mp4"
       },
       {
         "episodeId": 10,
         "title": "Tập 10",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_10.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_10.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_10.mp4"
       },
       {
         "episodeId": 11,
         "title": "Tập 11",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_11.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_11.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_11.mp4"
       },
       {
         "episodeId": 12,
         "title": "Tập 12",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_12.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_12.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_12.mp4"
       },
       {
         "episodeId": 13,
         "title": "Tập 13",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_13.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_13.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_13.mp4"
       },
       {
         "episodeId": 14,
         "title": "Tập 14",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_14.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_14.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_14.mp4"
       },
       {
         "episodeId": 15,
         "title": "Tập 15",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_15.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_15.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_15.mp4"
       },
       {
         "episodeId": 16,
         "title": "Tập 16",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_16.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_16.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_16.mp4"
       },
       {
         "episodeId": 17,
         "title": "Tập 17",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_17.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_17.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_17.mp4"
       },
       {
         "episodeId": 18,
         "title": "Tập 18",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_18.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_18.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_18.mp4"
       },
       {
         "episodeId": 19,
         "title": "Tập 19",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_19.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_19.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_19.mp4"
       },
       {
         "episodeId": 20,
         "title": "Tập 20",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_20.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh/resolve/main/su-huynh-a-su-huynh-tap_20.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_20.mp4"
       },
       {
         "episodeId": 21,
         "title": "Tập 21",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_21.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_21.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_21.mp4"
       },
       {
         "episodeId": 22,
         "title": "Tập 22",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_22.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_22.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_22.mp4"
       },
       {
         "episodeId": 23,
         "title": "Tập 23",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_23.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_23.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_23.mp4"
       },
       {
         "episodeId": 24,
         "title": "Tập 24",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_24.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_24.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_24.mp4"
       },
       {
         "episodeId": 25,
         "title": "Tập 25",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_25.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_25.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_25.mp4"
       },
       {
         "episodeId": 26,
         "title": "Tập 26",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_26.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_26.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_26.mp4"
       },
       {
         "episodeId": 27,
         "title": "Tập 27",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_27.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_27.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_27.mp4"
       },
       {
         "episodeId": 28,
         "title": "Tập 28",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_28.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_28.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_28.mp4"
       },
       {
         "episodeId": 29,
         "title": "Tập 29",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_29.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_29.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_29.mp4"
       },
       {
         "episodeId": 30,
         "title": "Tập 30",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_30.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_30.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_30.mp4"
       },
       {
         "episodeId": 31,
         "title": "Tập 31",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_31.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_31.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_31.mp4"
       },
       {
         "episodeId": 32,
         "title": "Tập 32",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_32.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_32.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_32.mp4"
       },
       {
         "episodeId": 33,
         "title": "Tập 33",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_33.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_33.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_33.mp4"
       },
       {
         "episodeId": 34,
         "title": "Tập 34",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_34.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_34.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_34.mp4"
       },
       {
         "episodeId": 35,
         "title": "Tập 35",
-        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_35.mp4"
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-1/resolve/main/su-huynh-a-su-huynh-tap_35.mp4",
+        "videoUrlBackup": "https://github.com/datanur/datanurweb/releases/download/su-huynh-a-su-huynh-s1/su-huynh-tap_35.mp4"
       },
       {
         "episodeId": 36,

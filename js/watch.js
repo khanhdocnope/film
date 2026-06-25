@@ -622,7 +622,15 @@ function createIframeFromUrl(embedUrl, title = 'Video player') {
 }
 
 async function getPlayableUrl(originalUrl) {
-  if (!originalUrl || !originalUrl.includes('fcloud.live') || originalUrl.includes('/cinema/')) {
+  if (!originalUrl) return originalUrl;
+
+  // Hỗ trợ tự động proxy các link lưu trữ trên GitHub Releases
+  // để tránh lỗi CORS và lỗi Range Request khi tua/streaming trực tiếp trên trình duyệt.
+  if (originalUrl.includes('github.com') && originalUrl.includes('/releases/download/')) {
+    return `https://gh-proxy.com/${originalUrl}`;
+  }
+
+  if (!originalUrl.includes('fcloud.live') || originalUrl.includes('/cinema/')) {
     return originalUrl;
   }
   try {
@@ -645,10 +653,23 @@ async function isVideoUrlAccessible(url) {
   if (url.startsWith('blob:')) return true;
   try {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 15000); // Tăng thời gian lắng nghe lên 15 giây
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
     const response = await fetch(url, { method: 'HEAD', signal: controller.signal });
     clearTimeout(timeoutId);
-    return response.ok || response.status === 206;
+    if (response.ok || response.status === 206) {
+      return true;
+    }
+  } catch (err) {
+    // Lỗi kết nối mạng sẽ chạy xuống khối thử nghiệm GET ở dưới
+  }
+
+  // Fallback: Thử dùng fetch GET với mode 'no-cors' (phù hợp cho các link chặn HEAD hoặc có tham số truy vấn như S3/CDN)
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+    await fetch(url, { method: 'GET', mode: 'no-cors', signal: controller.signal });
+    clearTimeout(timeoutId);
+    return true; // Nếu kết nối mạng thành công thì coi như khả dụng
   } catch {
     return false;
   }
@@ -890,10 +911,7 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     video.playsInline = true;
     video.style.width = '100%';
     video.style.height = '100%';
-    let playableUrl = videoUrl;
-    if (videoUrl.includes('fcloud.live') && !videoUrl.includes('/cinema/')) {
-      playableUrl = await getPlayableUrl(videoUrl);
-    }
+    let playableUrl = await getPlayableUrl(videoUrl);
     video.src = playableUrl;
     container.appendChild(video);
 
@@ -953,11 +971,33 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       }
     });
 
+    let retryCount = 0;
     const onError = async () => {
+      // Ngăn chặn các sự kiện lỗi từ thẻ video cũ đã bị hủy/gỡ khỏi DOM khi chuyển server
+      if (!video.isConnected || video !== document.getElementById('videoPlayer')) {
+        return;
+      }
+
       if (video.hasAttribute('data-error-handled')) return;
       video.setAttribute('data-error-handled', 'true');
 
-      // Kiểm tra xem đường truyền thực tế có truy cập được không với timeout 15s mới quyết định báo lỗi
+      const timeToRestore = video.currentTime;
+
+      retryCount++;
+      if (retryCount > 2) {
+        console.log("Đã thử tự động tải lại 2 lần nhưng vẫn lỗi. Dừng lại và hiển thị thông báo lỗi.");
+        try {
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+        } catch (e) {
+          console.warn("Lỗi tắt âm thanh video ngầm:", e);
+        }
+        showVideoErrorOnlyRetry(videoUrl);
+        return;
+      }
+
+      // Kiểm tra xem đường truyền thực tế có truy cập được không
       const accessible = await isVideoUrlAccessible(video.src);
       if (!accessible) {
         // Nếu thực sự không truy cập được, dừng phát hoàn toàn để tránh phát tiếng ngầm và hiện lỗi
@@ -970,12 +1010,19 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
         }
         showVideoErrorOnlyRetry(videoUrl);
       } else {
-        // Nếu đường truyền vẫn tốt (có thể do lỗi nghẽn tạm thời hoặc bị chặn autoplay), cho phép tự động tải lại
-        console.log("Đường truyền vẫn hoạt động tốt, đang tự động tải lại video...");
+        // Nếu đường truyền vẫn tốt (có thể do lỗi nghẽn tạm thời, lỗi tua buffering hoặc bị chặn autoplay), cho phép tự động tải lại
+        console.log(`Đường truyền vẫn hoạt động tốt, đang tự động phục hồi video từ mốc ${timeToRestore.toFixed(1)}s (Lần thử thứ ${retryCount})...`);
         video.removeAttribute('data-error-handled');
         try {
           video.load();
-          await video.play();
+          if (timeToRestore > 0.5) {
+            video.addEventListener('loadedmetadata', () => {
+              video.currentTime = timeToRestore;
+              video.play().catch(e => console.log("Không thể tự động phát lại sau khi khôi phục:", e));
+            }, { once: true });
+          } else {
+            await video.play();
+          }
         } catch (e) {
           console.log("Không thể tự động phát lại sau khi khôi phục:", e);
         }
