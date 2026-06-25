@@ -3,6 +3,7 @@
 // ==========================================
 let currentMovie = null;
 let currentEpisodeIndex = 0;
+let currentServerIndex = 0;
 let currentVideoBlobUrl = null;
 let autoplayTimer = null;
 let autoplayOverlay = null;
@@ -474,19 +475,108 @@ function loadMovieDetails() {
   renderRelatedMovies();
   adjustPlaylistPosition();
 }
-// ========== XỬ LÝ VIDEO / IFRAME (ĐÃ CẢI TẠO HỖ TRỢ GOOGLE DRIVE) ==========
+// ========== XỬ LÝ ĐA SERVER & VIDEO / IFRAME ==========
 
-// 1. Kiểm tra xem link có phải định dạng cần nhúng iframe hay không
-function isIframeEmbedUrl(url) {
-  if (!url) return false;
+// Lấy danh sách server của một tập phim (hỗ trợ cả backup và tự động tạo mirror cho HuggingFace)
+function getEpisodeServers(episode) {
+  const servers = [];
+  if (!episode) return servers;
 
-  const isFcloud = url.includes('fcloud.live/cinema/') && url.includes('.');
-  const isGoogleDrive = url.includes('drive.google.com');
+  // 1. Kiểm tra mảng servers rõ ràng nếu có
+  if (episode.servers && Array.isArray(episode.servers)) {
+    return episode.servers;
+  }
 
-  return isFcloud || isGoogleDrive;
+  // 2. Thêm server gốc
+  if (episode.videoUrl) {
+    servers.push({
+      name: "Server 1",
+      url: episode.videoUrl
+    });
+  }
+
+  // 3. Thêm backup 1
+  if (episode.videoUrlBackup) {
+    servers.push({
+      name: "Server 2",
+      url: episode.videoUrlBackup
+    });
+  }
+
+  // 4. Thêm backup 2
+  if (episode.videoUrlBackup2) {
+    servers.push({
+      name: "Server 3",
+      url: episode.videoUrlBackup2
+    });
+  }
+
+  // 5. Tự động tạo Server 2 (Mirror) nếu chỉ có 1 server gốc là Hugging Face
+  if (servers.length === 1 && episode.videoUrl && episode.videoUrl.includes("huggingface.co")) {
+    const mirrorUrl = episode.videoUrl.replace("huggingface.co", "hf-mirror.com");
+    servers.push({
+      name: "Server 2 (HF Mirror)",
+      url: mirrorUrl
+    });
+  }
+
+  return servers;
 }
 
-// ========== XỬ LÝ VIDEO / IFRAME ==========
+// Render bộ chọn Server
+function renderServerSelector(episode) {
+  const wrapper = document.getElementById("serverSelectorWrapper");
+  const btnGroup = document.getElementById("serverBtnGroup");
+  if (!wrapper || !btnGroup) return;
+
+  const servers = getEpisodeServers(episode);
+  if (servers.length <= 1) {
+    wrapper.style.display = "none";
+    return;
+  }
+
+  wrapper.style.display = "flex";
+  btnGroup.innerHTML = servers.map((server, idx) => {
+    const isActive = idx === currentServerIndex;
+    return `
+      <button class="server-btn ${isActive ? 'active' : ''}" data-server-idx="${idx}">
+        ${server.name}
+      </button>
+    `;
+  }).join("");
+
+  btnGroup.querySelectorAll(".server-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const idx = parseInt(btn.getAttribute("data-server-idx"));
+      if (idx === currentServerIndex) return;
+
+      currentServerIndex = idx;
+      
+      btnGroup.querySelectorAll(".server-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const currentEp = currentMovie.episodes[currentEpisodeIndex];
+      const selectedServer = servers[currentServerIndex];
+      if (currentEp && selectedServer) {
+        const prevVideo = document.getElementById("videoPlayer");
+        let restoreTime = 0;
+        if (prevVideo && prevVideo.duration > 0) {
+          restoreTime = prevVideo.currentTime;
+        }
+        
+        renderPlayerForUrl(selectedServer.url, currentEp.title).then(() => {
+          const newVideo = document.getElementById("videoPlayer");
+          if (newVideo && restoreTime > 0) {
+            newVideo.addEventListener('loadedmetadata', () => {
+              newVideo.currentTime = restoreTime;
+              newVideo.play().catch(e => console.log('Autoplay play error:', e));
+            }, { once: true });
+          }
+        });
+      }
+    });
+  });
+}
 
 // 1. Kiểm tra xem đường liên kết có thuộc diện nhúng iframe hay không
 function isIframeEmbedUrl(url) {
@@ -1054,6 +1144,7 @@ async function changeEpisode(index, isRestore = false) {
   }
 
   currentEpisodeIndex = index;
+  currentServerIndex = 0; // Reset về server mặc định cho tập mới
   hasTrackedViewForCurrentEpisode = false; // Reset view tracking flag for new episode
   const episodes = currentMovie.episodes || [];
   if (!episodes[index]) return;
@@ -1086,7 +1177,13 @@ async function changeEpisode(index, isRestore = false) {
   if (!isRestore && !epProgress) {
     saveMovieProgress(currentMovie.id, currentEpisodeIndex, 0, 0);
   }
-  await renderPlayerForUrl(episode.videoUrl, episode.title);
+
+  const servers = getEpisodeServers(episode);
+  const activeServerUrl = servers[currentServerIndex] ? servers[currentServerIndex].url : episode.videoUrl;
+  await renderPlayerForUrl(activeServerUrl, episode.title);
+
+  // Render bộ chọn Server
+  renderServerSelector(episode);
   
   // Load comments and views for current movie and episode index
   loadAndRenderComments();

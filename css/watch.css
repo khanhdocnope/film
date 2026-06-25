@@ -1503,3 +1503,72 @@ body:not(.dark-mode) .report-option-card {
   background: #dc2626;
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
 }
+
+/* ==========================================
+   SERVER SELECTOR STYLES
+   ========================================== */
+.server-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-color);
+  padding: 12px 18px;
+  margin-top: 10px;
+  transition: var(--transition-smooth);
+}
+
+body.dark-mode .server-selector-wrapper {
+  background: rgba(21, 16, 40, 0.55);
+}
+
+.server-selector-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.server-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.server-btn {
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  user-select: none;
+}
+
+body.dark-mode .server-btn {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.server-btn:hover {
+  background: rgba(255, 149, 0, 0.08);
+  border-color: rgba(255, 149, 0, 0.4);
+  transform: translateY(-1px);
+}
+
+.server-btn.active {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.25);
+  font-weight: 700;
+}

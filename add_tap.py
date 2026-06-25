@@ -97,15 +97,23 @@ def add_episode(movies):
     title = input("Tiêu đề tập (VD: Tập 2, Vietsub...): ").strip()
     if not title:
         title = f"Tập {next_id}"
-    video_url = input("Link video (mp4, m3u8, hoặc iframe fcloud.live): ").strip()
+    video_url = input("Link video Server 1 (mp4, m3u8, hoặc iframe fcloud.live): ").strip()
     if not video_url:
         print("Link không được để trống")
         return
+    video_url_backup = input("Link video Server 2 (Tùy chọn, ấn Enter để bỏ qua): ").strip()
+    video_url_backup2 = input("Link video Server 3 (Tùy chọn, ấn Enter để bỏ qua): ").strip()
+    
     new_ep = {
         "episodeId": next_id,
         "title": title,
         "videoUrl": video_url
     }
+    if video_url_backup:
+        new_ep["videoUrlBackup"] = video_url_backup
+    if video_url_backup2:
+        new_ep["videoUrlBackup2"] = video_url_backup2
+        
     episodes.append(new_ep)
     movie['episodes'] = episodes
     # Di chuyển phim lên đầu danh sách để hiển thị phim mới cập nhật lên đầu trang chủ
@@ -161,17 +169,30 @@ def add_episodes_bulk(movies):
         start_num = auto_next_id
 
     current_num = start_num
-    for video_url in links:
+    for line in links:
         next_id = max([ep['episodeId'] for ep in episodes], default=0) + 1
         title = f"Tập {current_num}"
+        
+        # Hỗ trợ phân cách bằng dấu gạch đứng '|' để nhập đa server
+        parts = [p.strip() for p in line.split("|") if p.strip()]
+        if not parts:
+            continue
+            
+        video_url = parts[0]
         
         new_ep = {
             "episodeId": next_id,
             "title": title,
             "videoUrl": video_url
         }
+        
+        if len(parts) > 1:
+            new_ep["videoUrlBackup"] = parts[1]
+        if len(parts) > 2:
+            new_ep["videoUrlBackup2"] = parts[2]
+            
         episodes.append(new_ep)
-        print(f"  Đã chuẩn bị: {title} -> {video_url}")
+        print(f"  Đã chuẩn bị: {title} -> {video_url} (Có {len(parts)} server)")
         current_num += 1
 
     movie['episodes'] = episodes
@@ -302,6 +323,75 @@ def delete_episodes_bulk(movies):
     save_data(movies)
     print(f" Đã xóa thành công {len(deleted_titles)} tập phim!")
 
+def add_server_to_episode(movies):
+    if not movies:
+        print(" Chưa có phim nào.")
+        return
+    list_movies(movies)
+    try:
+        idx = int(input("\nChọn số thứ tự phim: ")) - 1
+        if idx < 0 or idx >= len(movies):
+            print(" Số thứ tự không hợp lệ")
+            return
+        movie = movies[idx]
+    except ValueError:
+        print(" Vui lòng nhập số")
+        return
+
+    episodes = movie.get('episodes', [])
+    if not episodes:
+        print(" Phim này chưa có tập nào. Hãy thêm tập trước.")
+        return
+
+    print(f"\n Danh sách tập phim của '{movie['title']}':")
+    for idx_ep, ep in enumerate(episodes, 1):
+        s1 = ep.get('videoUrl', 'Không có')
+        s2 = ep.get('videoUrlBackup', 'Chưa có')
+        s3 = ep.get('videoUrlBackup2', 'Chưa có')
+        print(f"{idx_ep}. {ep['title']}")
+        print(f"   - Server 1: {s1}")
+        if 'videoUrlBackup' in ep:
+            print(f"   - Server 2: {s2}")
+        if 'videoUrlBackup2' in ep:
+            print(f"   - Server 3: {s3}")
+
+    try:
+        ep_idx = int(input("\nChọn số thứ tự tập phim cần thêm/sửa server: ")) - 1
+        if ep_idx < 0 or ep_idx >= len(episodes):
+            print(" Số thứ tự tập không hợp lệ")
+            return
+        episode = episodes[ep_idx]
+    except ValueError:
+        print(" Vui lòng nhập số")
+        return
+
+    print(f"\n Đang chỉnh sửa tập: {episode['title']}")
+    print(f"Server 1 (Gốc): {episode.get('videoUrl', 'Chưa có')}")
+    s1_new = input("Nhập link Server 1 mới (Để trống để giữ nguyên): ").strip()
+    if s1_new:
+        episode['videoUrl'] = s1_new
+
+    print(f"Server 2 (Backup 1): {episode.get('videoUrlBackup', 'Chưa có')}")
+    s2_new = input("Nhập link Server 2 mới (Để trống để giữ nguyên, nhập 'clear' để xóa): ").strip()
+    if s2_new.lower() == 'clear':
+        episode.pop('videoUrlBackup', None)
+        print(" Đã xóa Server 2")
+    elif s2_new:
+        episode['videoUrlBackup'] = s2_new
+
+    print(f"Server 3 (Backup 2): {episode.get('videoUrlBackup2', 'Chưa có')}")
+    s3_new = input("Nhập link Server 3 mới (Để trống để giữ nguyên, nhập 'clear' để xóa): ").strip()
+    if s3_new.lower() == 'clear':
+        episode.pop('videoUrlBackup2', None)
+        print(" Đã xóa Server 3")
+    elif s3_new:
+        episode['videoUrlBackup2'] = s3_new
+
+    episodes[ep_idx] = episode
+    movie['episodes'] = episodes
+    save_data(movies)
+    print(f" Cập nhật server thành công cho '{episode['title']}' của phim '{movie['title']}'!")
+
 def main():
     movies = load_data()
     while True:
@@ -313,7 +403,8 @@ def main():
         print("4. Thêm tập hàng loạt từ file 'link.txt'")
         print("5. Xóa một tập")
         print("6. Xóa tập hàng loạt")
-        print("7. Xuất ra database.js (cập nhật file JS)")
+        print("7. Thêm/Sửa server cho tập phim")
+        print("8. Xuất ra database.js (cập nhật file JS)")
         print("0. Thoát")
         choice = input("Chọn: ").strip()
         if choice == "0":
@@ -332,6 +423,8 @@ def main():
         elif choice == "6":
             delete_episodes_bulk(movies)
         elif choice == "7":
+            add_server_to_episode(movies)
+        elif choice == "8":
             export_to_js(movies)  
         else:
             print(" Lựa chọn không hợp lệ")
