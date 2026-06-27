@@ -1,11 +1,11 @@
-const CACHE_NAME = 'filmxem-cache-v2.2';
+const CACHE_NAME = 'filmxem-cache-v2.3';
 const ASSETS_TO_CACHE = [
   './',
   'detail.html',
   'watch.html',
   'search.html',
-  'Terms-of-use.html',
-  'Privacy-policy.html',
+  'Terms-of-use',
+  'Privacy-policy',
   'css/main.css',
   'css/home.css',
   'css/watch.css',

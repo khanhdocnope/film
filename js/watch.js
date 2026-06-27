@@ -495,30 +495,23 @@ function getEpisodeServers(episode) {
     });
   }
 
-  // 3. Thêm backup 1
-  if (episode.videoUrlBackup) {
-    servers.push({
-      name: "Server 2",
-      url: episode.videoUrlBackup
-    });
+  // 3. Thêm Server 2 (hoặc HF Mirror nếu có server gốc là Hugging Face)
+  let server2Url = episode.videoUrlBackup || "";
+  let server2Name = "Server 2";
+  if (!server2Url && episode.videoUrl && episode.videoUrl.includes("huggingface.co")) {
+    server2Url = episode.videoUrl.replace("huggingface.co", "hf-mirror.com");
+    server2Name = "Server 2 (HF Mirror)";
   }
+  servers.push({
+    name: server2Name,
+    url: server2Url
+  });
 
-  // 4. Thêm backup 2
-  if (episode.videoUrlBackup2) {
-    servers.push({
-      name: "Server 3",
-      url: episode.videoUrlBackup2
-    });
-  }
-
-  // 5. Tự động tạo Server 2 (Mirror) nếu chỉ có 1 server gốc là Hugging Face
-  if (servers.length === 1 && episode.videoUrl && episode.videoUrl.includes("huggingface.co")) {
-    const mirrorUrl = episode.videoUrl.replace("huggingface.co", "hf-mirror.com");
-    servers.push({
-      name: "Server 2 (HF Mirror)",
-      url: mirrorUrl
-    });
-  }
+  // 4. Thêm Server 3
+  servers.push({
+    name: "Server 3",
+    url: episode.videoUrlBackup2 || ""
+  });
 
   return servers;
 }
@@ -874,6 +867,7 @@ function showResumeNotification(video, time) {
 // Hàm chính render player
 async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
   const activeEpIndex = currentEpisodeIndex; // capture current episode index to prevent race conditions during transitions
+  const activeServerIndex = currentServerIndex; // capture current server index to prevent race conditions
   const wrapper = document.querySelector('.watch-player-wrapper');
   if (!wrapper) return;
   let container = document.getElementById('playerContainer');
@@ -896,7 +890,18 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
   const oldOverlay = wrapper.querySelector('.video-error-overlay');
   if (oldOverlay) oldOverlay.remove();
 
+  // Báo lỗi và chuyển sang phát video thử nghiệm nếu server chưa có link backup
+  if (!videoUrl) {
+    if (typeof showToast === 'function') {
+      showToast("Server này chưa có link backup, đang phát video thử nghiệm!");
+    }
+    videoUrl = "vid/cat.mp4";
+  }
+
   if (isIframeEmbedUrl(videoUrl)) {
+    if (activeEpIndex !== currentEpisodeIndex || activeServerIndex !== currentServerIndex) {
+      return;
+    }
     const iframe = createIframeFromUrl(videoUrl, episodeTitle);
     container.appendChild(iframe);
     // Lưu tiến trình xem cho iframe
@@ -912,22 +917,32 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     video.style.width = '100%';
     video.style.height = '100%';
     let playableUrl = await getPlayableUrl(videoUrl);
+
+    // Ngăn chặn race condition khi người dùng click đổi server hoặc chuyển tập quá nhanh
+    if (activeEpIndex !== currentEpisodeIndex || activeServerIndex !== currentServerIndex) {
+      return;
+    }
+
     video.src = playableUrl;
     container.appendChild(video);
 
-    // Tăng lượt xem khi người dùng bắt đầu nhấn phát video (chỉ chạy 1 lần)
+    // Tăng lượt xem khi người dùng bắt đầu nhấn phát video (chỉ chạy 1 lần và không tính cho cat.mp4)
     video.addEventListener('play', () => {
-      trackEpisodeView();
+      if (videoUrl !== "vid/cat.mp4") {
+        trackEpisodeView();
+      }
     }, { once: true });
 
-    // Khôi phục tiến trình xem nếu có cho tập phim hiện tại
+    // Khôi phục tiến trình xem nếu có cho tập phim hiện tại (không đồng bộ cho cat.mp4)
     const progress = getMovieProgress(currentMovie.id);
     if (progress && progress.episodes && progress.episodes[activeEpIndex]) {
       const epProgress = progress.episodes[activeEpIndex];
       if (epProgress.time > 5) {
         video.addEventListener('loadedmetadata', () => {
-          video.currentTime = epProgress.time;
-          showResumeNotification(video, epProgress.time);
+          if (videoUrl !== "vid/cat.mp4") {
+            video.currentTime = epProgress.time;
+            showResumeNotification(video, epProgress.time);
+          }
         }, { once: true });
       }
     }
@@ -939,8 +954,8 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       const currentTime = video.currentTime;
       const duration = video.duration;
 
-      // Lưu tiến trình định kỳ
-      if (Math.abs(currentTime - lastSavedTime) > 4 && duration > 0) {
+      // Lưu tiến trình định kỳ (chỉ đồng bộ cho video thường, không lưu cho cat.mp4)
+      if (videoUrl !== "vid/cat.mp4" && Math.abs(currentTime - lastSavedTime) > 4 && duration > 0) {
         saveMovieProgress(currentMovie.id, activeEpIndex, currentTime, duration);
         lastSavedTime = currentTime;
       }
@@ -966,12 +981,11 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     });
 
     video.addEventListener('pause', () => {
-      if (video.duration > 0) {
+      if (videoUrl !== "vid/cat.mp4" && video.duration > 0) {
         saveMovieProgress(currentMovie.id, activeEpIndex, video.currentTime, video.duration);
       }
     });
 
-    let retryCount = 0;
     const onError = async () => {
       // Ngăn chặn các sự kiện lỗi từ thẻ video cũ đã bị hủy/gỡ khỏi DOM khi chuyển server
       if (!video.isConnected || video !== document.getElementById('videoPlayer')) {
@@ -981,52 +995,21 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       if (video.hasAttribute('data-error-handled')) return;
       video.setAttribute('data-error-handled', 'true');
 
-      const timeToRestore = video.currentTime;
-
-      retryCount++;
-      if (retryCount > 2) {
-        console.log("Đã thử tự động tải lại 2 lần nhưng vẫn lỗi. Dừng lại và hiển thị thông báo lỗi.");
-        try {
-          video.pause();
-          video.removeAttribute('src');
-          video.load();
-        } catch (e) {
-          console.warn("Lỗi tắt âm thanh video ngầm:", e);
+      // Nếu video tải lỗi và URL hiện tại chưa phải là cat.mp4
+      if (videoUrl !== "vid/cat.mp4") {
+        if (typeof showToast === 'function') {
+          showToast("Lỗi tải video, đang tự động chuyển sang video thử nghiệm!");
         }
-        showVideoErrorOnlyRetry(videoUrl);
+        videoUrl = "vid/cat.mp4";
+        video.src = "vid/cat.mp4";
+        video.removeAttribute('data-error-handled');
+        video.load();
+        video.play().catch(e => console.log("Không thể tự động phát video thử nghiệm:", e));
         return;
       }
 
-      // Kiểm tra xem đường truyền thực tế có truy cập được không
-      const accessible = await isVideoUrlAccessible(video.src);
-      if (!accessible) {
-        // Nếu thực sự không truy cập được, dừng phát hoàn toàn để tránh phát tiếng ngầm và hiện lỗi
-        try {
-          video.pause();
-          video.removeAttribute('src');
-          video.load();
-        } catch (e) {
-          console.warn("Lỗi tắt âm thanh video ngầm:", e);
-        }
-        showVideoErrorOnlyRetry(videoUrl);
-      } else {
-        // Nếu đường truyền vẫn tốt (có thể do lỗi nghẽn tạm thời, lỗi tua buffering hoặc bị chặn autoplay), cho phép tự động tải lại
-        console.log(`Đường truyền vẫn hoạt động tốt, đang tự động phục hồi video từ mốc ${timeToRestore.toFixed(1)}s (Lần thử thứ ${retryCount})...`);
-        video.removeAttribute('data-error-handled');
-        try {
-          video.load();
-          if (timeToRestore > 0.5) {
-            video.addEventListener('loadedmetadata', () => {
-              video.currentTime = timeToRestore;
-              video.play().catch(e => console.log("Không thể tự động phát lại sau khi khôi phục:", e));
-            }, { once: true });
-          } else {
-            await video.play();
-          }
-        } catch (e) {
-          console.log("Không thể tự động phát lại sau khi khôi phục:", e);
-        }
-      }
+      // Nếu đã phát cat.mp4 mà vẫn bị lỗi
+      showVideoErrorOnlyRetry(videoUrl);
     };
     video.addEventListener('error', onError);
     video.load();
