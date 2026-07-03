@@ -1572,3 +1572,255 @@ body.dark-mode .server-btn {
   box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.25);
   font-weight: 700;
 }
+
+/* ==========================================
+   "THE BREAKOUT PLAYER" - KINETIC MINIMALISM
+   ========================================== */
+:root {
+  --plyr-color-main: var(--accent); /* #FF9500 */
+  --plyr-video-background: #06040a;
+  --plyr-menu-background: #110e24;
+  --plyr-menu-color: #ffffff;
+  --plyr-control-radius: 6px;
+  --plyr-tooltip-background: #110e24;
+  --plyr-tooltip-color: #ffffff;
+  --plyr-tooltip-radius: 4px;
+  --plyr-range-track-background: rgba(255, 255, 255, 0.08);
+}
+
+/* Minimalist borderless container with premium shadow */
+.plyr {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4) !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+}
+
+.plyr:hover {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Floating Controls Bar with physics-based spring animation */
+.plyr__controls {
+  position: absolute !important;
+  bottom: 12px !important;
+  left: 12px !important;
+  right: 12px !important;
+  background: #110e24 !important; /* Solid premium dark background */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 8px 14px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  z-index: 3;
+  opacity: 0 !important;
+  transform: translateY(15px) scale(0.98) !important;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.15), opacity 0.3s ease, background-color 0.3s !important;
+  pointer-events: none !important;
+}
+
+/* Spring transition on hover/focus */
+.plyr:hover .plyr__controls,
+.plyr--hover .plyr__controls,
+.plyr:focus-within .plyr__controls,
+.plyr--menu-open .plyr__controls {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  pointer-events: auto !important;
+}
+
+/* Hide controls forcibly when Plyr requests it, even if hovered */
+.plyr--hide-controls .plyr__controls {
+  opacity: 0 !important;
+  transform: translateY(15px) scale(0.98) !important;
+  pointer-events: none !important;
+}
+
+/* Large Center Play Overlay Button */
+.plyr__control--overlaid {
+  background: rgba(17, 14, 36, 0.95) !important;
+  color: #ffffff !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4) !important;
+  padding: 16px !important;
+  transition: opacity 0.2s ease, background 0.2s !important;
+}
+
+/* Controls Buttons - scale animation */
+.plyr__controls .plyr__control {
+  border-radius: 50% !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s !important;
+  background: transparent !important;
+}
+
+.plyr__controls .plyr__control:hover,
+.plyr__controls .plyr__control[aria-expanded=true] {
+  transform: scale(1.18) !important;
+  color: var(--accent) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Settings rotation effect */
+.plyr__control[data-plyr="settings"] {
+  transition: transform 0.3s ease !important;
+}
+.plyr__control[data-plyr="settings"]:hover {
+  transform: scale(1.18) rotate(45deg) !important;
+}
+
+/* Time Display - Clean Monospace */
+.plyr__time {
+  font-family: 'Roboto Mono', 'Courier New', monospace !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  display: inline-flex !important;
+  align-items: center;
+  pointer-events: none !important;
+  padding: 0 4px !important;
+}
+
+.plyr__time--current, 
+.plyr__time--duration {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.plyr__time--current + .plyr__time--duration::before {
+  content: "/\00a0" !important;
+  color: rgba(255, 255, 255, 0.3) !important;
+  margin: 0 4px !important;
+}
+
+/* Progress bar container variable styling */
+.plyr__progress__container {
+  padding: 8px 0 !important;
+  --plyr-range-track-height: 4px;
+  --plyr-range-track-active-height: 4px;
+  transition: all 0.2s ease !important;
+}
+
+.plyr__progress__container:hover {
+  --plyr-range-track-height: 6px;
+  --plyr-range-track-active-height: 6px;
+}
+
+/* Track & Played colors */
+.plyr__progress input[type=range] {
+  cursor: pointer !important;
+}
+
+.plyr__progress__play-bar {
+  background: var(--accent) !important;
+  border-radius: 3px !important;
+}
+
+/* Slider Thumb - hidden by default, pops up bouncy on hover, keeps perfect circle shape */
+.plyr__progress input[type=range]::-webkit-slider-thumb {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 2px solid var(--accent) !important;
+  opacity: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) !important;
+  transition: opacity 0.15s ease, transform 0.15s ease !important;
+  transform: scale(0.9) !important;
+}
+
+.plyr__progress input[type=range]::-moz-range-thumb {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 2px solid var(--accent) !important;
+  opacity: 0 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25) !important;
+  transition: opacity 0.15s ease, transform 0.15s ease !important;
+  transform: scale(0.9) !important;
+}
+
+.plyr__progress:hover input[type=range]::-webkit-slider-thumb,
+.plyr__progress input[type=range]:active::-webkit-slider-thumb {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+.plyr__progress:hover input[type=range]::-moz-range-thumb,
+.plyr__progress input[type=range]:active::-moz-range-thumb {
+  opacity: 1 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Volume Slider */
+.plyr__volume {
+  align-items: center !important;
+  max-width: 90px !important;
+}
+
+.plyr__volume input[type=range] {
+  max-width: 60px !important;
+}
+
+.plyr__volume input[type=range]::-webkit-slider-thumb {
+  border-radius: 50% !important;
+  width: 8px !important;
+  height: 8px !important;
+  background: #ffffff !important;
+  border: 1px solid var(--accent) !important;
+}
+
+/* Settings Menu - Custom Floating Widget with Spring animation */
+.plyr__menu__container {
+  background: #110e24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5) !important;
+  padding: 6px !important;
+  font-family: inherit !important;
+  animation: plyr-menu-in 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
+  bottom: 60px !important; /* Anchor cleanly above floating bar */
+}
+
+@keyframes plyr-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.plyr__menu__container [role=menuitemradio] {
+  padding: 6px 10px !important;
+  border-radius: 6px !important;
+  transition: all 0.15s ease !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.plyr__menu__container [role=menuitemradio]:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+.plyr__menu__container [role=menuitemradio][aria-checked=true] {
+  background: var(--accent) !important;
+  color: #ffffff !important;
+}
+
+.plyr__menu__container [role=menuitemradio][aria-checked=true] .plyr__menu__value {
+  color: #ffffff !important;
+}
+
+.plyr__menu__container .plyr__menu__value {
+  font-size: 11px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}

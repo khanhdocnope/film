@@ -7,6 +7,7 @@ let currentServerIndex = 0;
 let currentVideoBlobUrl = null;
 let autoplayTimer = null;
 let autoplayOverlay = null;
+let activePlyrInstance = null;
 
 // ==========================================
 // SUPABASE COMMENTS & VIEWS INTEGRATION
@@ -902,6 +903,15 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
     if (activeEpIndex !== currentEpisodeIndex || activeServerIndex !== currentServerIndex) {
       return;
     }
+    // Hủy Plyr instance cũ nếu đang chuyển sang dạng iframe nhúng
+    if (activePlyrInstance) {
+      try {
+        activePlyrInstance.destroy();
+      } catch (e) {
+        console.warn("Lỗi hủy Plyr cũ:", e);
+      }
+      activePlyrInstance = null;
+    }
     const iframe = createIframeFromUrl(videoUrl, episodeTitle);
     container.appendChild(iframe);
     // Lưu tiến trình xem cho iframe
@@ -925,6 +935,32 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
 
     video.src = playableUrl;
     container.appendChild(video);
+
+    // Hủy Plyr instance cũ trước khi khởi tạo cái mới
+    if (activePlyrInstance) {
+      try {
+        activePlyrInstance.destroy();
+      } catch (e) {
+        console.warn("Lỗi hủy Plyr cũ:", e);
+      }
+      activePlyrInstance = null;
+    }
+
+    const isPerformanceLite = document.body.classList.contains("performance-lite");
+
+    if (isPerformanceLite) {
+      console.log("Performance Lite mode active: Using native HTML5 video player.");
+    } else {
+      // Khởi tạo Plyr với cấu hình phẳng hoàn toàn
+      activePlyrInstance = new Plyr(video, {
+        controls: [
+          'play-large', 'play', 'progress', 'current-time', 'duration', 
+          'mute', 'volume', 'settings', 'pip', 'fullscreen'
+        ],
+        speed: { selected: 1, options: [0.5, 0.75, 1, 1.25, 1.5, 2] },
+        keyboard: { global: false, focused: true } // Vô hiệu hóa phím tắt mặc định toàn cục của Plyr để tránh xung đột với watch.js
+      });
+    }
 
     // Tăng lượt xem khi người dùng bắt đầu nhấn phát video (chỉ chạy 1 lần và không tính cho cat.mp4)
     video.addEventListener('play', () => {
@@ -1001,10 +1037,24 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
           showToast("Lỗi tải video, đang tự động chuyển sang video thử nghiệm!");
         }
         videoUrl = "vid/cat.mp4";
-        video.src = "vid/cat.mp4";
-        video.removeAttribute('data-error-handled');
-        video.load();
-        video.play().catch(e => console.log("Không thể tự động phát video thử nghiệm:", e));
+        
+        if (activePlyrInstance) {
+          activePlyrInstance.source = {
+            type: 'video',
+            sources: [
+              {
+                src: 'vid/cat.mp4',
+                type: 'video/mp4'
+              }
+            ]
+          };
+          activePlyrInstance.play().catch(e => console.log("Không thể tự động phát video thử nghiệm:", e));
+        } else {
+          video.src = "vid/cat.mp4";
+          video.removeAttribute('data-error-handled');
+          video.load();
+          video.play().catch(e => console.log("Không thể tự động phát video thử nghiệm:", e));
+        }
         return;
       }
 
@@ -1012,9 +1062,13 @@ async function renderPlayerForUrl(videoUrl, episodeTitle = '') {
       showVideoErrorOnlyRetry(videoUrl);
     };
     video.addEventListener('error', onError);
-    video.load();
     try {
-      await video.play();
+      if (activePlyrInstance) {
+        activePlyrInstance.play().catch(e => console.log('Auto-play bị chặn:', e));
+      } else {
+        video.load();
+        video.play().catch(e => console.log('Auto-play bị chặn:', e));
+      }
     } catch (e) { console.log('Auto-play bị chặn:', e); }
   }
 }
@@ -1402,9 +1456,16 @@ function setupKeyboardShortcuts() {
     if (e.key.toLowerCase() === "m") {
       e.preventDefault();
       if (hasVideo) {
-        video.muted = !video.muted;
-        if (typeof showToast === 'function') {
-          showToast(video.muted ? "🔇 Đã tắt tiếng" : "🔊 Đã bật tiếng");
+        if (activePlyrInstance) {
+          activePlyrInstance.muted = !activePlyrInstance.muted;
+          if (typeof showToast === 'function') {
+            showToast(activePlyrInstance.muted ? "🔇 Đã tắt tiếng" : "🔊 Đã bật tiếng");
+          }
+        } else {
+          video.muted = !video.muted;
+          if (typeof showToast === 'function') {
+            showToast(video.muted ? "🔇 Đã tắt tiếng" : "🔊 Đã bật tiếng");
+          }
         }
       } else {
         if (typeof showToast === 'function') showToast("Phím tắt này chỉ dùng cho trình phát HTML5");
@@ -1415,12 +1476,16 @@ function setupKeyboardShortcuts() {
     if (e.key.toLowerCase() === "f") {
       e.preventDefault();
       if (hasVideo) {
-        if (!document.fullscreenElement) {
-          video.requestFullscreen().catch(err => {
-            console.error("Lỗi bật toàn màn hình:", err);
-          });
+        if (activePlyrInstance) {
+          activePlyrInstance.fullscreen.toggle();
         } else {
-          document.exitFullscreen();
+          if (!document.fullscreenElement) {
+            video.requestFullscreen().catch(err => {
+              console.error("Lỗi bật toàn màn hình:", err);
+            });
+          } else {
+            document.exitFullscreen();
+          }
         }
       } else {
         if (typeof showToast === 'function') showToast("Phím tắt này chỉ dùng cho trình phát HTML5");
@@ -1447,12 +1512,19 @@ function setupKeyboardShortcuts() {
     if (e.key === " " || e.code === "Space") {
       e.preventDefault();
       if (hasVideo) {
-        if (video.paused) {
-          video.play();
-          if (typeof showToast === 'function') showToast("▶️ Tiếp tục phát");
+        if (activePlyrInstance) {
+          activePlyrInstance.togglePlay();
+          if (typeof showToast === 'function') {
+            showToast(activePlyrInstance.paused ? "⏸️ Đã tạm dừng" : "▶️ Tiếp tục phát");
+          }
         } else {
-          video.pause();
-          if (typeof showToast === 'function') showToast("⏸️ Đã tạm dừng");
+          if (video.paused) {
+            video.play();
+            if (typeof showToast === 'function') showToast("▶️ Tiếp tục phát");
+          } else {
+            video.pause();
+            if (typeof showToast === 'function') showToast("⏸️ Đã tạm dừng");
+          }
         }
       }
     }
@@ -1635,4 +1707,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupCommentSubmit();
   setupKeyboardShortcuts();
   setupErrorReporting();
+  
+  window.addEventListener("performanceModeChanged", () => {
+    const episodes = currentMovie.episodes || [];
+    if (episodes.length > 0 && currentEpisodeIndex >= 0) {
+      const currentEp = episodes[currentEpisodeIndex];
+      const serverUrl = currentEp.servers[currentServerIndex]?.url;
+      renderPlayerForUrl(serverUrl, currentEp.title);
+    }
+  });
 });

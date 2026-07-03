@@ -132,22 +132,184 @@ function updateThemeColorMeta(isDark) {
 function initPerformanceMode() {
   let mode = localStorage.getItem("filmXem_perfMode");
   if (!mode) {
-    mode = window.innerWidth <= 768 ? "lite-mode" : "high-effects";
+    // Khách truy cập lần đầu tiên
+    const defaultMode = window.innerWidth <= 768 ? "lite-mode" : "high-effects";
+    // Tạm thời áp dụng chế độ mặc định trước, nhưng chưa lưu vào localStorage để tránh mất popup nếu tải lại trang
+    applyPerformanceMode(defaultMode, false);
+    injectPerformanceToggleButton();
+    
+    // Hiển thị hộp thoại giới thiệu và lựa chọn
+    showPerformanceOnboardingPopup(defaultMode);
+  } else {
+    applyPerformanceMode(mode, true);
+    injectPerformanceToggleButton();
   }
-  applyPerformanceMode(mode);
-  injectPerformanceToggleButton();
 }
 
-function applyPerformanceMode(mode) {
+function showPerformanceOnboardingPopup(defaultMode) {
+  // Thêm style cho popup nếu chưa có
+  if (!document.getElementById("perfPopupStyles")) {
+    const style = document.createElement("style");
+    style.id = "perfPopupStyles";
+    style.innerHTML = `
+      .perf-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(7, 5, 15, 0.9);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .perf-popup-overlay.active {
+        opacity: 1;
+      }
+      .perf-popup-card {
+        background: #110e24;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 460px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        transform: translateY(20px) scale(0.95);
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .perf-popup-overlay.active .perf-popup-card {
+        transform: translateY(0) scale(1);
+      }
+      .perf-popup-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .perf-popup-title i {
+        color: var(--accent, #FFB000);
+      }
+      .perf-popup-text {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #9F9BB7;
+        margin-bottom: 24px;
+      }
+      .perf-popup-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .perf-popup-btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+      }
+      .perf-popup-btn-lite {
+        background: var(--accent, #FFB000);
+        color: #07050F;
+      }
+      .perf-popup-btn-lite:hover {
+        background: #ffc43d;
+        transform: translateY(-2px);
+      }
+      .perf-popup-btn-full {
+        background: rgba(255, 255, 255, 0.06);
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .perf-popup-btn-full:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-2px);
+      }
+      .performance-lite .perf-popup-overlay,
+      .performance-lite .perf-popup-card {
+        transition: none !important;
+        transform: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        box-shadow: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  const overlay = document.createElement("div");
+  overlay.className = "perf-popup-overlay";
+  overlay.id = "perfOnboardingPopup";
+
+  const recommendText = defaultMode === "lite-mode" ? " (Khuyên dùng cho thiết bị của bạn)" : "";
+
+  overlay.innerHTML = `
+    <div class="perf-popup-card">
+      <div class="perf-popup-title">
+        <i class="fa-solid fa-bolt"></i> Tối ưu hóa trải nghiệm
+      </div>
+      <p class="perf-popup-text">
+        Chào mừng bạn đến với FilmXem! Chúng tôi hỗ trợ chế độ <strong>Tối ưu hiệu năng (Lite Mode)</strong> giúp tắt các chuyển động phức tạp, bộ lọc mờ nặng và tất nhiên bạn có thể thay đổi sau này.
+      </p>
+      <div class="perf-popup-buttons">
+        <button class="perf-popup-btn perf-popup-btn-lite" id="perfPopupBtnLite">
+          Bật Tối ưu hiệu năng
+        </button>
+        <button class="perf-popup-btn perf-popup-btn-full" id="perfPopupBtnFull">
+          Trải nghiệm đầy đủ hiệu ứng
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  setTimeout(() => {
+    overlay.classList.add("active");
+  }, 100);
+
+  const btnLite = overlay.querySelector("#perfPopupBtnLite");
+  const btnFull = overlay.querySelector("#perfPopupBtnFull");
+
+  const closePopup = (selectedMode) => {
+    applyPerformanceMode(selectedMode, true); // Lưu vào localStorage sau khi click chọn thực tế
+    overlay.classList.remove("active");
+    setTimeout(() => {
+      overlay.remove();
+    }, 300);
+  };
+
+  btnLite.addEventListener("click", () => closePopup("lite-mode"));
+  btnFull.addEventListener("click", () => closePopup("high-effects"));
+}
+
+function applyPerformanceMode(mode, saveToStorage = true) {
+  const plyrCss = document.querySelector('link[href*="plyr.css"]');
   if (mode === "lite-mode") {
     document.documentElement.classList.add("performance-lite");
     document.body.classList.add("performance-lite");
+    if (plyrCss) plyrCss.disabled = true;
   } else {
     document.documentElement.classList.remove("performance-lite");
     document.body.classList.remove("performance-lite");
+    if (plyrCss) plyrCss.disabled = false;
   }
-  localStorage.setItem("filmXem_perfMode", mode);
+  if (saveToStorage) {
+    localStorage.setItem("filmXem_perfMode", mode);
+  }
   updatePerformanceToggleIcon(mode === "lite-mode");
+  window.dispatchEvent(new CustomEvent("performanceModeChanged", { detail: { mode } }));
 }
 
 function togglePerformanceMode() {
@@ -516,7 +678,59 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // Kiểm tra và thông báo tập phim mới cho các phim được theo dõi
+  setTimeout(checkForNewEpisodes, 1500); // delay 1.5s để trang tải mượt mà
 });
+
+// Kiểm tra và hiển thị thông báo tập phim mới của các phim đang theo dõi
+function checkForNewEpisodes() {
+  // Đảm bảo trình duyệt hỗ trợ Notification và đã được cấp quyền
+  if (!("Notification" in window) || Notification.permission !== "granted") {
+    return;
+  }
+
+  const followed = JSON.parse(localStorage.getItem("followed_movies") || "{}");
+  if (Object.keys(followed).length === 0) return;
+
+  // Đảm bảo MOVIE_DATABASE đã được tải
+  if (typeof MOVIE_DATABASE === 'undefined') return;
+
+  let hasUpdates = false;
+  let updatedMovies = [];
+
+  for (const movieId in followed) {
+    const followedMovie = followed[movieId];
+    const databaseMovie = MOVIE_DATABASE.find(m => m.id === movieId);
+    if (!databaseMovie) continue;
+
+    const currentCount = databaseMovie.episodes ? databaseMovie.episodes.length : 0;
+    const lastKnownCount = followedMovie.episodeCount || 0;
+
+    if (currentCount > lastKnownCount) {
+      hasUpdates = true;
+      updatedMovies.push(databaseMovie.title);
+
+      // Cập nhật lại số tập đã biết để không hiển thị thông báo trùng lặp lần sau
+      followed[movieId].episodeCount = currentCount;
+    }
+  }
+
+  if (hasUpdates) {
+    localStorage.setItem("followed_movies", JSON.stringify(followed));
+    
+    // Gửi thông báo hệ thống (Native notification)
+    const title = "FilmXem - Cập nhật tập phim mới! 🎉";
+    const body = updatedMovies.length === 1 
+      ? `Phim "${updatedMovies[0]}" đã cập nhật tập mới! Vào xem ngay nào.`
+      : `Có ${updatedMovies.length} bộ phim bạn theo dõi đã có tập mới! Vào xem ngay nào.`;
+    
+    new Notification(title, {
+      body: body,
+      icon: "https://i.ibb.co/qMSpTGq1/gugugaga.png"
+    });
+  }
+}
 
 // Đăng ký Service Worker cho PWA (Bộ nhớ đệm thông minh)
 if ('serviceWorker' in navigator) {

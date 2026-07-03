@@ -771,8 +771,13 @@ img {
    GLOBAL PERFORMANCE LITE OVERRIDES
    ========================================== */
 .performance-lite * {
-  /* Reduce transition durations globally for faster interaction response */
-  --transition-smooth: 0.05s ease !important;
+  transition: none !important;
+  animation: none !important;
+  scroll-behavior: auto !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /* Disable card zoom/translate hover states in Lite Mode */

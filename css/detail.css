@@ -404,3 +404,14 @@ body:not(.dark-mode) .rating-circle::before {
   transform: none !important;
   transition: none !important;
 }
+
+/* ==========================================
+   FOLLOW MOVIE ACTION BUTTON
+   ========================================== */
+#detailFollowBtn.followed {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
+  font-weight: 700;
+}

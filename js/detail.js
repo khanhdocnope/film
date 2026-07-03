@@ -17,6 +17,7 @@ const DetailDOM = {
   metaYear: document.getElementById("metaYear"),
   metaViews: document.getElementById("metaViews"),
   bookmarkBtn: document.getElementById("detailBookmarkBtn"),
+  followBtn: document.getElementById("detailFollowBtn"),
   playBtn: document.getElementById("detailPlayBtn"),
   relatedGrid: document.getElementById("relatedMoviesGrid"),
   desktopNavLinks: document.querySelectorAll(".nav-link"),
@@ -189,6 +190,7 @@ function loadMovieCard() {
 
   // Bookmark button setup
   updateBookmarkButton();
+  updateFollowButton();
 
   // Related suggestions
   renderRelatedSuggestions();
@@ -222,6 +224,12 @@ function loadMovieCard() {
       updateBookmarkButton();
     });
   });
+
+  if (DetailDOM.followBtn) {
+    DetailDOM.followBtn.addEventListener("click", () => {
+      toggleFollow(currentMovie.id);
+    });
+  }
 }
 
 // 5. Update Bookmark Button style
@@ -237,6 +245,49 @@ function updateBookmarkButton() {
     DetailDOM.bookmarkBtn.classList.add("saved");
   } else {
     DetailDOM.bookmarkBtn.classList.remove("saved");
+  }
+}
+
+// 5b. Follow Movie helpers (Notifications)
+function isFollowed(movieId) {
+  const followed = JSON.parse(localStorage.getItem("followed_movies") || "{}");
+  return !!followed[movieId];
+}
+
+function toggleFollow(movieId) {
+  const followed = JSON.parse(localStorage.getItem("followed_movies") || "{}");
+  if (followed[movieId]) {
+    delete followed[movieId];
+    if (typeof showToast === 'function') showToast("🔕 Đã hủy nhận thông báo tập mới");
+  } else {
+    // Xin quyền nhận thông báo đẩy nếu chưa được cấp
+    if ("Notification" in window) {
+      if (Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+    }
+    followed[movieId] = {
+      id: movieId,
+      title: currentMovie.title,
+      episodeCount: currentMovie.episodes ? currentMovie.episodes.length : 0
+    };
+    if (typeof showToast === 'function') showToast("🔔 Đã bật nhận thông báo khi có tập mới");
+  }
+  localStorage.setItem("followed_movies", JSON.stringify(followed));
+  updateFollowButton();
+}
+
+function updateFollowButton() {
+  if (!DetailDOM.followBtn) return;
+  const followed = isFollowed(currentMovie.id);
+  DetailDOM.followBtn.innerHTML = followed
+    ? '<i class="fa-solid fa-bell"></i> Đang Nhận TB'
+    : '<i class="fa-regular fa-bell"></i> Nhận Thông Báo';
+  
+  if (followed) {
+    DetailDOM.followBtn.classList.add("followed");
+  } else {
+    DetailDOM.followBtn.classList.remove("followed");
   }
 }
 
