@@ -784,3 +784,108 @@ body.dark-mode .page-indicator {
   border-color: #2E224F;
   color: var(--text-secondary);
 }
+
+/* ==========================================
+   PROMO BANNER DE THI
+   ========================================== */
+.promo-banner-container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 15px auto 25px auto;
+  padding: 18px 24px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1.5px solid var(--border-color);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  text-decoration: none;
+}
+
+body.dark-mode .promo-banner-container {
+  background: rgba(21, 16, 40, 0.55);
+  border-color: #2E224F;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.promo-banner-container:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 12px 40px rgba(var(--accent-rgb), 0.15);
+}
+
+.promo-banner-content {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.promo-banner-icon {
+  font-size: 2.2rem;
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.promo-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.promo-banner-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.3px;
+}
+
+.promo-banner-slogan {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.promo-banner-action {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: var(--accent-gradient);
+  color: white !important;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.promo-banner-container:hover .promo-banner-action {
+  box-shadow: 0 6px 16px rgba(var(--accent-rgb), 0.4);
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .promo-banner-container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 16px;
+    margin: 10px auto 20px auto;
+  }
+  .promo-banner-action {
+    width: 100%;
+    justify-content: center;
+  }
+}
