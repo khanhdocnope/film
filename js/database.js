@@ -426,6 +426,31 @@ const MOVIE_DATABASE = [
         "episodeId": 75,
         "title": "Tập 75",
         "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-2/resolve/main/su-huynh-a-su-huynh_75.mp4"
+      },
+      {
+        "episodeId": 76,
+        "title": "Tập 76",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-2/resolve/main/su-huynh-a-su-huynh_76.mp4"
+      },
+      {
+        "episodeId": 77,
+        "title": "Tập 77",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-2/resolve/main/su-huynh-a-su-huynh_77.mp4"
+      },
+      {
+        "episodeId": 78,
+        "title": "Tập 78",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-2/resolve/main/su-huynh-a-su-huynh_78.mp4"
+      },
+      {
+        "episodeId": 79,
+        "title": "Tập 79",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-2/resolve/main/su-huynh-a-su-huynh_79.mp4"
+      },
+      {
+        "episodeId": 80,
+        "title": "Tập 80",
+        "videoUrl": "https://huggingface.co/datasets/khanh098643466/su-huynh-a-su-huynh-2/resolve/main/su-huynh-a-su-huynh_80.mp4"
       }
     ]
   },
