@@ -75,7 +75,7 @@ Khi nhấp vào một thẻ phim trên trang chủ:
 2. Script `js/watch.js` sẽ tự động tách tham số `id` từ thanh địa chỉ.
 3. Tìm kiếm thông tin chi tiết trong `js/database.js` và vẽ ra giao diện chơi phim tương ứng.
 
-Cơ chế này giúp bạn **chỉ cần quản lý một trang giao diện chơi phim duy nhất (`watch.html`)**, nhưng mỗi bộ phim khi mở ra đều có một liên kết độc lập, dễ dàng chia sẻ, tối ưu hóa dung lượng dự án và cực kỳ dễ mở rộng!
+Cơ chế này giúp bạn **chỉ cần quản lý một trang giao diện chơi phim duy nhất (`watch.html`)**, nhưng mỗi bộ phim khi mở ra đều có một liên kết độc lập, dễ dàng chia sẻ, tối ưu hóa dung lượng dự án và cực kỳ dễ mở rộng!  
 
 ## 4. Dễ dàng debug
 # Khi dùng Live Server (VS Code Extension)
