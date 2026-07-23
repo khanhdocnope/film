@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- 1. Quầng Khí Quyển / Ánh Trăng Dịu Nhẹ -->
+    <radialGradient id="moonAuraGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#EBF3FF" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#C2D6F5" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#8BB0E8" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- 2. Gradient Cầu 3D Bề Mặt Mặt Trăng -->
+    <radialGradient id="moonSurfaceGrad" cx="35%" cy="32%" r="65%" fx="28%" fy="25%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="20%" stop-color="#ebedeb" />
+      <stop offset="50%" stop-color="#cacbcc" />
+      <stop offset="80%" stop-color="#9e9e9e" />
+      <stop offset="100%" stop-color="#9e9e9e" />
+    </radialGradient>
+
+    <!-- 3. Gradient Cho Các Mảng Biển Mặt Trăng (Lunar Maria) -->
+    <radialGradient id="mariaGrad" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#292b2eff" stop-opacity="0.6" />
+      <stop offset="70%" stop-color="#323947ff" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#6B7382" stop-opacity="0.1" />
+    </radialGradient>
+
+    <!-- 4. Gradient Dải Tia Văng Hố Băng (Ejecta Rays) -->
+    <linearGradient id="rayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d8d2d2ff" stop-opacity="0.45" />
+      <stop offset="100%" stop-color="#969696ff" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Bộ Lọc Làm Mềm & Phát Sáng -->
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="15" />
+    </filter>
+    
+    <filter id="subtleBlur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" />
+    </filter>
+
+    <!-- Template Hố Va Chạm Nhỏ Dùng Lại -->
+    <g id="craterSmall">
+      <ellipse cx="0" cy="0" rx="10" ry="8" fill="#3D434E" opacity="0.6" />
+      <path d="M -10 0 A 10 8 0 0 1 10 0" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.7" />
+    </g>
+  </defs>
+
+  <!-- LỚP 1: Quầng Ánh Trăng Tỏa Sáng Dịu Tự Nhiên -->
+  <circle cx="400" cy="400" r="360" fill="url(#moonAuraGrad)" filter="url(#softGlow)" />
+
+  <!-- Mặt Nạ Cắt Chi Tiết Nằm Gọn Trong Khối Cầu -->
+  <clipPath id="moonClip">
+    <circle cx="400" cy="400" r="250" />
+  </clipPath>
+
+  <g clip-path="url(#moonClip)">
+    <!-- LỚP 2: Khối Cầu Mặt Trăng Chính (Hiệu ứng 3D) -->
+    <circle cx="400" cy="400" r="250" fill="url(#moonSurfaceGrad)" />
+
+    <!-- LỚP 3: Mảng Tối Địa Hình (Biển Mưa, Biển Tình Yêu, Biển Bão...) -->
+    <g filter="url(#subtleBlur)">
+      <!-- Mare Imbrium & Serenitatis -->
+      <path d="M 310 230 C 350 200, 440 210, 480 250 C 510 280, 470 330, 400 320 C 340 310, 290 270, 310 230 Z" fill="url(#mariaGrad)" />
+      
+      <!-- Oceanus Procellarum -->
+      <path d="M 200 320 C 240 280, 310 330, 300 420 C 290 490, 220 500, 190 430 C 170 380, 180 340, 200 320 Z" fill="url(#mariaGrad)" />
+      
+      <!-- Mare Tranquillitatis & Fecunditatis -->
+      <path d="M 480 300 C 550 280, 600 340, 580 410 C 550 460, 490 430, 470 370 C 460 330, 450 310, 480 300 Z" fill="url(#mariaGrad)" />
+      
+      <!-- Mare Nubium & Humorum -->
+      <path d="M 280 460 C 340 440, 380 490, 360 550 C 330 590, 260 570, 250 510 C 240 480, 260 460, 280 460 Z" fill="url(#mariaGrad)" />
+    </g>
+
+    <!-- LỚP 4: Các Dải Tia Văng Tỏa Ra Từ Hố Tycho (Ejecta Rays) -->
+    <g opacity="0.45">
+      <path d="M 420 570 L 220 250 M 420 570 L 300 200 M 420 570 L 500 180 M 420 570 L 620 300 M 420 570 L 640 480 M 420 570 L 580 620 M 420 570 L 300 640 M 420 570 L 180 480" 
+            stroke="url(#rayGrad)" stroke-width="7" stroke-linecap="round" filter="url(#subtleBlur)" />
+    </g>
+
+    <!-- LỚP 5: Các Hố Va Chạm Đặc Đặc Trưng (Craters) -->
+    <!-- Hố Tycho (Phía Nam - Nơi tỏa ra các tia văng sáng) -->
+    <g transform="translate(420, 570)">
+      <circle cx="0" cy="0" r="18" fill="#424854" />
+      <circle cx="-2" cy="-2" r="18" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.85" />
+      <circle cx="0" cy="0" r="5" fill="#FFFFFF" opacity="0.9" />
+    </g>
+
+    <!-- Hố Copernicus (Trung tâm phía Tây) -->
+    <g transform="translate(310, 370)">
+      <ellipse cx="0" cy="0" rx="22" ry="16" fill="#383D47" opacity="0.9" />
+      <path d="M -22 0 A 22 16 0 0 1 22 0" fill="none" stroke="#FFFFFF" stroke-width="2.5" opacity="0.8" />
+      <circle cx="-1" cy="0" r="4" fill="#EBF0F8" opacity="0.8" />
+    </g>
+
+    <!-- Hố Kepler -->
+    <g transform="translate(230, 360)">
+      <ellipse cx="0" cy="0" rx="14" ry="10" fill="#383D47" opacity="0.85" />
+      <path d="M -14 0 A 14 10 0 0 1 14 0" fill="none" stroke="#FFFFFF" stroke-width="2" opacity="0.8" />
+      <circle cx="0" cy="0" r="3" fill="#FFFFFF" opacity="0.9" />
+    </g>
+
+    <!-- Hố Aristarchus (Điểm phản quang cực sáng phía Tây Bắc) -->
+    <g transform="translate(240, 270)">
+      <circle cx="0" cy="0" r="10" fill="#FFFFFF" opacity="0.9" filter="url(#subtleBlur)" />
+      <circle cx="0" cy="0" r="6" fill="#E6ECF5" />
+      <path d="M -6 0 A 6 6 0 0 1 6 0" fill="none" stroke="#FFFFFF" stroke-width="1.5" />
+    </g>
+
+    <!-- Hố Plato (Lòng hố phẳng màu tối phía Bắc) -->
+    <g transform="translate(360, 200)">
+      <ellipse cx="0" cy="0" rx="18" ry="9" fill="#2B2F38" opacity="0.9" />
+      <path d="M -18 0 A 18 9 0 0 1 18 0" fill="none" stroke="#D0D6E0" stroke-width="1.8" opacity="0.7" />
+    </g>
+
+    <!-- Hố va chạm nhỏ rải rác tạo bề mặt xù xì -->
+    <use href="#craterSmall" transform="translate(490, 240) rotate(-10)" />
+    <use href="#craterSmall" transform="translate(530, 320) rotate(15) scale(1.3)" />
+    <use href="#craterSmall" transform="translate(560, 420) rotate(25) scale(1.1)" />
+    <use href="#craterSmall" transform="translate(480, 480) rotate(-5) scale(1.4)" />
+    <use href="#craterSmall" transform="translate(360, 520) rotate(10) scale(0.9)" />
+    <use href="#craterSmall" transform="translate(260, 450) rotate(-20) scale(1.2)" />
+    <use href="#craterSmall" transform="translate(190, 290) rotate(5) scale(0.8)" />
+    <use href="#craterSmall" transform="translate(440, 360) rotate(30) scale(0.7)" />
+    <use href="#craterSmall" transform="translate(380, 290) rotate(-15) scale(0.8)" />
+
+    <!-- LỚP 6: Đổ Bóng Khối & Viền Sáng Rìa (Limb Shading) -->
+    <!-- Viền phản quang sáng bóng góc trên bên trái -->
+    <path d="M 220 220 A 250 250 0 0 1 580 220 A 251 251 0 0 0 220 220 Z" fill="#FFFFFF" opacity="0.2" />
+
+    <!-- Bóng mờ tạo độ cong góc dưới bên phải -->
+    <path d="M 220 580 A 250 250 0 0 0 580 220 A 250 250 0 0 1 220 580 Z" fill="#111317" opacity="0.4" />
+  </g>
+</svg>

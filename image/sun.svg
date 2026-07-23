@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <!-- 1. Radial Gradient cho Lõi Mặt Trời (Cảm giác khối 3D rực rỡ) -->
+    <radialGradient id="sunCoreGrad" cx="50%" cy="50%" r="50%" fx="42%" fy="42%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="20%" stop-color="#FFF59E" />
+      <stop offset="50%" stop-color="#FFCA28" />
+      <stop offset="80%" stop-color="#FF8F00" />
+      <stop offset="100%" stop-color="#E65100" />
+    </radialGradient>
+
+    <!-- 2. Quầng Khí Quyển Tỏa Sáng (Solar Corona) -->
+    <radialGradient id="sunCoronaGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFE082" stop-opacity="0.9" />
+      <stop offset="35%" stop-color="#FFB300" stop-opacity="0.5" />
+      <stop offset="70%" stop-color="#FF6F00" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#FF3D00" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- 3. Gradient Cho Tia Sáng Nhọn Dài -->
+    <linearGradient id="longRayGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#FF8F00" stop-opacity="0.1" />
+      <stop offset="45%" stop-color="#FFC107" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#FFF9C4" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- 4. Gradient Cho Tia Sáng Mềm So Le -->
+    <linearGradient id="shortRayGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#E65100" stop-opacity="0" />
+      <stop offset="50%" stop-color="#FF9800" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#FFE082" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Các Bộ Lọc Phát Sáng Mềm (Glow Filters) -->
+    <filter id="heavyGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="30" />
+    </filter>
+
+    <filter id="mediumGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" />
+    </filter>
+
+    <!-- Đơn vị: Tia sáng nhọn chính -->
+    <g id="sharpRay">
+      <path d="M 391 400 L 400 60 L 409 400 Z" fill="url(#longRayGrad)" />
+    </g>
+
+    <!-- Đơn vị: Tia sáng phụ ngọn lửa -->
+    <g id="flameRay">
+      <path d="M 400 240 C 425 180, 412 120, 400 80 C 388 120, 375 180, 400 240 Z" fill="url(#shortRayGrad)" />
+    </g>
+  </defs>
+
+  <!-- LỚP 1: Quầng Aura Khí Quyển Rộng Phía Ngoài -->
+  <circle cx="400" cy="400" r="360" fill="url(#sunCoronaGrad)" filter="url(#heavyGlow)" />
+
+  <!-- LỚP 2: Các Tia Sáng Ngọn Lửa Bùng Tỏa (12 Hướng) -->
+  <g filter="url(#mediumGlow)" opacity="0.85">
+    <use href="#flameRay" />
+    <use href="#flameRay" transform="rotate(30 400 400)" />
+    <use href="#flameRay" transform="rotate(60 400 400)" />
+    <use href="#flameRay" transform="rotate(90 400 400)" />
+    <use href="#flameRay" transform="rotate(120 400 400)" />
+    <use href="#flameRay" transform="rotate(150 400 400)" />
+    <use href="#flameRay" transform="rotate(180 400 400)" />
+    <use href="#flameRay" transform="rotate(210 400 400)" />
+    <use href="#flameRay" transform="rotate(240 400 400)" />
+    <use href="#flameRay" transform="rotate(270 400 400)" />
+    <use href="#flameRay" transform="rotate(300 400 400)" />
+    <use href="#flameRay" transform="rotate(330 400 400)" />
+  </g>
+
+  <!-- LỚP 3: Lớp Tia Sáng Nhọn Chiếu Xa (12 Tia Chính) -->
+  <g>
+    <use href="#sharpRay" />
+    <use href="#sharpRay" transform="rotate(30 400 400)" />
+    <use href="#sharpRay" transform="rotate(60 400 400)" />
+    <use href="#sharpRay" transform="rotate(90 400 400)" />
+    <use href="#sharpRay" transform="rotate(120 400 400)" />
+    <use href="#sharpRay" transform="rotate(150 400 400)" />
+    <use href="#sharpRay" transform="rotate(180 400 400)" />
+    <use href="#sharpRay" transform="rotate(210 400 400)" />
+    <use href="#sharpRay" transform="rotate(240 400 400)" />
+    <use href="#sharpRay" transform="rotate(270 400 400)" />
+    <use href="#sharpRay" transform="rotate(300 400 400)" />
+    <use href="#sharpRay" transform="rotate(330 400 400)" />
+  </g>
+
+  <!-- LỚP 4: Lớp Tia Nhọn Phụ So Le (Lệch Góc 15 Độ) -->
+  <g opacity="0.65" transform="rotate(15 400 400)">
+    <use href="#sharpRay" transform="scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(30 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(60 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(90 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(120 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(150 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(180 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(210 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(240 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(270 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(300 400 400) scale(0.85, 0.85) translate(70, 70)" />
+    <use href="#sharpRay" transform="rotate(330 400 400) scale(0.85, 0.85) translate(70, 70)" />
+  </g>
+
+  <!-- LỚP 5: Viền Quầng Sáng Trung Tâm -->
+  <circle cx="400" cy="400" r="180" fill="#FF9800" opacity="0.35" filter="url(#mediumGlow)" />
+  <circle cx="400" cy="400" r="160" fill="#FFC107" opacity="0.5" filter="url(#softGlow)" />
+
+  <!-- LỚP 6: Khối Cầu Mặt Trời Chính -->
+  <circle cx="400" cy="400" r="145" fill="url(#sunCoreGrad)" filter="url(#softGlow)" />
+
+  <!-- LỚP 7: Điểm Phản Sáng Bề Mặt (Rim Highlight) -->
+  <path d="M 290 330 C 310 270, 360 250, 430 260 C 380 270, 330 300, 290 330 Z" fill="#FFFFFF" opacity="0.45" filter="url(#softGlow)" />
+  <circle cx="340" cy="340" r="120" fill="none" stroke="#FFFFFF" stroke-width="3" opacity="0.2" filter="url(#softGlow)" />
+</svg>
